@@ -35,10 +35,10 @@ struct ProblemListScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        ProblemRowView(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
-                        ProblemRowView(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
-                        ProblemRowView(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
-                        ProblemRowView(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
+                        ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
+                        ProblemRow(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
+                        ProblemRow(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
+                        ProblemRow(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
                     }
                 }
                 

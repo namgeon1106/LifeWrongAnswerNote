@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProblemRowView: View {
+struct ProblemRow: View {
     let title: String
     let categoryString: String
     let assessment: Assessment
@@ -48,6 +48,6 @@ struct ProblemRowView: View {
 
 struct ProblemRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemRowView(title: "제목 1", categoryString: "카테고리 1", assessment: .bad, date: Date())
+        ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .bad, date: Date())
     }
 }
