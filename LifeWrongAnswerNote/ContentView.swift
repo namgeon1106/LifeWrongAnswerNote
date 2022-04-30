@@ -9,8 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        TabView {
+            Text("Screen 1")
+                .tabItem {
+                    VStack {
+                        Image(systemName: "text.book.closed")
+                        Text("문제 노트")
+                    }
+                }
+            
+            Text("Screen 2")
+                .tabItem {
+                    VStack {
+                        Image(systemName: "list.triangle")
+                        Text("카테고리 관리")
+                    }
+                }
+        }
+        .onAppear {
+            UITabBar.appearance().backgroundColor = .systemGray6
+        }
     }
 }
 
