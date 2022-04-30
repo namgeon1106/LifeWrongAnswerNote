@@ -14,7 +14,7 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image(systemName: "text.book.closed")
-                        Text("문제 노트")
+                        Text("문제 목록")
                     }
                 }
             
