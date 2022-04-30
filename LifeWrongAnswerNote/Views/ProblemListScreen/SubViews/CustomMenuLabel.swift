@@ -25,7 +25,6 @@ struct CustomMenuLabel: View {
         .padding(.horizontal, 13)
         .frame(width: 120, height: 32)
         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(UIColor.systemGray3), lineWidth: 1))
-        .tint(.black)
     }
 }
 

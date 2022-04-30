@@ -39,12 +39,19 @@ struct ProblemListScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal, 16)
             .padding(.top, 20)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: Text("sss")) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
 }
 
 struct ProblemListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemListScreen()
+        ProblemListScreen().preferredColorScheme(.light)
     }
 }
