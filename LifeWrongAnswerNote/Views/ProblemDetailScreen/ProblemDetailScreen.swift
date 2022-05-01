@@ -28,22 +28,19 @@ struct ProblemDetailScreen: View {
                     Spacer()
                 }
             }
-            .padding(.bottom, 38)
+            .padding(.bottom, 20)
             
             TabView {
                 Text("1")
                 Text("2")
-            }.tabViewStyle(PageTabViewStyle())
-            
-            RoundedRectangle(cornerRadius: 2)
-                .frame(height: 4)
-                .foregroundColor(Color(UIColor.systemGray4))
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             
             Spacer()
         }
         .padding(.horizontal, 16)
         .padding(.top, 23)
-        .padding(.bottom, 16)
         .navigationBarTitle("문제 읽기/수정")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -52,7 +49,7 @@ struct ProblemDetailScreen: View {
 struct ProblemDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProblemDetailScreen()
+            ProblemDetailScreen().preferredColorScheme(.light)
         }
     }
 }

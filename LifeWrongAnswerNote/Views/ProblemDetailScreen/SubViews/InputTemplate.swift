@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InputTemplate<Content: View>: View {
-    var title: String
+    let title: String
     var content: () -> Content
     
     var body: some View {
