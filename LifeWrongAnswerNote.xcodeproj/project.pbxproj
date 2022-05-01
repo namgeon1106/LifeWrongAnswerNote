@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2158C9A8281E43A6008202D4 /* InputDetailTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */; };
+		2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9A9281E5277008202D4 /* CustomTextEditor.swift */; };
 		2168AA48281D729000BD8F57 /* ProblemDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */; };
 		2168AA4B281D767800BD8F57 /* InputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168AA4A281D767800BD8F57 /* InputTemplate.swift */; };
 		21722E97281D1A1A00B10E56 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDetailTemplate.swift; sourceTree = "<group>"; };
+		2158C9A9281E5277008202D4 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailScreen.swift; sourceTree = "<group>"; };
 		2168AA4A281D767800BD8F57 /* InputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTemplate.swift; sourceTree = "<group>"; };
 		21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			children = (
 				2168AA4A281D767800BD8F57 /* InputTemplate.swift */,
 				2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */,
+				2158C9A9281E5277008202D4 /* CustomTextEditor.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				21722EA2281D28E200B10E56 /* CustomMenuLabel.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21722EA4281D36DD00B10E56 /* ProblemRow.swift in Sources */,
+				2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */,
 				21722EA9281D38E000B10E56 /* Assessment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
