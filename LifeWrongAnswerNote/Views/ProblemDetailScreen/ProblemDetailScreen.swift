@@ -58,7 +58,7 @@ struct ProblemDetailScreen: View {
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
                     VStack {
                         ForEach(0..<choices.count) { index in
-                            Choice(selected: index == chosen, title: choices[index])
+                            ChoiceRow(selected: index == chosen, title: choices[index])
                                 .onTapGesture {
                                     chosen = index
                                 }

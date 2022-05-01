@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Choice: View {
+struct ChoiceRow: View {
     let selected: Bool
     let title: String
     @State private var titleInput: String
@@ -37,6 +37,6 @@ struct Choice: View {
 
 struct Choice_Previews: PreviewProvider {
     static var previews: some View {
-        Choice(selected: true, title: "선택 1")
+        ChoiceRow(selected: true, title: "선택 1")
     }
 }
