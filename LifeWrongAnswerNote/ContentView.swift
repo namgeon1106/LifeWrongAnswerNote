@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            Text("Screen 1")
+            ProblemListScreen()
                 .tabItem {
                     VStack {
                         Image(systemName: "text.book.closed")
@@ -18,7 +18,7 @@ struct ContentView: View {
                     }
                 }
             
-            Text("Screen 2")
+            CategoryScreen()
                 .tabItem {
                     VStack {
                         Image(systemName: "list.triangle")
