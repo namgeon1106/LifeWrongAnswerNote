@@ -35,16 +35,31 @@ struct ProblemListScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
-                        ProblemRow(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
-                        ProblemRow(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
-                        ProblemRow(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
+                        NavigationLink(destination: ProblemDetailScreen()) {
+                            ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        NavigationLink(destination: ProblemDetailScreen()) {
+                            ProblemRow(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        NavigationLink(destination: ProblemDetailScreen()) {
+                            ProblemRow(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        NavigationLink(destination: ProblemDetailScreen()) {
+                            ProblemRow(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 
                 Spacer()
             }
-            .navigationTitle("고민들 목록")
+            .navigationTitle("문제 목록")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal, 16)
             .padding(.top, 20)
