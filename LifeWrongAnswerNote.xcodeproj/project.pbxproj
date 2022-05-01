@@ -11,6 +11,7 @@
 		2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9A9281E5277008202D4 /* CustomTextEditor.swift */; };
 		2158C9AC281E546D008202D4 /* ChoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9AB281E546D008202D4 /* ChoiceRow.swift */; };
 		2158C9B1281E7343008202D4 /* CategoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9B0281E7343008202D4 /* CategoryScreen.swift */; };
+		2165AB29281E9C92004CC21A /* ProblemDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2165AB27281E9C92004CC21A /* ProblemDataModel.xcdatamodeld */; };
 		2168AA48281D729000BD8F57 /* ProblemDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */; };
 		2168AA4B281D767800BD8F57 /* InputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2168AA4A281D767800BD8F57 /* InputTemplate.swift */; };
 		21722E97281D1A1A00B10E56 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */; };
@@ -29,6 +30,7 @@
 		2158C9A9281E5277008202D4 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		2158C9AB281E546D008202D4 /* ChoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceRow.swift; sourceTree = "<group>"; };
 		2158C9B0281E7343008202D4 /* CategoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScreen.swift; sourceTree = "<group>"; };
+		2165AB28281E9C92004CC21A /* ProblemDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProblemDataModel.xcdatamodel; sourceTree = "<group>"; };
 		2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailScreen.swift; sourceTree = "<group>"; };
 		2168AA4A281D767800BD8F57 /* InputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTemplate.swift; sourceTree = "<group>"; };
 		21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				21722EA8281D38E000B10E56 /* Assessment.swift */,
+				2165AB27281E9C92004CC21A /* ProblemDataModel.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				2158C9AC281E546D008202D4 /* ChoiceRow.swift in Sources */,
 				21722EA2281D28E200B10E56 /* CustomMenuLabel.swift in Sources */,
 				2158C9B1281E7343008202D4 /* CategoryScreen.swift in Sources */,
+				2165AB29281E9C92004CC21A /* ProblemDataModel.xcdatamodeld in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21722EA4281D36DD00B10E56 /* ProblemRow.swift in Sources */,
 				2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */,
@@ -447,6 +451,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2165AB27281E9C92004CC21A /* ProblemDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2165AB28281E9C92004CC21A /* ProblemDataModel.xcdatamodel */,
+			);
+			currentVersion = 2165AB28281E9C92004CC21A /* ProblemDataModel.xcdatamodel */;
+			path = ProblemDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 21F7D404281CC27400DB62F2 /* Project object */;
 }
