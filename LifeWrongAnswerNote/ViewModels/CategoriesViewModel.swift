@@ -12,10 +12,10 @@ class CategoriesViewModel: ObservableObject {
     @Published var categoryVMs = [CategoryViewModel]()
     
     func addCategory(name: String) {
-        if name.isEmpty { return }
         let category = Category(context: Category.viewContext)
         category.name = name
         category.problems = []
+        category.save()
     }
     
     func renameCategory(categoryVM: CategoryViewModel, newName: String) {

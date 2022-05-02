@@ -29,6 +29,9 @@ struct CategoriesScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding(.top, 23)
             .padding(.horizontal, 16)
+            .onAppear(perform: {
+                categoriesVM.showAllCategories()
+            })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
