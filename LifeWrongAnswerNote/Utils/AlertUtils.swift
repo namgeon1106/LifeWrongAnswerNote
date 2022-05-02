@@ -11,7 +11,7 @@ import UIKit
 class AlertUtils {
     static var alertTextInput = ""
     
-    static func displayAlertView(title: String, message: String, placeholder: String, okAction: @escaping () -> Void) {
+    static func displayAlertViewWithTextField(title: String, message: String, placeholder: String, okAction: @escaping () -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addTextField { name in

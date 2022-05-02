@@ -64,7 +64,7 @@ struct ProblemDetailScreen: View {
                                 }
                         }
                         Button("+ 선택 추가") {
-                            AlertUtils.displayAlertView(title: "새 선택지 추가", message: "새로 추가할 선택의 이름을 입력하세요.", placeholder: "선택 이름 입력") { 
+                            AlertUtils.displayAlertViewWithTextField(title: "새 선택지 추가", message: "새로 추가할 선택의 이름을 입력하세요.", placeholder: "선택 이름 입력") { 
                                 
                             }
                         }
