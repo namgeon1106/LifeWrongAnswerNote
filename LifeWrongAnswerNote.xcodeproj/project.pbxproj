@@ -21,6 +21,7 @@
 		21722EA9281D38E000B10E56 /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21722EA8281D38E000B10E56 /* Assessment.swift */; };
 		21AB4F84281F7C71009ACD5F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB4F83281F7C71009ACD5F /* Utils.swift */; };
 		21AB4F89281F89D3009ACD5F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB4F88281F89D3009ACD5F /* CoreDataManager.swift */; };
+		21AB4F8B281F8B6C009ACD5F /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB4F8A281F8B6C009ACD5F /* BaseModel.swift */; };
 		21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */; };
 		21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D411281CC27400DB62F2 /* ContentView.swift */; };
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		21722EA8281D38E000B10E56 /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		21AB4F83281F7C71009ACD5F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		21AB4F88281F89D3009ACD5F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		21AB4F8A281F8B6C009ACD5F /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		21F7D40C281CC27400DB62F2 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		21F7D411281CC27400DB62F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				21722EA8281D38E000B10E56 /* Assessment.swift */,
 				2165AB27281E9C92004CC21A /* ProblemDataModel.xcdatamodeld */,
+				21AB4F8A281F8B6C009ACD5F /* BaseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				21722EA2281D28E200B10E56 /* CustomMenuLabel.swift in Sources */,
 				2158C9B1281E7343008202D4 /* CategoryScreen.swift in Sources */,
 				2165AB29281E9C92004CC21A /* ProblemDataModel.xcdatamodeld in Sources */,
+				21AB4F8B281F8B6C009ACD5F /* BaseModel.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21722EA4281D36DD00B10E56 /* ProblemRow.swift in Sources */,
 				2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */,
