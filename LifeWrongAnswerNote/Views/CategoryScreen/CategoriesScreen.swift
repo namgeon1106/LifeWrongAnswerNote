@@ -13,6 +13,7 @@ struct CategoriesScreen: View {
     @State var newCategoryName = ""
     @State var emptyNameAlertPresented = false
     @State var alreadySameNameAlertPresented = false
+    @State var sameToBeforeAlertPresented = false
     @ObservedObject var categoriesVM = CategoriesViewModel()
     
     var body: some View {
@@ -21,8 +22,11 @@ struct CategoriesScreen: View {
                 CustomSearchBar(searchText: $searchText, placeholder: "카테고리명으로 검색")
                 List {
                     ForEach(categoriesVM.categoryVMs, id: \.id) { categoryVM in
-                        Text(categoryVM.name)
-                    }.onDelete(perform: deleteCategory(at:))
+                        Text(categoryVM.name).onLongPressGesture {
+                            updateCategoryName(categoryVM: categoryVM, formerName: categoryVM.name)
+                        }
+                    }
+                    .onDelete(perform: deleteCategory(at:))
                 }
                 Spacer()
             }
@@ -67,6 +71,11 @@ struct CategoriesScreen: View {
             } message: {
                 Text("이미 해당 이름의 카테고리가 존재합니다.")
             }
+            .alert("이전 이름과 같음", isPresented: $sameToBeforeAlertPresented) {
+                Text("")
+            } message: {
+                Text("이전 이름과 같습니다.")
+            }
         }
     }
     
@@ -77,6 +86,25 @@ struct CategoriesScreen: View {
                 categoriesVM.deleteCategory(categoryVM: categoryVM)
                 categoriesVM.showAllCategories()
             }
+        }
+    }
+    
+    private func updateCategoryName(categoryVM: CategoryViewModel, formerName: String) {
+        AlertUtils.displayAlertViewWithTextField(title: "카테고리 이름 변경", message: "카테고리의 새 이름을 입력하세요.", placeholder: "새 이름 입력", okMessage: "변경", okStyle: .default) {
+            let newName = AlertUtils.alertTextInput
+            
+            if formerName == newName {
+                sameToBeforeAlertPresented = true
+                return
+            }
+            
+            if Category.byName(name: newName) != nil {
+                alreadySameNameAlertPresented = true
+                return
+            }
+            
+            categoriesVM.renameCategory(categoryVM: categoryVM, newName: newName)
+            categoriesVM.showAllCategories()
         }
     }
 }
