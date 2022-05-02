@@ -22,7 +22,7 @@ struct CategoriesScreen: View {
                 List {
                     ForEach(categoriesVM.categoryVMs, id: \.id) { categoryVM in
                         Text(categoryVM.name)
-                    }
+                    }.onDelete(perform: deleteCategory(at:))
                 }
                 Spacer()
             }
@@ -68,7 +68,14 @@ struct CategoriesScreen: View {
                 Text("이미 해당 이름의 카테고리가 존재합니다.")
             }
         }
-        
+    }
+    
+    private func deleteCategory(at indexSet: IndexSet) {
+        indexSet.forEach { index in
+            let categoryVM = categoriesVM.categoryVMs[index]
+            categoriesVM.deleteCategory(categoryVM: categoryVM)
+            categoriesVM.showAllCategories()
+        }
     }
 }
 
