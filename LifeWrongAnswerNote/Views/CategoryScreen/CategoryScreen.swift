@@ -28,9 +28,14 @@ struct CategoryScreen: View {
             .padding(.horizontal, 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
+                    Button {
+                        Utils.displayAlertView(title: "새 카테고리 추가", message: "새로 추가할 카테고리의 이름을 입력하세요.", placeholder: "카테고리 이름 입력") { _ in
+                            
+                        }
+                    } label: {
                         Image(systemName: "plus")
                     }
+
                 }
             }
         }
