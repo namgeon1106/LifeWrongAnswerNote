@@ -20,6 +20,7 @@
 		21722EA4281D36DD00B10E56 /* ProblemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21722EA3281D36DD00B10E56 /* ProblemRow.swift */; };
 		21722EA9281D38E000B10E56 /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21722EA8281D38E000B10E56 /* Assessment.swift */; };
 		21AB4F84281F7C71009ACD5F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB4F83281F7C71009ACD5F /* Utils.swift */; };
+		21AB4F89281F89D3009ACD5F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB4F88281F89D3009ACD5F /* CoreDataManager.swift */; };
 		21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */; };
 		21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D411281CC27400DB62F2 /* ContentView.swift */; };
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		21722EA3281D36DD00B10E56 /* ProblemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemRow.swift; sourceTree = "<group>"; };
 		21722EA8281D38E000B10E56 /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		21AB4F83281F7C71009ACD5F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		21AB4F88281F89D3009ACD5F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		21F7D40C281CC27400DB62F2 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		21F7D411281CC27400DB62F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		21AB4F87281F89C7009ACD5F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				21AB4F88281F89D3009ACD5F /* CoreDataManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		21F7D403281CC27300DB62F2 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +158,7 @@
 		21F7D40E281CC27400DB62F2 /* LifeWrongAnswerNote */ = {
 			isa = PBXGroup;
 			children = (
+				21AB4F87281F89C7009ACD5F /* Managers */,
 				21AB4F82281F7C62009ACD5F /* Utils */,
 				21722EA5281D38BA00B10E56 /* Models */,
 				21F7D42C281D196C00DB62F2 /* Views */,
@@ -262,6 +273,7 @@
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21722EA4281D36DD00B10E56 /* ProblemRow.swift in Sources */,
 				2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */,
+				21AB4F89281F89D3009ACD5F /* CoreDataManager.swift in Sources */,
 				21722EA9281D38E000B10E56 /* Assessment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
