@@ -12,6 +12,7 @@ struct CategoriesScreen: View {
     @State var categories = ["카테고리 1", "카테고리 2"]
     @State var newCategoryName = ""
     @State var emptyNameAlertPresented = false
+    @State var alreadySameNameAlertPresented = false
     @ObservedObject var categoriesVM = CategoriesViewModel()
     
     var body: some View {
@@ -42,6 +43,11 @@ struct CategoriesScreen: View {
                                 return
                             }
                             
+                            if Category.byName(name: newCategoryName) != nil {
+                                alreadySameNameAlertPresented = true
+                                return
+                            }
+                            
                             categoriesVM.addCategory(name: newCategoryName)
                             categoriesVM.showAllCategories()
                         }
@@ -52,11 +58,15 @@ struct CategoriesScreen: View {
                 }
             }
             .alert("카테고리 이름 입력 없음", isPresented: $emptyNameAlertPresented) {
-                Text("sss")
+                Text("")
             } message: {
                 Text("카테고리 이름을 입력하세요!")
             }
-
+            .alert("중복된 이름 입력", isPresented: $alreadySameNameAlertPresented) {
+                Text("")
+            } message: {
+                Text("이미 해당 이름의 카테고리가 존재합니다.")
+            }
         }
         
     }
