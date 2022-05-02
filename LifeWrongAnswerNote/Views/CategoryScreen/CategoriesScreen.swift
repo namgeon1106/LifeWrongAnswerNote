@@ -11,7 +11,7 @@ struct CategoriesScreen: View {
     @State private var searchText = ""
     @State var categories = ["카테고리 1", "카테고리 2"]
     @State var newCategoryName = ""
-    @State var failedAlertPresented = false
+    @State var emptyNameAlertPresented = false
     @ObservedObject var categoriesVM = CategoriesViewModel()
     
     var body: some View {
@@ -38,7 +38,7 @@ struct CategoriesScreen: View {
                         AlertUtils.displayAlertView(title: "새 카테고리 추가", message: "새로 추가할 카테고리의 이름을 입력하세요.", placeholder: "카테고리 이름 입력") {
                             self.newCategoryName = AlertUtils.alertTextInput
                             if newCategoryName.isEmpty {
-                                print("이름을 입력하세요!")
+                                emptyNameAlertPresented = true
                                 return
                             }
                             
@@ -51,6 +51,12 @@ struct CategoriesScreen: View {
 
                 }
             }
+            .alert("카테고리 이름 입력 없음", isPresented: $emptyNameAlertPresented) {
+                Text("sss")
+            } message: {
+                Text("카테고리 이름을 입력하세요!")
+            }
+
         }
         
     }
