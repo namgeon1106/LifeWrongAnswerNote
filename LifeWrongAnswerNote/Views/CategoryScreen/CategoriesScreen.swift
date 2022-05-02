@@ -71,10 +71,12 @@ struct CategoriesScreen: View {
     }
     
     private func deleteCategory(at indexSet: IndexSet) {
-        indexSet.forEach { index in
-            let categoryVM = categoriesVM.categoryVMs[index]
-            categoriesVM.deleteCategory(categoryVM: categoryVM)
-            categoriesVM.showAllCategories()
+        AlertUtils.displayAlertView(title: "카테고리 제거", message: "정말로 카테고리를 삭제하시겠습니까?\n삭제 시 해당 카테고리의 문제들은 카테고리 없음으로 처리됩니다.", okMessage: "삭제", okStyle: .destructive) {
+            indexSet.forEach { index in
+                let categoryVM = categoriesVM.categoryVMs[index]
+                categoriesVM.deleteCategory(categoryVM: categoryVM)
+                categoriesVM.showAllCategories()
+            }
         }
     }
 }
