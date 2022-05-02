@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
-        <relationship name="problems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Problem" inverseName="category" inverseEntity="Problem"/>
+        <relationship name="problems" toMany="YES" deletionRule="Nullify" destinationEntity="Problem" inverseName="category" inverseEntity="Problem"/>
     </entity>
     <entity name="Choice" representedClassName="Choice" syncable="YES" codeGenerationType="class">
         <attribute name="content" attributeType="String"/>
@@ -18,8 +18,8 @@
         <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" inverseName="problem" inverseEntity="Choice"/>
     </entity>
     <elements>
-        <element name="Problem" positionX="-27" positionY="18" width="128" height="134"/>
         <element name="Category" positionX="18" positionY="99" width="128" height="59"/>
         <element name="Choice" positionX="54" positionY="117" width="128" height="59"/>
+        <element name="Problem" positionX="-27" positionY="18" width="128" height="134"/>
     </elements>
 </model>

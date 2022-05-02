@@ -8,15 +8,20 @@
 import Foundation
 import UIKit
 
-class Utils {
-    static func displayAlertView(title: String, message: String, placeholder: String, okAction: ((UIAlertAction) -> Void)?) {
+class AlertUtils {
+    static var alertTextInput = ""
+    
+    static func displayAlertView(title: String, message: String, placeholder: String, okAction: @escaping () -> Void) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alert.addTextField { name in
             name.placeholder = placeholder
         }
             
-        let addCategoryAction = UIAlertAction(title: "확인", style: .default, handler: okAction)
+        let addCategoryAction = UIAlertAction(title: "확인", style: .default) { _ in
+            alertTextInput = (alert.textFields?[0].text)!
+            okAction()
+        }
             
         let cancelAction = UIAlertAction(title: "취소", style: .destructive) { _ in
             print("Cancel clicked")
