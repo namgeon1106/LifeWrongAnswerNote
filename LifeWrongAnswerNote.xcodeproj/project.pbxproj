@@ -66,56 +66,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2158C9AF281E7333008202D4 /* CategoryScreen */ = {
-			isa = PBXGroup;
-			children = (
-				2158C9B0281E7343008202D4 /* CategoriesScreen.swift */,
-			);
-			path = CategoryScreen;
-			sourceTree = "<group>";
-		};
-		2168AA46281D726600BD8F57 /* ProblemDetailScreen */ = {
-			isa = PBXGroup;
-			children = (
-				2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */,
-				2168AA49281D765500BD8F57 /* SubViews */,
-			);
-			path = ProblemDetailScreen;
-			sourceTree = "<group>";
-		};
-		2168AA49281D765500BD8F57 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-				2168AA4A281D767800BD8F57 /* InputTemplate.swift */,
-				2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */,
-				2158C9A9281E5277008202D4 /* CustomTextEditor.swift */,
-				2158C9AB281E546D008202D4 /* ChoiceRow.swift */,
-			);
-			path = SubViews;
-			sourceTree = "<group>";
-		};
 		2168AA4C281D774800BD8F57 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
 				21722EA1281D28E200B10E56 /* CustomMenuLabel.swift */,
-			);
-			path = SubViews;
-			sourceTree = "<group>";
-		};
-		21722E98281D1ABA00B10E56 /* ProblemListScreen */ = {
-			isa = PBXGroup;
-			children = (
-				21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */,
-				21722E9A281D1B0700B10E56 /* SubViews */,
-			);
-			path = ProblemListScreen;
-			sourceTree = "<group>";
-		};
-		21722E9A281D1B0700B10E56 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
 				21722E9D281D1C9400B10E56 /* CustomSearchBar.swift */,
 				21722EA3281D36DD00B10E56 /* ProblemRow.swift */,
+				2168AA4A281D767800BD8F57 /* InputTemplate.swift */,
+				2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */,
+				2158C9A9281E5277008202D4 /* CustomTextEditor.swift */,
+				2158C9AB281E546D008202D4 /* ChoiceRow.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -198,10 +158,10 @@
 		21F7D42C281D196C00DB62F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2158C9AF281E7333008202D4 /* CategoryScreen */,
+				2158C9B0281E7343008202D4 /* CategoriesScreen.swift */,
+				21722E96281D1A1A00B10E56 /* ProblemListScreen.swift */,
+				2168AA47281D729000BD8F57 /* ProblemDetailScreen.swift */,
 				2168AA4C281D774800BD8F57 /* SubViews */,
-				21722E98281D1ABA00B10E56 /* ProblemListScreen */,
-				2168AA46281D726600BD8F57 /* ProblemDetailScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
