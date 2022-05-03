@@ -37,7 +37,9 @@ struct ProblemListScreen: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
-                            ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
+                            NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
+                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
+                            }.tint(.black)
                         }
                     }
                 }
