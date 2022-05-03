@@ -17,10 +17,11 @@
         <attribute name="title" attributeType="String"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="problems" inverseEntity="Category"/>
         <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" inverseName="problem" inverseEntity="Choice"/>
+        <relationship name="chosen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Choice"/>
     </entity>
     <elements>
         <element name="Category" positionX="18" positionY="99" width="128" height="59"/>
         <element name="Choice" positionX="54" positionY="117" width="128" height="59"/>
-        <element name="Problem" positionX="-27" positionY="18" width="128" height="149"/>
+        <element name="Problem" positionX="-27" positionY="18" width="128" height="164"/>
     </elements>
 </model>
