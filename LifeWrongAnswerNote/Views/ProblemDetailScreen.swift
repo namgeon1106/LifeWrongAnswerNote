@@ -27,13 +27,13 @@ struct ProblemDetailScreen: View {
         self.problemVM = problemVM
         
         if let problemVM = problemVM {
-            titleInput = problemVM.title
-            situationInput = problemVM.situation
-            choices = problemVM.choices
-            chosenInput = problemVM.chosen
-            reasonInput = problemVM.reason
-            resultDetailInput = problemVM.result
-            retrospectionInput = problemVM.retrospection
+            _titleInput = State<String>(initialValue: problemVM.title)
+            _situationInput = State<String>(initialValue: problemVM.situation)
+            _choices = State<[Choice]>(initialValue: problemVM.choices)
+            _chosenInput = State<Choice?>(initialValue: problemVM.chosen)
+            _reasonInput = State<String>(initialValue: problemVM.reason)
+            _resultDetailInput = State<String>(initialValue: problemVM.result)
+            _retrospectionInput = State<String>(initialValue: problemVM.retrospection)
         }
     }
     
