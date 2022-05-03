@@ -18,6 +18,7 @@ struct ProblemDetailScreen: View {
     
     @State private var choices = ["선택 1", "선택 2"]
     @State private var chosen: Int? = nil
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
@@ -95,6 +96,16 @@ struct ProblemDetailScreen: View {
         .padding(.top, 23)
         .navigationBarTitle("문제 읽기/수정")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "arrow.backward")
+                }
+
+            }
+        }
     }
 }
 
