@@ -23,6 +23,10 @@ class ProblemListViewModel: ObservableObject {
             problem.setValues(title: title, category: category, assessment: assessment, situation: situation, choices: choices, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: problem.date!)
         }
     }
+    
+    func showAllProblems() {
+        problemVMs = Problem.all().map(ProblemViewModel.init(problem:))
+    }
 }
 
 struct ProblemViewModel {

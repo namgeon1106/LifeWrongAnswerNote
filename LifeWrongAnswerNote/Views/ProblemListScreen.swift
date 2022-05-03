@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProblemListScreen: View {
     @State private var searchText = ""
+    @ObservedObject private var problemListVM = ProblemListViewModel()
     
     var body: some View {
         NavigationView {
@@ -35,25 +36,9 @@ struct ProblemListScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
+                        ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
+                            ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 
@@ -69,6 +54,9 @@ struct ProblemListScreen: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .onAppear {
+                problemListVM.showAllProblems()
             }
         }
     }
