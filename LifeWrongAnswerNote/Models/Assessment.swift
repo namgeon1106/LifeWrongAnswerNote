@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum Assessment : Int{
+enum Assessment: Int64 {
     case notSure = 0, good, bad, soso
     
     var image: some View {

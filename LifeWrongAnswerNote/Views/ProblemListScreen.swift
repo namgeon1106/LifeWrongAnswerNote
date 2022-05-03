@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProblemListScreen: View {
     @State private var searchText = ""
+    @ObservedObject private var problemListVM = ProblemListViewModel.shared
     
     var body: some View {
         NavigationView {
@@ -35,25 +36,16 @@ struct ProblemListScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .good, date: Date())
+                        ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
+                            NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
+                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
+                                    .onLongPressGesture {
+                                        deleteProblem(problemVM: problemVM)
+                                    }
+                            }
+                            .tint(Color(UIColor.label))
+                            
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 2", categoryString: "카테고리 1", assessment: .bad, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 3", categoryString: "카테고리 2", assessment: .soso, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        NavigationLink(destination: ProblemDetailScreen()) {
-                            ProblemRow(title: "제목 4", categoryString: "카테고리 2", assessment: .notSure, date: Date())
-                        }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 
@@ -65,11 +57,21 @@ struct ProblemListScreen: View {
             .padding(.top, 20)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: Text("sss")) {
+                    NavigationLink(destination: ProblemDetailScreen(problemVM: nil)) {
                         Image(systemName: "plus")
                     }
                 }
             }
+            .onAppear {
+                problemListVM.showAllProblems()
+            }
+        }
+    }
+    
+    private func deleteProblem(problemVM: ProblemViewModel) {
+        AlertUtils.displayAlertView(title: "문제 제거", message: "정말로 문제르 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            problemListVM.deleteProblem(problemVM: problemVM)
+            problemListVM.showAllProblems()
         }
     }
 }

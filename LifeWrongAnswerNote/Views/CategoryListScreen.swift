@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct CategoriesScreen: View {
+struct CategoryListScreen: View {
     @State private var searchText = ""
     @State var categories = ["카테고리 1", "카테고리 2"]
     @State var newCategoryName = ""
     @State var emptyNameAlertPresented = false
     @State var alreadySameNameAlertPresented = false
     @State var sameToBeforeAlertPresented = false
-    @ObservedObject var categoriesVM = CategoriesViewModel()
+    @ObservedObject var categoriesVM = CategoryListViewModel()
     
     var body: some View {
         NavigationView {
@@ -111,6 +111,6 @@ struct CategoriesScreen: View {
 
 struct CategoryScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesScreen()
+        CategoryListScreen()
     }
 }

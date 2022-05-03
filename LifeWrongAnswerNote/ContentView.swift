@@ -18,7 +18,7 @@ struct ContentView: View {
                     }
                 }
             
-            CategoriesScreen()
+            CategoryListScreen()
                 .tabItem {
                     VStack {
                         Image(systemName: "list.triangle")
