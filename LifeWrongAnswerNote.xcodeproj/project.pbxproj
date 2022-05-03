@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		212E5145282108BA003F1573 /* Problem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5144282108BA003F1573 /* Problem+Extensions.swift */; };
+		212E514728210A23003F1573 /* ProblemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E514628210A23003F1573 /* ProblemListViewModel.swift */; };
 		2158C9A8281E43A6008202D4 /* InputDetailTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */; };
 		2158C9AA281E5277008202D4 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9A9281E5277008202D4 /* CustomTextEditor.swift */; };
 		2158C9AC281E546D008202D4 /* ChoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2158C9AB281E546D008202D4 /* ChoiceRow.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		212E5144282108BA003F1573 /* Problem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Problem+Extensions.swift"; sourceTree = "<group>"; };
+		212E514628210A23003F1573 /* ProblemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListViewModel.swift; sourceTree = "<group>"; };
 		2158C9A7281E43A6008202D4 /* InputDetailTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDetailTemplate.swift; sourceTree = "<group>"; };
 		2158C9A9281E5277008202D4 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		2158C9AB281E546D008202D4 /* ChoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceRow.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				21AB4F8F281F972F009ACD5F /* CategoryListViewModel.swift */,
+				212E514628210A23003F1573 /* ProblemListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				21722E9E281D1C9400B10E56 /* CustomSearchBar.swift in Sources */,
 				21AB4F84281F7C71009ACD5F /* AlertUtils.swift in Sources */,
 				2158C9A8281E43A6008202D4 /* InputDetailTemplate.swift in Sources */,
+				212E514728210A23003F1573 /* ProblemListViewModel.swift in Sources */,
 				2158C9AC281E546D008202D4 /* ChoiceRow.swift in Sources */,
 				21722EA2281D28E200B10E56 /* CustomMenuLabel.swift in Sources */,
 				21AB4F8D281F9618009ACD5F /* Category+Extensions.swift in Sources */,

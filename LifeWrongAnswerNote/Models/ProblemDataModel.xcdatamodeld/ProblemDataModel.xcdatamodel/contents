@@ -13,6 +13,7 @@
         <attribute name="reason" attributeType="String"/>
         <attribute name="result" attributeType="String"/>
         <attribute name="retrospection" attributeType="String"/>
+        <attribute name="situation" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="problems" inverseEntity="Category"/>
         <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" inverseName="problem" inverseEntity="Choice"/>
@@ -20,6 +21,6 @@
     <elements>
         <element name="Category" positionX="18" positionY="99" width="128" height="59"/>
         <element name="Choice" positionX="54" positionY="117" width="128" height="59"/>
-        <element name="Problem" positionX="-27" positionY="18" width="128" height="134"/>
+        <element name="Problem" positionX="-27" positionY="18" width="128" height="149"/>
     </elements>
 </model>
