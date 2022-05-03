@@ -28,6 +28,13 @@ class ProblemListViewModel: ObservableObject {
     func showAllProblems() {
         problemVMs = Problem.all().map(ProblemViewModel.init(problem:))
     }
+    
+    func deleteProblem(problemVM: ProblemViewModel) {
+        let problem: Problem? = Problem.byId(id: problemVM.id)
+        if let problem = problem {
+            problem.delete()
+        }
+    }
 }
 
 struct ProblemViewModel {

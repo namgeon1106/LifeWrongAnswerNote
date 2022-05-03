@@ -39,7 +39,12 @@ struct ProblemListScreen: View {
                         ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
                             NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
                                 ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
-                            }.tint(.black)
+                                    .onLongPressGesture {
+                                        deleteProblem(problemVM: problemVM)
+                                    }
+                            }
+                            .tint(Color(UIColor.label))
+                            
                         }
                     }
                 }
@@ -60,6 +65,13 @@ struct ProblemListScreen: View {
             .onAppear {
                 problemListVM.showAllProblems()
             }
+        }
+    }
+    
+    private func deleteProblem(problemVM: ProblemViewModel) {
+        AlertUtils.displayAlertView(title: "문제 제거", message: "정말로 문제르 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            problemListVM.deleteProblem(problemVM: problemVM)
+            problemListVM.showAllProblems()
         }
     }
 }
