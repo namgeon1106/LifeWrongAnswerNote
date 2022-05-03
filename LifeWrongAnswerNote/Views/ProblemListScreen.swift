@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProblemListScreen: View {
     @State private var searchText = ""
-    @ObservedObject private var problemListVM = ProblemListViewModel()
+    @ObservedObject private var problemListVM = ProblemListViewModel.shared
     
     var body: some View {
         NavigationView {
@@ -50,7 +50,7 @@ struct ProblemListScreen: View {
             .padding(.top, 20)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: Text("sss")) {
+                    NavigationLink(destination: ProblemDetailScreen(problemVM: nil)) {
                         Image(systemName: "plus")
                     }
                 }

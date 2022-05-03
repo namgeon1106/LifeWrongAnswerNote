@@ -12,18 +12,35 @@ struct ProblemDetailScreen: View {
     @State private var situationInput = ""
     @State private var reasonInput = ""
     @State private var resultDetailInput = ""
-    @State private var retrospectInput = ""
+    @State private var retrospectionInput = ""
     @State private var categoryInput: Category? = nil
-    @State private var assessmentInput: Int64 = Assessment.notSure.rawValue
+    @State private var assessmentInput = Assessment.notSure
     
-    @State private var choices = ["선택 1", "선택 2"]
-    @State private var chosen: Int? = nil
+    @State private var choices = [Choice]()
+    @State private var chosenInput: Choice? = nil
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject var problemListVM = ProblemListViewModel.shared
+    
+    let problemVM: ProblemViewModel?
+    
+    init(problemVM: ProblemViewModel?) {
+        self.problemVM = problemVM
+        
+        if let problemVM = problemVM {
+            titleInput = problemVM.title
+            situationInput = problemVM.situation
+            choices = problemVM.choices
+            chosenInput = problemVM.chosen
+            reasonInput = problemVM.reason
+            resultDetailInput = problemVM.result
+            retrospectionInput = problemVM.retrospection
+        }
+    }
     
     var body: some View {
         VStack {
             InputTemplate(title: "제목       ") {
-                TextField("제목을 입력하세요", text: .constant(""))
+                TextField("제목을 입력하세요", text: $titleInput)
             }
             .padding(.bottom, 9)
             
@@ -60,12 +77,6 @@ struct ProblemDetailScreen: View {
                 
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
                     VStack {
-                        ForEach(0..<choices.count) { index in
-                            ChoiceRow(selected: index == chosen, title: choices[index])
-                                .onTapGesture {
-                                    chosen = index
-                                }
-                        }
                         Button("+ 선택 추가") {
                             AlertUtils.displayAlertViewWithTextField(title: "새 선택지 추가", message: "새로 추가할 선택의 이름을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "추가", okStyle: .default) { 
                                 
@@ -80,11 +91,11 @@ struct ProblemDetailScreen: View {
                 }
                 
                 InputDetailTemplate(title: "4. 선택의 결과는?") {
-                    CustomTextEditor(text: $reasonInput)
+                    CustomTextEditor(text: $resultDetailInput)
                 }
                 
                 InputDetailTemplate(title: "5. 느낀점, 회고") {
-                    CustomTextEditor(text: $retrospectInput)
+                    CustomTextEditor(text: $retrospectionInput)
                 }
             }
             .tabViewStyle(PageTabViewStyle())
@@ -96,12 +107,28 @@ struct ProblemDetailScreen: View {
         .padding(.top, 23)
         .navigationBarTitle("문제 읽기/수정")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.backward")
+                }
+
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    if let problemVM = problemVM {
+                        problemListVM.modifyProblem(problemVM: problemVM, title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                    } else {
+                        problemListVM.addProblem(title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                    }
+                    presentationMode.wrappedValue.dismiss()
+                    problemListVM.showAllProblems()
+                } label: {
+                    Image(systemName: "checkmark")
                 }
 
             }
@@ -112,7 +139,7 @@ struct ProblemDetailScreen: View {
 struct ProblemDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProblemDetailScreen().preferredColorScheme(.light)
+            ProblemDetailScreen(problemVM: nil).preferredColorScheme(.light)
         }
     }
 }

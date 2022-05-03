@@ -10,13 +10,14 @@ import CoreData
 
 class ProblemListViewModel: ObservableObject {
     @Published var problemVMs = [ProblemViewModel]()
+    static var shared = ProblemListViewModel()
     
-    func addProblem(title: String, category: Category, assessment: Assessment, situation: String, choices: [Choice], chosen: Choice?, reason: String, result: String, retrospection: String) {
+    func addProblem(title: String, category: Category?, assessment: Assessment, situation: String, choices: [Choice], chosen: Choice?, reason: String, result: String, retrospection: String) {
         let problem = Problem(context: Problem.viewContext)
         problem.setValues(title: title, category: category, assessment: assessment, situation: situation, choices: choices, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: Date())
     }
     
-    func modifyProblem(problemVM: ProblemViewModel, title: String, category: Category, assessment: Assessment, situation: String, choices: [Choice], chosen: Choice?, reason: String, result: String, retrospection: String) {
+    func modifyProblem(problemVM: ProblemViewModel, title: String, category: Category?, assessment: Assessment, situation: String, choices: [Choice], chosen: Choice?, reason: String, result: String, retrospection: String) {
         let problem = Problem.byId(id: problemVM.id) as? Problem
         
         if let problem = problem {
@@ -54,6 +55,10 @@ struct ProblemViewModel {
     
     var choices: [Choice] {
         []
+    }
+    
+    var chosen: Choice? {
+        problem.chosen
     }
     
     var reason: String {
