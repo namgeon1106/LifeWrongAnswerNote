@@ -13,6 +13,8 @@ struct ProblemDetailScreen: View {
     @State private var reasonInput = ""
     @State private var resultDetailInput = ""
     @State private var retrospectInput = ""
+    @State private var categoryInput: Category? = nil
+    @State private var assessmentInput: Int64 = Assessment.notSure.rawValue
     
     @State private var choices = ["선택 1", "선택 2"]
     @State private var chosen: Int? = nil
