@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CategoriesViewModel: ObservableObject {
+class CategoryListViewModel: ObservableObject {
     @Published var categoryVMs = [CategoryViewModel]()
     
     func addCategory(name: String) {
