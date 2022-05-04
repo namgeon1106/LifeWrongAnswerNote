@@ -41,6 +41,17 @@ class CategoryListViewModel: ObservableObject {
             self.categoryVMs = Category.all().map(CategoryViewModel.init(category:))
         }
     }
+    
+    func showCategoriesWith(subString: String) {
+        if subString.isEmpty {
+            showAllCategories()
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.categoryVMs = Category.filteredBy(subString: subString).map(CategoryViewModel.init(category:))
+        }
+    }
 }
 
 struct CategoryViewModel {

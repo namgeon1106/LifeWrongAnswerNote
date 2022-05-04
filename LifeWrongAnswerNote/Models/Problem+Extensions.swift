@@ -21,4 +21,10 @@ extension Problem: BaseModel {
         
         self.save()
     }
+    
+    static func filteredByTitle(subString: String) -> [Problem] {
+        return Problem.all().filter { problem in
+            problem.title?.contains(subString) ?? false
+        }
+    }
 }

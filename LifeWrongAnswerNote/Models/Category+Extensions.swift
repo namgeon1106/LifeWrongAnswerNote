@@ -25,4 +25,10 @@ extension Category: BaseModel {
             return nil
         }
     }
+    
+    static func filteredBy(subString: String) -> [Category] {
+        return Category.all().filter { category in
+            category.name?.contains(subString) ?? false
+        }
+    }
 }

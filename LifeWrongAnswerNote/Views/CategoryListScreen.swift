@@ -20,6 +20,9 @@ struct CategoryListScreen: View {
         NavigationView {
             VStack {
                 CustomSearchBar(searchText: $searchText, placeholder: "카테고리명으로 검색")
+                    .onChange(of: searchText) { searchText in
+                        categoriesVM.showCategoriesWith(subString: searchText)
+                    }
                 List {
                     ForEach(categoriesVM.categoryVMs, id: \.id) { categoryVM in
                         Text(categoryVM.name).onLongPressGesture {
@@ -84,7 +87,7 @@ struct CategoryListScreen: View {
             indexSet.forEach { index in
                 let categoryVM = categoriesVM.categoryVMs[index]
                 categoriesVM.deleteCategory(categoryVM: categoryVM)
-                categoriesVM.showAllCategories()
+                categoriesVM.showCategoriesWith(subString: searchText)
             }
         }
     }
@@ -104,7 +107,7 @@ struct CategoryListScreen: View {
             }
             
             categoriesVM.renameCategory(categoryVM: categoryVM, newName: newName)
-            categoriesVM.showAllCategories()
+            categoriesVM.showCategoriesWith(subString: searchText)
         }
     }
 }

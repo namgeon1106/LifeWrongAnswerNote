@@ -39,6 +39,9 @@ struct ProblemListScreen: View {
                 }
                 
                 CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
+                    .onChange(of: searchText) { newValue in
+                        problemListVM.showFilteredProblems(subString: searchText)
+                    }
                 
                 ScrollView {
                     VStack(spacing: 20) {
@@ -69,7 +72,7 @@ struct ProblemListScreen: View {
                 }
             }
             .onAppear {
-                problemListVM.showAllProblems()
+                problemListVM.showFilteredProblems(subString: searchText)
             }
         }
     }
@@ -77,7 +80,7 @@ struct ProblemListScreen: View {
     private func deleteProblem(problemVM: ProblemViewModel) {
         AlertUtils.displayAlertView(title: "문제 제거", message: "정말로 문제르 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
             problemListVM.deleteProblem(problemVM: problemVM)
-            problemListVM.showAllProblems()
+            problemListVM.showFilteredProblems(subString: searchText)
         }
     }
 }
