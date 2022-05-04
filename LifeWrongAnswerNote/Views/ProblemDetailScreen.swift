@@ -70,6 +70,10 @@ struct ProblemDetailScreen: View {
                     VStack {
                         ForEach(problemDetailVM.choiceVMs, id: \.id) { choiceVM in
                             ChoiceRow(selected: choiceVM.id == problemDetailVM.chosen?.objectID, title: choiceVM.content)
+                                .onTapGesture {
+                                    problemDetailVM.choose(choiceVM: choiceVM)
+                                    problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+                                }
                         }
                         
                         Button("+ 선택 추가") {
