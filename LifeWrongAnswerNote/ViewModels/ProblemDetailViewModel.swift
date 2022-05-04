@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import CoreData
 
 class ProblemDetailViewModel: ObservableObject {
     var title = ""
     var category: Category? = nil
     var assessment = Assessment.notSure
     var situation = ""
+    @Published var choiceVMs = [ChoiceViewModel]()
     var chosen: Choice? = nil
     var reason = ""
     var result = ""
@@ -20,6 +22,11 @@ class ProblemDetailViewModel: ObservableObject {
     func addProblem() {
         let problem = Problem(context: Problem.viewContext)
         problem.setValues(title: title, category: category, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: Date())
+        
+        for choiceVM in choiceVMs {
+            choiceVM.choice.problem = problem
+            choiceVM.choice.save()
+        }
     }
     
     func modifyProblem(problemVM: ProblemViewModel) {
@@ -28,5 +35,48 @@ class ProblemDetailViewModel: ObservableObject {
         if let problem = problem {
             problem.setValues(title: title, category: category, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: problem.date!)
         }
+        
+        for choiceVM in choiceVMs {
+            choiceVM.choice.problem = problem
+            choiceVM.choice.save()
+        }
+    }
+    
+    func getChoicesInProblem(problemVM: ProblemViewModel?) {
+        var choiceArr: [Choice]
+        if let problemVM = problemVM {
+            choiceArr = Choice.getChoicesByProblemId(problemId: problemVM.id)
+        } else {
+            choiceArr = Choice.all().filter({ choice in
+                choice.problem == nil
+            })
+        }
+        
+        choiceVMs = choiceArr.map(ChoiceViewModel.init(choice:))
+    }
+    
+    func addChoice(content: String, problemVM: ProblemViewModel?) {
+        let choice = Choice(context: Choice.viewContext)
+        choice.content = content
+        
+        if let problemVM = problemVM {
+            choice.problem = Problem.byId(id: problemVM.id)
+        }
+    }
+    
+    func modifyChoice(content: String, choiceVM: ChoiceViewModel) {
+        choiceVM.choice.content = content
+    }
+}
+
+struct ChoiceViewModel {
+    let choice: Choice
+    
+    var id: NSManagedObjectID {
+        choice.objectID
+    }
+    
+    var content: String {
+        choice.content ?? ""
     }
 }

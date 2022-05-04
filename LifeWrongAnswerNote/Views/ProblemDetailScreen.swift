@@ -68,9 +68,14 @@ struct ProblemDetailScreen: View {
                 
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
                     VStack {
+                        ForEach(problemDetailVM.choiceVMs, id: \.id) { choiceVM in
+                            ChoiceRow(selected: choiceVM.id == problemDetailVM.chosen?.objectID, title: choiceVM.content)
+                        }
+                        
                         Button("+ 선택 추가") {
                             AlertUtils.displayAlertViewWithTextField(title: "새 선택지 추가", message: "새로 추가할 선택의 이름을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "추가", okStyle: .default) { 
-                                
+                                problemDetailVM.addChoice(content: AlertUtils.alertTextInput, problemVM: problemVM)
+                                problemDetailVM.getChoicesInProblem(problemVM: problemVM)
                             }
                         }
                         .padding(.top, 10)
@@ -102,6 +107,7 @@ struct ProblemDetailScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    CoreDataManager.shared.viewContext.rollback()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.backward")
@@ -123,6 +129,9 @@ struct ProblemDetailScreen: View {
                 }
 
             }
+        }
+        .onAppear {
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
         }
     }
 }
