@@ -83,6 +83,11 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     func choose(choiceVM: ChoiceViewModel) {
+        if(chosen?.objectID == choiceVM.choice.objectID) {
+            chosen = nil
+            return
+        }
+        
         chosen = choiceVM.choice
     }
 }
