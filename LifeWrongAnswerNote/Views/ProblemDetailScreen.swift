@@ -8,49 +8,47 @@
 import SwiftUI
 
 struct ProblemDetailScreen: View {
-    @State private var titleInput = ""
-    @State private var situationInput = ""
-    @State private var reasonInput = ""
-    @State private var resultDetailInput = ""
-    @State private var retrospectionInput = ""
-    @State private var categoryInput: Category? = nil
-    @State private var assessmentInput = Assessment.notSure
-    
-    @State private var choices = [Choice]()
-    @State private var chosenInput: Choice? = nil
+    @ObservedObject var problemDetailVM = ProblemDetailViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var problemListVM = ProblemListViewModel.shared
     
     let problemVM: ProblemViewModel?
+    let categoryVMs = CategoryListViewModel().getAllCategories()
     
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
         
         if let problemVM = problemVM {
-            _titleInput = State<String>(initialValue: problemVM.title)
-            _situationInput = State<String>(initialValue: problemVM.situation)
-            _choices = State<[Choice]>(initialValue: problemVM.choices)
-            _chosenInput = State<Choice?>(initialValue: problemVM.chosen)
-            _reasonInput = State<String>(initialValue: problemVM.reason)
-            _resultDetailInput = State<String>(initialValue: problemVM.result)
-            _retrospectionInput = State<String>(initialValue: problemVM.retrospection)
+            problemDetailVM.title = problemVM.title
+            problemDetailVM.category = problemVM.category
+            problemDetailVM.situation = problemVM.situation
+            problemDetailVM.chosen = problemVM.chosen
+            problemDetailVM.reason = problemVM.reason
+            problemDetailVM.result = problemVM.result
+            problemDetailVM.retrospection = problemVM.retrospection
         }
     }
     
     var body: some View {
         VStack {
             InputTemplate(title: "제목       ") {
-                TextField("제목을 입력하세요", text: $titleInput)
+                TextField("제목을 입력하세요", text: $problemDetailVM.title)
             }
             .padding(.bottom, 9)
             
             InputTemplate(title: "카테고리") {
                 HStack {
                     Menu {
-                        Button("A", action: {})
-                        Button("B", action: {})
+                        ForEach(categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemDetailVM.category = categoryVM.category
+                            }
+                        }
                     } label: {
-                        CustomMenuLabel(title: "카테고리")
+                        CustomMenuLabel {
+                            Text(problemDetailVM.category?.name ?? "카테고리")
+                                .font(.subheadline)
+                        }
                     }
                     Spacer()
                 }
@@ -60,10 +58,21 @@ struct ProblemDetailScreen: View {
             InputTemplate(title: "평가       ") {
                 HStack {
                     Menu {
-                        Button("A", action: {})
-                        Button("B", action: {})
+                        ForEach(Assessment.allValues, id: \.self) { assessment in
+                            Button {
+                                problemDetailVM.assessment = assessment
+                            } label: {
+                                HStack {
+                                    Text(assessment.description)
+                                    assessment.image
+                                }
+                            }
+
+                        }
                     } label: {
-                        CustomMenuLabel(title: "평가")
+                        CustomMenuLabel {
+                            problemDetailVM.assessment.image
+                        }
                     }
                     Spacer()
                 }
@@ -72,14 +81,23 @@ struct ProblemDetailScreen: View {
             
             TabView {
                 InputDetailTemplate(title: "1. 무슨 상황인가요?") {
-                    CustomTextEditor(text: $situationInput)
+                    CustomTextEditor(text: $problemDetailVM.situation)
                 }
                 
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
                     VStack {
+                        ForEach(problemDetailVM.choiceVMs, id: \.id) { choiceVM in
+                            ChoiceRow(selected: choiceVM.id == problemDetailVM.chosen?.objectID, title: choiceVM.content, modifyAction: {modifyChoice(choiceVM: choiceVM)}, deleteAction: {deleteChoice(choiceVM: choiceVM)})
+                                .onTapGesture {
+                                    problemDetailVM.choose(choiceVM: choiceVM)
+                                    problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+                                }
+                        }
+                        
                         Button("+ 선택 추가") {
                             AlertUtils.displayAlertViewWithTextField(title: "새 선택지 추가", message: "새로 추가할 선택의 이름을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "추가", okStyle: .default) { 
-                                
+                                problemDetailVM.addChoice(content: AlertUtils.alertTextInput, problemVM: problemVM)
+                                problemDetailVM.getChoicesInProblem(problemVM: problemVM)
                             }
                         }
                         .padding(.top, 10)
@@ -87,15 +105,15 @@ struct ProblemDetailScreen: View {
                 }
                 
                 InputDetailTemplate(title: "3. 선택의 이유는?") {
-                    CustomTextEditor(text: $reasonInput)
+                    CustomTextEditor(text: $problemDetailVM.reason)
                 }
                 
                 InputDetailTemplate(title: "4. 선택의 결과는?") {
-                    CustomTextEditor(text: $resultDetailInput)
+                    CustomTextEditor(text: $problemDetailVM.result)
                 }
                 
                 InputDetailTemplate(title: "5. 느낀점, 회고") {
-                    CustomTextEditor(text: $retrospectionInput)
+                    CustomTextEditor(text: $problemDetailVM.retrospection)
                 }
             }
             .tabViewStyle(PageTabViewStyle())
@@ -111,6 +129,7 @@ struct ProblemDetailScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    CoreDataManager.shared.viewContext.rollback()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.backward")
@@ -121,9 +140,9 @@ struct ProblemDetailScreen: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     if let problemVM = problemVM {
-                        problemListVM.modifyProblem(problemVM: problemVM, title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                        problemDetailVM.modifyProblem(problemVM: problemVM)
                     } else {
-                        problemListVM.addProblem(title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                        problemDetailVM.addProblem()
                     }
                     presentationMode.wrappedValue.dismiss()
                     problemListVM.showAllProblems()
@@ -132,6 +151,23 @@ struct ProblemDetailScreen: View {
                 }
 
             }
+        }
+        .onAppear {
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+        }
+    }
+    
+    func modifyChoice(choiceVM: ChoiceViewModel) {
+        AlertUtils.displayAlertViewWithTextField(title: "선택지 내용 변경", message: "새로운 내용을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "변경", okStyle: .default) {
+            problemDetailVM.modifyChoice(content: AlertUtils.alertTextInput, choiceVM: choiceVM, problemVM: problemVM)
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+        }
+    }
+    
+    func deleteChoice(choiceVM: ChoiceViewModel) {
+        AlertUtils.displayAlertView(title: "선택지 삭제", message: "선택지를 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            problemDetailVM.deleteChoice(choiceVM: choiceVM)
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
         }
     }
 }

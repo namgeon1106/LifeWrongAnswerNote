@@ -23,4 +23,21 @@ enum Assessment: Int64 {
             return Image(systemName: "triangle.circle").foregroundColor(.orange)
         }
     }
+    
+    var description: String {
+        switch(self) {
+        case .notSure:
+            return "모르겠음"
+        case .good:
+            return "좋음"
+        case .bad:
+            return "나쁨"
+        case .soso:
+            return "중간"
+        }
+    }
+    
+    static var allValues: [Assessment] {
+        return [.notSure, .good, .bad, .soso]
+    }
 }

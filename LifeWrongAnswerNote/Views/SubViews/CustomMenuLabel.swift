@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct CustomMenuLabel: View {
-    let title: String
+struct CustomMenuLabel<Content: View>: View {
+    let content: () -> Content
     
     var body: some View {
         HStack {
-            Text(title)
-                .font(.subheadline)
+            content()
             Spacer()
             Image(systemName: "chevron.down")
                 .resizable()
@@ -30,6 +29,9 @@ struct CustomMenuLabel: View {
 
 struct CustomMenuLabel_Previews: PreviewProvider {
     static var previews: some View {
-        CustomMenuLabel(title: "카테고리")
+        CustomMenuLabel {
+            Text("카테고리")
+                .font(.subheadline)
+        }
     }
 }

@@ -33,7 +33,10 @@ struct InputTemplate_Previews: PreviewProvider {
             
             InputTemplate(title: "카테고리") {
                 HStack {
-                    CustomMenuLabel(title: "카테고리")
+                    CustomMenuLabel {
+                        Text("카테고리")
+                            .font(.subheadline)
+                    }
                     Spacer()
                 }
             }
