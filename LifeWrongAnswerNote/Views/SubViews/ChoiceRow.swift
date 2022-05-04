@@ -11,14 +11,19 @@ struct ChoiceRow: View {
     let selected: Bool
     let title: String
     @State private var titleInput: String
+    let modifyAction: () -> Void
+    let deleteAction: () -> Void
+    
     var color: Color {
         selected ? .green : .gray
     }
     
-    init(selected: Bool, title: String) {
+    init(selected: Bool, title: String, modifyAction: @escaping () -> Void, deleteAction: @escaping () -> Void) {
         self.selected = selected
         self.title = title
         self.titleInput = title
+        self.modifyAction = modifyAction
+        self.deleteAction = deleteAction
     }
     
     var body: some View {
@@ -27,8 +32,17 @@ struct ChoiceRow: View {
             TextField("", text: $titleInput)
                 .disabled(true)
             Spacer()
+            Button(action: modifyAction) {
+                Image(systemName: "pencil.circle")
+                    .foregroundColor(.blue)
+            }.buttonStyle(BorderedButtonStyle())
+
+            Button(action: deleteAction) {
+                Image(systemName: "trash")
+                    .foregroundColor(.red)
+            }.buttonStyle(BorderedButtonStyle())
         }
-        .padding(.vertical, 14)
+        .padding(.vertical, 5)
         .padding(.horizontal, 11)
         .foregroundColor(color)
         .overlay(RoundedRectangle(cornerRadius: 8).stroke(color))
@@ -37,6 +51,6 @@ struct ChoiceRow: View {
 
 struct Choice_Previews: PreviewProvider {
     static var previews: some View {
-        ChoiceRow(selected: true, title: "선택 1")
+        ChoiceRow(selected: true, title: "선택 1", modifyAction: {}, deleteAction: {})
     }
 }

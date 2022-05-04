@@ -11,8 +11,6 @@ struct ProblemDetailScreen: View {
     @ObservedObject var problemDetailVM = ProblemDetailViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var problemListVM = ProblemListViewModel.shared
-    @State private var choiceActionSheetPresented = false
-    @State private var modifyingChoiceVM: ChoiceViewModel? = nil
     
     let problemVM: ProblemViewModel?
     
@@ -71,14 +69,10 @@ struct ProblemDetailScreen: View {
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
                     VStack {
                         ForEach(problemDetailVM.choiceVMs, id: \.id) { choiceVM in
-                            ChoiceRow(selected: choiceVM.id == problemDetailVM.chosen?.objectID, title: choiceVM.content)
+                            ChoiceRow(selected: choiceVM.id == problemDetailVM.chosen?.objectID, title: choiceVM.content, modifyAction: {modifyChoice(choiceVM: choiceVM)}, deleteAction: {deleteChoice(choiceVM: choiceVM)})
                                 .onTapGesture {
                                     problemDetailVM.choose(choiceVM: choiceVM)
                                     problemDetailVM.getChoicesInProblem(problemVM: problemVM)
-                                }
-                                .onLongPressGesture {
-                                    modifyingChoiceVM = choiceVM
-                                    choiceActionSheetPresented = true
                                 }
                         }
                         
@@ -142,17 +136,6 @@ struct ProblemDetailScreen: View {
         }
         .onAppear {
             problemDetailVM.getChoicesInProblem(problemVM: problemVM)
-        }
-        .confirmationDialog("", isPresented: $choiceActionSheetPresented) {
-            Button("변경") {
-                modifyChoice(choiceVM: modifyingChoiceVM!)
-            }
-            Button(role: .destructive) {
-                deleteChoice(choiceVM: modifyingChoiceVM!)
-            } label: {
-                Text("삭제")
-            }
-
         }
     }
     
