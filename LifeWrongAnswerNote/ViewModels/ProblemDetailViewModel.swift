@@ -10,8 +10,8 @@ import CoreData
 
 class ProblemDetailViewModel: ObservableObject {
     var title = ""
-    var category: Category? = nil
-    var assessment = Assessment.notSure
+    @Published var category: Category? = nil
+    @Published var assessment = Assessment.notSure
     var situation = ""
     @Published var choiceVMs = [ChoiceViewModel]()
     var chosen: Choice? = nil

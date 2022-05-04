@@ -13,6 +13,7 @@ struct ProblemDetailScreen: View {
     @ObservedObject var problemListVM = ProblemListViewModel.shared
     
     let problemVM: ProblemViewModel?
+    let categoryVMs = CategoryListViewModel().getAllCategories()
     
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
@@ -38,10 +39,16 @@ struct ProblemDetailScreen: View {
             InputTemplate(title: "카테고리") {
                 HStack {
                     Menu {
-                        Button("A", action: {})
-                        Button("B", action: {})
+                        ForEach(categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemDetailVM.category = categoryVM.category
+                            }
+                        }
                     } label: {
-                        CustomMenuLabel(title: "카테고리")
+                        CustomMenuLabel {
+                            Text(problemDetailVM.category?.name ?? "카테고리")
+                                .font(.subheadline)
+                        }
                     }
                     Spacer()
                 }
@@ -51,10 +58,21 @@ struct ProblemDetailScreen: View {
             InputTemplate(title: "평가       ") {
                 HStack {
                     Menu {
-                        Button("A", action: {})
-                        Button("B", action: {})
+                        ForEach(Assessment.allValues, id: \.self) { assessment in
+                            Button {
+                                problemDetailVM.assessment = assessment
+                            } label: {
+                                HStack {
+                                    Text(assessment.description)
+                                    assessment.image
+                                }
+                            }
+
+                        }
                     } label: {
-                        CustomMenuLabel(title: "평가")
+                        CustomMenuLabel {
+                            problemDetailVM.assessment.image
+                        }
                     }
                     Spacer()
                 }

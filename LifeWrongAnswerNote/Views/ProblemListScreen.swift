@@ -19,14 +19,20 @@ struct ProblemListScreen: View {
                         Button("sss", action: {})
                         Button("ddd", action: {})
                     } label: {
-                        CustomMenuLabel(title: "카테고리")
+                        CustomMenuLabel {
+                            Text("카테고리")
+                                .font(.subheadline)
+                        }
                     }
                     
                     Menu {
                         Button("sss", action: {})
                         Button("ddd", action: {})
                     } label: {
-                        CustomMenuLabel(title: "진행상태")
+                        CustomMenuLabel {
+                            Text("진행상태")
+                                .font(.subheadline)
+                        }
                     }
                     
                     Spacer()

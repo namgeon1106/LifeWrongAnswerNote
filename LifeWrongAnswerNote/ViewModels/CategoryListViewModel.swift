@@ -32,6 +32,10 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
+    func getAllCategories() -> [CategoryViewModel] {
+        return Category.all().map(CategoryViewModel.init(category:))
+    }
+    
     func showAllCategories() {
         DispatchQueue.main.async {
             self.categoryVMs = Category.all().map(CategoryViewModel.init(category:))
