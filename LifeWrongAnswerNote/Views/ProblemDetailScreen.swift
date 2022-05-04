@@ -74,6 +74,12 @@ struct ProblemDetailScreen: View {
                                     problemDetailVM.choose(choiceVM: choiceVM)
                                     problemDetailVM.getChoicesInProblem(problemVM: problemVM)
                                 }
+                                .onLongPressGesture {
+                                    AlertUtils.displayAlertViewWithTextField(title: "선택지 내용 변경", message: "새로운 내용을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "변경", okStyle: .default) {
+                                        problemDetailVM.modifyChoice(content: AlertUtils.alertTextInput, choiceVM: choiceVM, problemVM: problemVM)
+                                        problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+                                    }
+                                }
                         }
                         
                         Button("+ 선택 추가") {

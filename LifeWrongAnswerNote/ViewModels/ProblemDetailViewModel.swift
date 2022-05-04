@@ -64,11 +64,12 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    func modifyChoice(content: String, choiceVM: ChoiceViewModel) {
-        choiceVM.choice.content = content
+    func modifyChoice(content: String, choiceVM: ChoiceViewModel, problemVM: ProblemViewModel?) {
+        deleteChoice(choiceVM: choiceVM)
+        addChoice(content: content, problemVM: problemVM)
     }
     
-    func deleteChoice(content: String, choiceVM: ChoiceViewModel) {
+    func deleteChoice(choiceVM: ChoiceViewModel) {
         Choice.viewContext.delete(choiceVM.choice)
     }
     
