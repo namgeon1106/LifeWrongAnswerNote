@@ -10,27 +10,27 @@ import SwiftUI
 struct ProblemListScreen: View {
     @State private var searchText = ""
     @ObservedObject private var problemListVM = ProblemListViewModel.shared
+    let categoryVMs = CategoryListViewModel().getAllCategories()
+    @State private var currentCategoryVM: CategoryViewModel? = nil
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 HStack(spacing: 16) {
                     Menu {
-                        Button("sss", action: {})
-                        Button("ddd", action: {})
-                    } label: {
-                        CustomMenuLabel {
-                            Text("카테고리")
-                                .font(.subheadline)
+                        ForEach(categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                currentCategoryVM = categoryVM
+                                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                            }
                         }
-                    }
-                    
-                    Menu {
-                        Button("sss", action: {})
-                        Button("ddd", action: {})
+                        Button("카테고리 전체") {
+                            currentCategoryVM = nil
+                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                        }
                     } label: {
                         CustomMenuLabel {
-                            Text("진행상태")
+                            Text(currentCategoryVM?.name ?? "카테고리")
                                 .font(.subheadline)
                         }
                     }
@@ -40,7 +40,7 @@ struct ProblemListScreen: View {
                 
                 CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
                     .onChange(of: searchText) { newValue in
-                        problemListVM.showFilteredProblems(subString: searchText)
+                        problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
                     }
                 
                 ScrollView {
@@ -72,7 +72,7 @@ struct ProblemListScreen: View {
                 }
             }
             .onAppear {
-                problemListVM.showFilteredProblems(subString: searchText)
+                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
             }
         }
     }
@@ -80,7 +80,7 @@ struct ProblemListScreen: View {
     private func deleteProblem(problemVM: ProblemViewModel) {
         AlertUtils.displayAlertView(title: "문제 제거", message: "정말로 문제르 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
             problemListVM.deleteProblem(problemVM: problemVM)
-            problemListVM.showFilteredProblems(subString: searchText)
+            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
         }
     }
 }

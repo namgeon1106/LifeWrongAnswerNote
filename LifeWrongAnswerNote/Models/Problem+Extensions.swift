@@ -22,9 +22,10 @@ extension Problem: BaseModel {
         self.save()
     }
     
-    static func filteredByTitle(subString: String) -> [Problem] {
-        return Problem.all().filter { problem in
-            problem.title?.contains(subString) ?? false
+    static func filteredBy(subString: String, category: Category?) -> [Problem] {
+        return all().filter { problem in
+            (subString.isEmpty ? true : problem.title!.contains(subString))
+            && (category != nil ? problem.category == category : true)
         }
     }
 }
