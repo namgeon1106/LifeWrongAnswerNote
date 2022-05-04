@@ -11,6 +11,8 @@ struct ProblemDetailScreen: View {
     @ObservedObject var problemDetailVM = ProblemDetailViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var problemListVM = ProblemListViewModel.shared
+    @State private var choiceActionSheetPresented = false
+    @State private var modifyingChoiceVM: ChoiceViewModel? = nil
     
     let problemVM: ProblemViewModel?
     
@@ -75,10 +77,8 @@ struct ProblemDetailScreen: View {
                                     problemDetailVM.getChoicesInProblem(problemVM: problemVM)
                                 }
                                 .onLongPressGesture {
-                                    AlertUtils.displayAlertViewWithTextField(title: "선택지 내용 변경", message: "새로운 내용을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "변경", okStyle: .default) {
-                                        problemDetailVM.modifyChoice(content: AlertUtils.alertTextInput, choiceVM: choiceVM, problemVM: problemVM)
-                                        problemDetailVM.getChoicesInProblem(problemVM: problemVM)
-                                    }
+                                    modifyingChoiceVM = choiceVM
+                                    choiceActionSheetPresented = true
                                 }
                         }
                         
@@ -141,6 +141,31 @@ struct ProblemDetailScreen: View {
             }
         }
         .onAppear {
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+        }
+        .confirmationDialog("", isPresented: $choiceActionSheetPresented) {
+            Button("변경") {
+                modifyChoice(choiceVM: modifyingChoiceVM!)
+            }
+            Button(role: .destructive) {
+                deleteChoice(choiceVM: modifyingChoiceVM!)
+            } label: {
+                Text("삭제")
+            }
+
+        }
+    }
+    
+    func modifyChoice(choiceVM: ChoiceViewModel) {
+        AlertUtils.displayAlertViewWithTextField(title: "선택지 내용 변경", message: "새로운 내용을 입력하세요.", placeholder: "선택 이름 입력", okMessage: "변경", okStyle: .default) {
+            problemDetailVM.modifyChoice(content: AlertUtils.alertTextInput, choiceVM: choiceVM, problemVM: problemVM)
+            problemDetailVM.getChoicesInProblem(problemVM: problemVM)
+        }
+    }
+    
+    func deleteChoice(choiceVM: ChoiceViewModel) {
+        AlertUtils.displayAlertView(title: "선택지 삭제", message: "선택지를 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            problemDetailVM.deleteChoice(choiceVM: choiceVM)
             problemDetailVM.getChoicesInProblem(problemVM: problemVM)
         }
     }

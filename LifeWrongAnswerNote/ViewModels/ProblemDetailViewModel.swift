@@ -65,12 +65,21 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     func modifyChoice(content: String, choiceVM: ChoiceViewModel, problemVM: ProblemViewModel?) {
-        deleteChoice(choiceVM: choiceVM)
-        addChoice(content: content, problemVM: problemVM)
+        if(chosen?.objectID == choiceVM.id) {
+            deleteChoice(choiceVM: choiceVM)
+            addChoice(content: content, problemVM: problemVM)
+            chosen = choiceVM.choice
+        } else {
+            deleteChoice(choiceVM: choiceVM)
+            addChoice(content: content, problemVM: problemVM)
+        }
     }
     
     func deleteChoice(choiceVM: ChoiceViewModel) {
         Choice.viewContext.delete(choiceVM.choice)
+        if(chosen?.objectID == choiceVM.id) {
+            chosen = nil
+        }
     }
     
     func choose(choiceVM: ChoiceViewModel) {
