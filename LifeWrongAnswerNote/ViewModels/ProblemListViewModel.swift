@@ -22,6 +22,17 @@ class ProblemListViewModel: ObservableObject {
             problem.delete()
         }
     }
+    
+    func showFilteredProblems(subString: String) {
+        if subString.isEmpty {
+            showAllProblems()
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.problemVMs = Problem.filteredByTitle(subString: subString).map(ProblemViewModel.init(problem:))
+        }
+    }
 }
 
 struct ProblemViewModel {
