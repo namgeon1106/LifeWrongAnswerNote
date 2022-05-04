@@ -8,16 +8,7 @@
 import SwiftUI
 
 struct ProblemDetailScreen: View {
-    @State private var titleInput = ""
-    @State private var situationInput = ""
-    @State private var reasonInput = ""
-    @State private var resultDetailInput = ""
-    @State private var retrospectionInput = ""
-    @State private var categoryInput: Category? = nil
-    @State private var assessmentInput = Assessment.notSure
-    
-    @State private var choices = [Choice]()
-    @State private var chosenInput: Choice? = nil
+    @ObservedObject var problemDetailVM = ProblemDetailViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var problemListVM = ProblemListViewModel.shared
     
@@ -27,20 +18,20 @@ struct ProblemDetailScreen: View {
         self.problemVM = problemVM
         
         if let problemVM = problemVM {
-            _titleInput = State<String>(initialValue: problemVM.title)
-            _situationInput = State<String>(initialValue: problemVM.situation)
-            _choices = State<[Choice]>(initialValue: problemVM.choices)
-            _chosenInput = State<Choice?>(initialValue: problemVM.chosen)
-            _reasonInput = State<String>(initialValue: problemVM.reason)
-            _resultDetailInput = State<String>(initialValue: problemVM.result)
-            _retrospectionInput = State<String>(initialValue: problemVM.retrospection)
+            problemDetailVM.title = problemVM.title
+            problemDetailVM.category = problemVM.category
+            problemDetailVM.situation = problemVM.situation
+            problemDetailVM.chosen = problemVM.chosen
+            problemDetailVM.reason = problemVM.reason
+            problemDetailVM.result = problemVM.result
+            problemDetailVM.retrospection = problemVM.retrospection
         }
     }
     
     var body: some View {
         VStack {
             InputTemplate(title: "제목       ") {
-                TextField("제목을 입력하세요", text: $titleInput)
+                TextField("제목을 입력하세요", text: $problemDetailVM.title)
             }
             .padding(.bottom, 9)
             
@@ -72,7 +63,7 @@ struct ProblemDetailScreen: View {
             
             TabView {
                 InputDetailTemplate(title: "1. 무슨 상황인가요?") {
-                    CustomTextEditor(text: $situationInput)
+                    CustomTextEditor(text: $problemDetailVM.situation)
                 }
                 
                 InputDetailTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
@@ -87,15 +78,15 @@ struct ProblemDetailScreen: View {
                 }
                 
                 InputDetailTemplate(title: "3. 선택의 이유는?") {
-                    CustomTextEditor(text: $reasonInput)
+                    CustomTextEditor(text: $problemDetailVM.reason)
                 }
                 
                 InputDetailTemplate(title: "4. 선택의 결과는?") {
-                    CustomTextEditor(text: $resultDetailInput)
+                    CustomTextEditor(text: $problemDetailVM.result)
                 }
                 
                 InputDetailTemplate(title: "5. 느낀점, 회고") {
-                    CustomTextEditor(text: $retrospectionInput)
+                    CustomTextEditor(text: $problemDetailVM.retrospection)
                 }
             }
             .tabViewStyle(PageTabViewStyle())
@@ -121,9 +112,9 @@ struct ProblemDetailScreen: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     if let problemVM = problemVM {
-                        problemListVM.modifyProblem(problemVM: problemVM, title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                        problemDetailVM.modifyProblem(problemVM: problemVM)
                     } else {
-                        problemListVM.addProblem(title: titleInput, category: categoryInput, assessment: assessmentInput, situation: situationInput, choices: [], chosen: chosenInput, reason: reasonInput, result: resultDetailInput, retrospection: retrospectionInput)
+                        problemDetailVM.addProblem()
                     }
                     presentationMode.wrappedValue.dismiss()
                     problemListVM.showAllProblems()
