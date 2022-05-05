@@ -9,6 +9,12 @@ import Foundation
 import CoreData
 
 class CategoryListViewModel: ObservableObject {
+    static var shared = CategoryListViewModel()
+    
+    private init() {
+        
+    }
+    
     @Published var categoryVMs = [CategoryViewModel]()
     
     func addCategory(name: String) {
@@ -37,9 +43,7 @@ class CategoryListViewModel: ObservableObject {
     }
     
     func showAllCategories() {
-        DispatchQueue.main.async {
-            self.categoryVMs = Category.all().map(CategoryViewModel.init(category:))
-        }
+        self.categoryVMs = Category.all().map(CategoryViewModel.init(category:))
     }
     
     func showCategoriesWith(subString: String) {
@@ -48,9 +52,7 @@ class CategoryListViewModel: ObservableObject {
             return
         }
         
-        DispatchQueue.main.async {
-            self.categoryVMs = Category.filteredBy(subString: subString).map(CategoryViewModel.init(category:))
-        }
+        self.categoryVMs = Category.filteredBy(subString: subString).map(CategoryViewModel.init(category:))
     }
 }
 

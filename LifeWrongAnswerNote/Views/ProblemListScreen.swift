@@ -10,7 +10,7 @@ import SwiftUI
 struct ProblemListScreen: View {
     @State private var searchText = ""
     @ObservedObject private var problemListVM = ProblemListViewModel.shared
-    let categoryVMs = CategoryListViewModel().getAllCategories()
+    let categoryListVM = CategoryListViewModel.shared
     @State private var currentCategoryVM: CategoryViewModel? = nil
     
     var body: some View {
@@ -18,7 +18,7 @@ struct ProblemListScreen: View {
             VStack(spacing: 20) {
                 HStack(spacing: 16) {
                     Menu {
-                        ForEach(categoryVMs, id: \.id) { categoryVM in
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
                             Button(categoryVM.name) {
                                 currentCategoryVM = categoryVM
                                 problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)

@@ -13,7 +13,7 @@ struct ProblemDetailScreen: View {
     @ObservedObject var problemListVM = ProblemListViewModel.shared
     
     let problemVM: ProblemViewModel?
-    let categoryVMs = CategoryListViewModel().getAllCategories()
+    let categoryListVM = CategoryListViewModel.shared
     
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
@@ -40,7 +40,7 @@ struct ProblemDetailScreen: View {
             InputTemplate(title: "카테고리") {
                 HStack {
                     Menu {
-                        ForEach(categoryVMs, id: \.id) { categoryVM in
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
                             Button(categoryVM.name) {
                                 problemDetailVM.category = categoryVM.category
                             }

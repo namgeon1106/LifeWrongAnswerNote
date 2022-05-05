@@ -14,7 +14,7 @@ struct CategoryListScreen: View {
     @State var emptyNameAlertPresented = false
     @State var alreadySameNameAlertPresented = false
     @State var sameToBeforeAlertPresented = false
-    @ObservedObject var categoriesVM = CategoryListViewModel()
+    @ObservedObject var categoriesVM = CategoryListViewModel.shared
     
     var body: some View {
         NavigationView {
