@@ -21,6 +21,7 @@ struct ProblemDetailScreen: View {
         if let problemVM = problemVM {
             problemDetailVM.title = problemVM.title
             problemDetailVM.category = problemVM.category
+            problemDetailVM.assessment = problemVM.assessment
             problemDetailVM.situation = problemVM.situation
             problemDetailVM.chosen = problemVM.chosen
             problemDetailVM.reason = problemVM.reason
