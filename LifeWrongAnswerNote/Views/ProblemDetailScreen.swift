@@ -21,6 +21,7 @@ struct ProblemDetailScreen: View {
         if let problemVM = problemVM {
             problemDetailVM.title = problemVM.title
             problemDetailVM.category = problemVM.category
+            problemDetailVM.finished = problemVM.finished
             problemDetailVM.assessment = problemVM.assessment
             problemDetailVM.situation = problemVM.situation
             problemDetailVM.chosen = problemVM.chosen
@@ -32,55 +33,79 @@ struct ProblemDetailScreen: View {
     
     var body: some View {
         VStack {
-            InputTemplate(title: "제목       ") {
-                TextField("제목을 입력하세요", text: $problemDetailVM.title)
-            }
-            .padding(.bottom, 9)
-            
-            InputTemplate(title: "카테고리") {
-                HStack {
-                    Menu {
-                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
-                            Button(categoryVM.name) {
-                                problemDetailVM.category = categoryVM.category
-                            }
-                        }
-                    } label: {
-                        CustomMenuLabel {
-                            Text(problemDetailVM.category?.name ?? "카테고리")
-                                .font(.subheadline)
-                        }
+            TabView {
+                VStack {
+                    InputTemplate(title: "제목       ") {
+                        TextField("제목을 입력하세요", text: $problemDetailVM.title)
                     }
-                    Spacer()
-                }
-            }
-            .padding(.bottom, 9)
-            
-            InputTemplate(title: "평가       ") {
-                HStack {
-                    Menu {
-                        ForEach(Assessment.allValues, id: \.self) { assessment in
-                            Button {
-                                problemDetailVM.assessment = assessment
+                    .padding(.bottom, 9)
+                    
+                    InputTemplate(title: "카테고리") {
+                        HStack {
+                            Menu {
+                                ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                                    Button(categoryVM.name) {
+                                        problemDetailVM.category = categoryVM.category
+                                    }
+                                }
                             } label: {
-                                HStack {
-                                    Text(assessment.description)
-                                    assessment.image
+                                CustomMenuLabel {
+                                    Text(problemDetailVM.category?.name ?? "카테고리")
+                                        .font(.subheadline)
                                 }
                             }
-
-                        }
-                    } label: {
-                        CustomMenuLabel {
-                            problemDetailVM.assessment.image
+                            Spacer()
                         }
                     }
+                    .padding(.bottom, 9)
+                    
+                    InputTemplate(title: "진행상태") {
+                        HStack {
+                            Menu {
+                                Button("진행 중") {
+                                    problemDetailVM.finished = false
+                                }
+                                
+                                Button("완료") {
+                                    problemDetailVM.finished = true
+                                }
+                            } label: {
+                                CustomMenuLabel {
+                                    Text(problemDetailVM.finished ? "완료" : "진행 중")
+                                        .font(.subheadline)
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                    .padding(.bottom, 9)
+                    
+                    InputTemplate(title: "평가       ") {
+                        HStack {
+                            Menu {
+                                ForEach(Assessment.allValues, id: \.self) { assessment in
+                                    Button {
+                                        problemDetailVM.assessment = assessment
+                                    } label: {
+                                        HStack {
+                                            Text(assessment.description)
+                                            assessment.image
+                                        }
+                                    }
+
+                                }
+                            } label: {
+                                CustomMenuLabel {
+                                    problemDetailVM.assessment.image
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                    .padding(.bottom, 20)
                     Spacer()
                 }
-            }
-            .padding(.bottom, 20)
-            
-            TabView {
+                
                 InputDetailTemplate(title: "1. 무슨 상황인가요?") {
                     CustomTextEditor(text: $problemDetailVM.situation)
                 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ProblemRow: View {
     let title: String
     let categoryString: String
+    let finished: Bool
     let assessment: Assessment
     let date: Date
     var formatter: DateFormatter {
@@ -31,7 +32,7 @@ struct ProblemRow: View {
             }
             
             HStack {
-                Text(categoryString)
+                Text("\(categoryString) / \(finished ? "완료" : "진행 중")")
                     .font(.subheadline)
                 Spacer()
                 Text(formatter.string(from: Date()))
@@ -48,6 +49,6 @@ struct ProblemRow: View {
 
 struct ProblemRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemRow(title: "제목 1", categoryString: "카테고리 1", assessment: .bad, date: Date())
+        ProblemRow(title: "제목 1", categoryString: "카테고리 1", finished: true, assessment: .bad, date: Date())
     }
 }

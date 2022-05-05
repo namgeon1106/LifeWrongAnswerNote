@@ -11,6 +11,7 @@ import CoreData
 class ProblemDetailViewModel: ObservableObject {
     @Published var title = ""
     @Published var category: Category? = nil
+    @Published var finished = false
     @Published var assessment = Assessment.notSure
     var situation = ""
     @Published var choiceVMs = [ChoiceViewModel]()
@@ -21,7 +22,7 @@ class ProblemDetailViewModel: ObservableObject {
     
     func addProblem() {
         let problem = Problem(context: Problem.viewContext)
-        problem.setValues(title: title, category: category, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: Date())
+        problem.setValues(title: title, category: category, finished: finished, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: Date())
         
         for choiceVM in choiceVMs {
             choiceVM.choice.problem = problem
@@ -33,7 +34,7 @@ class ProblemDetailViewModel: ObservableObject {
         let problem = Problem.byId(id: problemVM.id) as? Problem
         
         if let problem = problem {
-            problem.setValues(title: title, category: category, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: problem.date!)
+            problem.setValues(title: title, category: category, finished: finished, assessment: assessment, situation: situation, chosen: chosen, reason: reason, result: result, retrospection: retrospection, date: problem.date!)
         }
         
         for choiceVM in choiceVMs {
