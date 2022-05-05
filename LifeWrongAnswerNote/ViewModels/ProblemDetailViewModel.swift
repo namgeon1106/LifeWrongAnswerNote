@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 class ProblemDetailViewModel: ObservableObject {
-    var title = ""
+    @Published var title = ""
     @Published var category: Category? = nil
     @Published var assessment = Assessment.notSure
     var situation = ""
