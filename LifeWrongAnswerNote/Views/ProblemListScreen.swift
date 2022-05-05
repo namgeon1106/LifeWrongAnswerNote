@@ -47,7 +47,7 @@ struct ProblemListScreen: View {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
                             NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
-                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", assessment: problemVM.assessment, date: problemVM.date)
+                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
                                     .onLongPressGesture {
                                         deleteProblem(problemVM: problemVM)
                                     }

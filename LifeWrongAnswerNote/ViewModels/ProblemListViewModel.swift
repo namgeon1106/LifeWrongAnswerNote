@@ -45,6 +45,10 @@ struct ProblemViewModel {
         problem.category
     }
     
+    var finished: Bool {
+        problem.finished
+    }
+    
     var assessment: Assessment {
         Assessment(rawValue: problem.assessment)!
     }
