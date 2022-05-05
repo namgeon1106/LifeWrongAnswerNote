@@ -12,6 +12,7 @@ struct ProblemListScreen: View {
     @ObservedObject private var problemListVM = ProblemListViewModel.shared
     let categoryListVM = CategoryListViewModel.shared
     @State private var currentCategoryVM: CategoryViewModel? = nil
+    @State private var finishedInput: Bool? = nil
     
     var body: some View {
         NavigationView {
@@ -21,12 +22,12 @@ struct ProblemListScreen: View {
                         ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
                             Button(categoryVM.name) {
                                 currentCategoryVM = categoryVM
-                                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
                             }
                         }
                         Button("카테고리 전체") {
                             currentCategoryVM = nil
-                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
                         }
                     } label: {
                         CustomMenuLabel {
@@ -35,12 +36,35 @@ struct ProblemListScreen: View {
                         }
                     }
                     
+                    Menu {
+                        Button("진행 중") {
+                            finishedInput = false
+                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
+                        }
+                        
+                        Button("완료") {
+                            finishedInput = true
+                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
+                        }
+                        
+                        Button("전체") {
+                            finishedInput = nil
+                            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
+                        }
+                    } label: {
+                        CustomMenuLabel {
+                            Text(finishedInput != nil ? (finishedInput! ? "완료" : "진행 중") : "진행상태")
+                                .font(.subheadline)
+                        }
+                    }
+
+                    
                     Spacer()
                 }
                 
                 CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
                     .onChange(of: searchText) { newValue in
-                        problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                        problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
                     }
                 
                 ScrollView {
@@ -72,7 +96,7 @@ struct ProblemListScreen: View {
                 }
             }
             .onAppear {
-                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+                problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
             }
         }
     }
@@ -80,7 +104,7 @@ struct ProblemListScreen: View {
     private func deleteProblem(problemVM: ProblemViewModel) {
         AlertUtils.displayAlertView(title: "문제 제거", message: "정말로 문제르 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
             problemListVM.deleteProblem(problemVM: problemVM)
-            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM)
+            problemListVM.showFilteredProblems(subString: searchText, categoryVM: currentCategoryVM, finished: finishedInput)
         }
     }
 }

@@ -23,10 +23,11 @@ extension Problem: BaseModel {
         self.save()
     }
     
-    static func filteredBy(subString: String, category: Category?) -> [Problem] {
+    static func filteredBy(subString: String, category: Category?, finished: Bool?) -> [Problem] {
         return all().filter { problem in
             (subString.isEmpty ? true : problem.title!.contains(subString))
             && (category != nil ? problem.category == category : true)
+            && (finished != nil ? problem.finished == finished : true)
         }
     }
 }

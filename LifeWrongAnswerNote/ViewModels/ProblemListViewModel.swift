@@ -23,9 +23,9 @@ class ProblemListViewModel: ObservableObject {
         }
     }
     
-    func showFilteredProblems(subString: String, categoryVM: CategoryViewModel?) {
+    func showFilteredProblems(subString: String, categoryVM: CategoryViewModel?, finished: Bool?) {
         DispatchQueue.main.async {
-            self.problemVMs = Problem.filteredBy(subString: subString, category: categoryVM?.category).map(ProblemViewModel.init(problem:))
+            self.problemVMs = Problem.filteredBy(subString: subString, category: categoryVM?.category, finished: finished).map(ProblemViewModel.init(problem:))
         }
     }
 }
