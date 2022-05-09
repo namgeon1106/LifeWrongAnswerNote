@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		213461E12828B22F005B7D63 /* CustomMenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213461E02828B22F005B7D63 /* CustomMenuLabel.swift */; };
+		213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */; };
 		21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */; };
 		21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D411281CC27400DB62F2 /* ContentView.swift */; };
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 
 /* Begin PBXFileReference section */
 		213461E02828B22F005B7D63 /* CustomMenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuLabel.swift; sourceTree = "<group>"; };
+		213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		21F7D40C281CC27400DB62F2 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		21F7D411281CC27400DB62F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				213461E02828B22F005B7D63 /* CustomMenuLabel.swift */,
+				213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			files = (
 				21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */,
 				213461E12828B22F005B7D63 /* CustomMenuLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
