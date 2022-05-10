@@ -13,6 +13,7 @@
 		21B236442828F398003217C0 /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236432828F398003217C0 /* Assessment.swift */; };
 		21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236472828F8DB003217C0 /* ProblemListScreen.swift */; };
 		21B2364C282903EF003217C0 /* SummaryInputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2364B282903EF003217C0 /* SummaryInputTemplate.swift */; };
+		21B2364E28290563003217C0 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2364D28290563003217C0 /* CustomTextEditor.swift */; };
 		21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */; };
 		21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D411281CC27400DB62F2 /* ContentView.swift */; };
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		21B236432828F398003217C0 /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		21B236472828F8DB003217C0 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
 		21B2364B282903EF003217C0 /* SummaryInputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInputTemplate.swift; sourceTree = "<group>"; };
+		21B2364D28290563003217C0 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		21F7D40C281CC27400DB62F2 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		21F7D411281CC27400DB62F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */,
 				21B236402828F210003217C0 /* ProblemRow.swift */,
 				21B2364B282903EF003217C0 /* SummaryInputTemplate.swift */,
+				21B2364D28290563003217C0 /* CustomTextEditor.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */,
 				21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				21B2364E28290563003217C0 /* CustomTextEditor.swift in Sources */,
 				21B236412828F210003217C0 /* ProblemRow.swift in Sources */,
 				21B236442828F398003217C0 /* Assessment.swift in Sources */,
 				213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */,

@@ -41,6 +41,8 @@ struct SummaryInputTemplate_Previews: PreviewProvider {
                     Spacer()
                 }
             }
+            CustomTextEditor(text: .constant("sadf"), editable: false)
         }
+        .padding(.horizontal, 16)
     }
 }
