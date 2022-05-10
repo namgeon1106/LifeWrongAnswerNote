@@ -50,7 +50,7 @@ struct ChoiceRow: View {
                 .padding(.trailing, 5)
             }
         }
-        .padding(.vertical, 12)
+        .padding(.vertical, 10)
         .padding(.horizontal, 9)
         .foregroundColor(color)
         .overlay(RoundedRectangle(cornerRadius: 8).stroke(color))

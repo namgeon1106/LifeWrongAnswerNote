@@ -11,6 +11,7 @@
 		213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */; };
 		213C3D512829FBC700249B50 /* ChoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213C3D502829FBC700249B50 /* ChoiceRow.swift */; };
 		213C3D53282A02BE00249B50 /* DetailInputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213C3D52282A02BE00249B50 /* DetailInputTemplate.swift */; };
+		214A6488282A18340044C7AA /* ProblemDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214A6487282A18340044C7AA /* ProblemDetailScreen.swift */; };
 		21B236412828F210003217C0 /* ProblemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236402828F210003217C0 /* ProblemRow.swift */; };
 		21B236442828F398003217C0 /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236432828F398003217C0 /* Assessment.swift */; };
 		21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236472828F8DB003217C0 /* ProblemListScreen.swift */; };
@@ -27,6 +28,7 @@
 		213BFCFD2828C01A00FD5A13 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		213C3D502829FBC700249B50 /* ChoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceRow.swift; sourceTree = "<group>"; };
 		213C3D52282A02BE00249B50 /* DetailInputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInputTemplate.swift; sourceTree = "<group>"; };
+		214A6487282A18340044C7AA /* ProblemDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailScreen.swift; sourceTree = "<group>"; };
 		21B236402828F210003217C0 /* ProblemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemRow.swift; sourceTree = "<group>"; };
 		21B236432828F398003217C0 /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		21B236472828F8DB003217C0 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				21B236472828F8DB003217C0 /* ProblemListScreen.swift */,
+				214A6487282A18340044C7AA /* ProblemDetailScreen.swift */,
 				213461DF2828B21E005B7D63 /* SubViews */,
 			);
 			path = Views;
@@ -188,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				214A6488282A18340044C7AA /* ProblemDetailScreen.swift in Sources */,
 				21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */,
 				21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
