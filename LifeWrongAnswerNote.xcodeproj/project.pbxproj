@@ -22,6 +22,7 @@
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
 		21F7D417281CC27500DB62F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D416281CC27500DB62F2 /* Preview Assets.xcassets */; };
 		21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6B282B424D00BC510B /* CategoryRow.swift */; };
+		21FDEC6E282B42FC00BC510B /* CategoryListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		21F7D413281CC27500DB62F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21F7D416281CC27500DB62F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21FDEC6B282B424D00BC510B /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
+		21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				21B236472828F8DB003217C0 /* ProblemListScreen.swift */,
 				214A6487282A18340044C7AA /* ProblemDetailScreen.swift */,
+				21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */,
 				213461DF2828B21E005B7D63 /* SubViews */,
 			);
 			path = Views;
@@ -199,6 +202,7 @@
 				21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */,
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21B2364E28290563003217C0 /* CustomTextEditor.swift in Sources */,
+				21FDEC6E282B42FC00BC510B /* CategoryListScreen.swift in Sources */,
 				21B236412828F210003217C0 /* ProblemRow.swift in Sources */,
 				21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */,
 				21B236442828F398003217C0 /* Assessment.swift in Sources */,
