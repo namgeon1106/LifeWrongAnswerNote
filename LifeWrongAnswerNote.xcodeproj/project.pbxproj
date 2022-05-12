@@ -14,6 +14,7 @@
 		214A6488282A18340044C7AA /* ProblemDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214A6487282A18340044C7AA /* ProblemDetailScreen.swift */; };
 		219E57A2282D1781002F153E /* ProblemDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 219E57A0282D1781002F153E /* ProblemDataModel.xcdatamodeld */; };
 		219E57A7282D503D002F153E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E57A6282D503D002F153E /* CoreDataManager.swift */; };
+		219E57A9282D5065002F153E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E57A8282D5065002F153E /* BaseModel.swift */; };
 		21B236412828F210003217C0 /* ProblemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236402828F210003217C0 /* ProblemRow.swift */; };
 		21B236442828F398003217C0 /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236432828F398003217C0 /* Assessment.swift */; };
 		21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236472828F8DB003217C0 /* ProblemListScreen.swift */; };
@@ -35,6 +36,7 @@
 		214A6487282A18340044C7AA /* ProblemDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailScreen.swift; sourceTree = "<group>"; };
 		219E57A1282D1781002F153E /* ProblemDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProblemDataModel.xcdatamodel; sourceTree = "<group>"; };
 		219E57A6282D503D002F153E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		219E57A8282D5065002F153E /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		21B236402828F210003217C0 /* ProblemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemRow.swift; sourceTree = "<group>"; };
 		21B236432828F398003217C0 /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		21B236472828F8DB003217C0 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				21B236432828F398003217C0 /* Assessment.swift */,
 				219E57A0282D1781002F153E /* ProblemDataModel.xcdatamodeld */,
+				219E57A8282D5065002F153E /* BaseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */,
 				21B236442828F398003217C0 /* Assessment.swift in Sources */,
 				213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */,
+				219E57A9282D5065002F153E /* BaseModel.swift in Sources */,
 				213461E12828B22F005B7D63 /* CustomMenuLabel.swift in Sources */,
 				213C3D53282A02BE00249B50 /* DetailInputTemplate.swift in Sources */,
 				21B2364C282903EF003217C0 /* SummaryInputTemplate.swift in Sources */,
