@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct CategoryListScreen: View {
-    @State private var searchText = ""
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                CustomSearchBar(searchText: $searchText, placeholder: "이름으로 검색")
-                
+                CustomSearchBar(searchText: $categoryListVM.searchText, placeholder: "이름으로 검색")
+                    .onChange(of: categoryListVM.searchText, perform: categoryListVM.showFilteredCategories(searchText:))
                 ScrollView {
                     VStack {
-                        CategoryRow(title: "카테고리 1", count: 9, modifyAction: {}, deleteAction: {})
-                        CategoryRow(title: "카테고리 2", count: 5, modifyAction: {}, deleteAction: {})
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            CategoryRow(title: categoryVM.name, count: categoryVM.count) {
+                                categoryListVM.alertAndModify(categoryVM: categoryVM)
+                            } deleteAction: {
+                                categoryListVM.alertAndDelete(categoryVM: categoryVM)
+                            }
+
+                        }
                     }
                 }
                 
@@ -31,12 +37,15 @@ struct CategoryListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        categoryListVM.alertAndAdd()
                     } label: {
                         Image(systemName: "plus")
                     }
 
                 }
+            }
+            .onAppear {
+                categoryListVM.showAllCategories()
             }
         }
     }
