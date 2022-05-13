@@ -21,7 +21,7 @@ struct CategoryListScreen: View {
                             CategoryRow(title: categoryVM.name, count: categoryVM.count) {
                                 categoryListVM.alertAndModify(categoryVM: categoryVM)
                             } deleteAction: {
-                                
+                                categoryListVM.alertAndDelete(categoryVM: categoryVM)
                             }
 
                         }

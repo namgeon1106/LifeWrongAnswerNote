@@ -65,6 +65,14 @@ class CategoryListViewModel: ObservableObject {
             self.showFilteredCategories(searchText: self.searchText)
         }
     }
+    
+    func alertAndDelete(categoryVM: CategoryViewModel) {
+        AlertUtils.displayAlertView(title: "카테고리 제거", message: "정말로 해당 카테고리를 제거하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            self.deleteCategory(categoryVM: categoryVM)
+            CoreDataManager.shared.save()
+            self.showFilteredCategories(searchText: self.searchText)
+        }
+    }
 }
 
 struct CategoryViewModel {
