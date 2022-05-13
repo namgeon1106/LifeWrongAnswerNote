@@ -9,6 +9,11 @@ import Foundation
 import CoreData
 
 extension Category: BaseModel {
+    func rename(newName: String) {
+        self.name = newName
+        CoreDataManager.shared.save()
+    }
+    
     static func byName(_ name: String) -> Category? {
         let request = Category.fetchRequest()
         request.predicate = NSPredicate(format: "%K = %@", #keyPath(Category.name), name)
