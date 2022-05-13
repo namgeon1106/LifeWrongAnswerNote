@@ -19,7 +19,7 @@ struct CategoryListScreen: View {
                     VStack {
                         ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
                             CategoryRow(title: categoryVM.name, count: categoryVM.count) {
-                                
+                                categoryListVM.alertAndModify(categoryVM: categoryVM)
                             } deleteAction: {
                                 
                             }
