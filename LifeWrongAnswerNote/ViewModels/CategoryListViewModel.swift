@@ -10,6 +10,7 @@ import CoreData
 
 class CategoryListViewModel: ObservableObject {
     @Published var categoryVMs = [CategoryViewModel]()
+    @Published var searchText = ""
     
     func showAllCategories() {
         self.categoryVMs = Category.all().map(CategoryViewModel.init(category:))
@@ -33,6 +34,21 @@ class CategoryListViewModel: ObservableObject {
     func deleteCategory(categoryVM: CategoryViewModel) {
         categoryVM.category.delete()
         CoreDataManager.shared.save()
+    }
+    
+    func alertAndAdd() {
+        AlertUtils.displayAlertViewWithTextField(title: "새 카테고리 추가", message: "새로 추가할 카테고리의 이름을 입력하세요.", placeholder: "카테고리 이름 입력", okMessage: "추가", okStyle: .default) {
+            let categoryName = AlertUtils.alertTextInput
+            
+            if Category.byName(categoryName) != nil {
+                AlertUtils.displayNotifyingAlertView(title: "카테고리 이름 중복", message: "이미 해당 이름의 카테고리가 존재합니다.", okMessage: "확인", okStyle: .default)
+                return
+            }
+            
+            self.addCategory(name: categoryName)
+            CoreDataManager.shared.save()
+            self.showFilteredCategories(searchText: self.searchText)
+        }
     }
 }
 

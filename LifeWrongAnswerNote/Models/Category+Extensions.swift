@@ -32,7 +32,7 @@ extension Category: BaseModel {
         }
         
         let request = Category.fetchRequest()
-        request.predicate = NSPredicate(format: "INSTR(%K, %@) > 0", #keyPath(Category.name), subString)
+        request.predicate = NSPredicate(format: "%K CONTAINS %@", #keyPath(Category.name), subString)
         
         do {
             return try Self.viewContext.fetch(request)
