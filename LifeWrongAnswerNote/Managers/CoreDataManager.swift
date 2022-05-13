@@ -24,4 +24,13 @@ class CoreDataManager {
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
+    
+    func save() {
+        do {
+            try viewContext.save()
+        } catch {
+            viewContext.rollback()
+            print(error)
+        }
+    }
 }
