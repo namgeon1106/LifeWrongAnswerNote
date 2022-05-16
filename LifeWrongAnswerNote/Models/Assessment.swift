@@ -16,7 +16,7 @@ enum Assessment: Int16 {
         case .notSure:
             return Image(systemName: "questionmark.circle").foregroundColor(.gray)
         case .good:
-            return Image(systemName: "checkmark.circle").foregroundColor(.green)
+            return Image(systemName: "circle.circle").foregroundColor(.blue)
         case .bad:
             return Image(systemName: "x.circle").foregroundColor(.red)
         case .soso:
