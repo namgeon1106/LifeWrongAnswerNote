@@ -21,6 +21,8 @@ class ProblemDetailViewModel: ObservableObject {
     var retrospectionInput = ""
     
     init(problemVM: ProblemViewModel?) {
+        self.problemVM = problemVM
+        
         if let problemVM = problemVM {
             _titleInput = Published<String>(initialValue: problemVM.title)
             _categoryInput = Published<CategoryViewModel?>(initialValue: problemVM.category != nil ? CategoryViewModel(category: problemVM.category!) : nil)
