@@ -36,6 +36,7 @@ class ProblemDetailViewModel: ObservableObject {
     
     func addProblem() {
         problemVM = ProblemViewModel(problem: Problem(context: CoreDataManager.shared.viewContext))
+        problemVM?.problem.date = Date()
         setProblem()
     }
     
