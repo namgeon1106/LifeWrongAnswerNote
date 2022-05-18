@@ -44,7 +44,7 @@ struct ProblemListScreen: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
-                            NavigationLink(destination: Text("문제 읽기")) {
+                            NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
                                 ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
                             }
                             .tint(Color(UIColor.label))
@@ -60,7 +60,7 @@ struct ProblemListScreen: View {
             .padding(.top, 23)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: Text("문제 작성")) {
+                    NavigationLink(destination: ProblemDetailScreen(problemVM: nil)) {
                         Image(systemName: "plus")
                     }
                 }

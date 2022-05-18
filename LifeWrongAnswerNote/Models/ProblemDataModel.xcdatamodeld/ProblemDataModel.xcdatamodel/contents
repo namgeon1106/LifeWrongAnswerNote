@@ -24,7 +24,7 @@
         <attribute name="situation" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="problems" inverseEntity="Category"/>
-        <relationship name="choiceList" maxCount="1" deletionRule="Cascade" destinationEntity="ChoiceList" inverseName="problem" inverseEntity="ChoiceList"/>
+        <relationship name="choiceList" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ChoiceList" inverseName="problem" inverseEntity="ChoiceList"/>
         <relationship name="chosen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Choice" inverseName="problem" inverseEntity="Choice"/>
     </entity>
     <elements>

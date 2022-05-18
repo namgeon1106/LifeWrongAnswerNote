@@ -20,6 +20,8 @@ class ProblemDetailViewModel: ObservableObject {
     var resultInput = ""
     var retrospectionInput = ""
     
+    @Published var editable = true
+    
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
         
@@ -33,25 +35,36 @@ class ProblemDetailViewModel: ObservableObject {
             reasonInput = problemVM.reason
             resultInput = problemVM.result
             retrospectionInput = problemVM.retrospection
+            
+            _editable = Published<Bool>(initialValue: false)
         }
     }
     
     func addProblem() {
         problemVM = ProblemViewModel(problem: Problem(context: CoreDataManager.shared.viewContext))
-        problemVM?.problem.date = Date()
+        problemVM!.problem.date = Date()
         setProblem()
     }
     
     func setProblem() {
-        problemVM?.problem.title = titleInput
-        problemVM?.problem.category = categoryInput?.category
-        problemVM?.problem.finished = finishedInput
-        problemVM?.problem.assessment = assessmentInput.rawValue
-        problemVM?.problem.situation = situationInput
-        problemVM?.problem.reason = reasonInput
-        problemVM?.problem.result = resultInput
-        problemVM?.problem.retrospection = retrospectionInput
+        problemVM!.problem.title = titleInput
+        problemVM!.problem.category = categoryInput?.category
+        problemVM!.problem.finished = finishedInput
+        problemVM!.problem.assessment = assessmentInput.rawValue
+        problemVM!.problem.situation = situationInput
+        problemVM!.problem.reason = reasonInput
+        problemVM!.problem.result = resultInput
+        problemVM!.problem.retrospection = retrospectionInput
         
         CoreDataManager.shared.save()
+        editable = false
+    }
+    
+    func saveProblem() {
+        if problemVM == nil {
+            addProblem()
+        } else {
+            setProblem()
+        }
     }
 }
