@@ -23,6 +23,7 @@
 		21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B236472828F8DB003217C0 /* ProblemListScreen.swift */; };
 		21B2364C282903EF003217C0 /* SummaryInputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2364B282903EF003217C0 /* SummaryInputTemplate.swift */; };
 		21B2364E28290563003217C0 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2364D28290563003217C0 /* CustomTextEditor.swift */; };
+		21C7DA0D28349BE9008E92E4 /* Problem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C7DA0C28349BE9008E92E4 /* Problem+Extensions.swift */; };
 		21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */; };
 		21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7D411281CC27400DB62F2 /* ContentView.swift */; };
 		21F7D414281CC27500DB62F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D413281CC27500DB62F2 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		21B236472828F8DB003217C0 /* ProblemListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListScreen.swift; sourceTree = "<group>"; };
 		21B2364B282903EF003217C0 /* SummaryInputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInputTemplate.swift; sourceTree = "<group>"; };
 		21B2364D28290563003217C0 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
+		21C7DA0C28349BE9008E92E4 /* Problem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Problem+Extensions.swift"; sourceTree = "<group>"; };
 		21F7D40C281CC27400DB62F2 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7D40F281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		21F7D411281CC27400DB62F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				219E57A0282D1781002F153E /* ProblemDataModel.xcdatamodeld */,
 				219E57A8282D5065002F153E /* BaseModel.swift */,
 				216F9F0D282DE79D00FC2730 /* Category+Extensions.swift */,
+				21C7DA0C28349BE9008E92E4 /* Problem+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 			files = (
 				216F9F14282E010D00FC2730 /* AlertUtils.swift in Sources */,
 				216F9F11282DEC3400FC2730 /* CategoryListViewModel.swift in Sources */,
+				21C7DA0D28349BE9008E92E4 /* Problem+Extensions.swift in Sources */,
 				214A6488282A18340044C7AA /* ProblemDetailScreen.swift in Sources */,
 				21B236482828F8DB003217C0 /* ProblemListScreen.swift in Sources */,
 				21F7D412281CC27400DB62F2 /* ContentView.swift in Sources */,
