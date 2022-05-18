@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class ProblemListViewModel: ObservableObject {
     @Published var problemVMs = [ProblemViewModel]()
@@ -21,6 +22,10 @@ class ProblemListViewModel: ObservableObject {
 
 struct ProblemViewModel {
     let problem: Problem
+    
+    var id: NSManagedObjectID {
+        problem.objectID
+    }
     
     var title: String {
         problem.title!
@@ -52,5 +57,9 @@ struct ProblemViewModel {
     
     var retrospection: String {
         problem.retrospection!
+    }
+    
+    var date: Date {
+        problem.date!
     }
 }

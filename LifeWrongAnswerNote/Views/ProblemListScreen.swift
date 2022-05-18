@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProblemListScreen: View {
-    @State private var searchText = ""
+    @StateObject var problemListVM = ProblemListViewModel()
     
     var body: some View {
         NavigationView {
@@ -39,19 +39,16 @@ struct ProblemListScreen: View {
                     Spacer()
                 }
                 
-                CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
+                CustomSearchBar(searchText: $problemListVM.searchText, placeholder: "제목으로 검색")
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        NavigationLink(destination: Text("문제 읽기")) {
-                            ProblemRow(title: "제목 1", categoryString: "카테고리 1", finished: true, assessment: .bad, date: Date())
+                        ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
+                            NavigationLink(destination: Text("문제 읽기")) {
+                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
+                            }
+                            .tint(Color(UIColor.label))
                         }
-                        .tint(Color(UIColor.label))
-                        
-                        NavigationLink(destination: Text("문제 읽기")) {
-                            ProblemRow(title: "제목 2", categoryString: "카테고리 2", finished: false, assessment: .good, date: Date())
-                        }
-                        .tint(Color(UIColor.label))
                     }
                 }
                 
@@ -67,6 +64,9 @@ struct ProblemListScreen: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .onAppear {
+                problemListVM.showFilteredProblems()
             }
         }
     }
