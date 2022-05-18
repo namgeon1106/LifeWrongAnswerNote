@@ -34,5 +34,21 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
+    func addProblem() {
+        problemVM = ProblemViewModel(problem: Problem(context: CoreDataManager.shared.viewContext))
+        setProblem()
+    }
     
+    func setProblem() {
+        problemVM?.problem.title = titleInput
+        problemVM?.problem.category = categoryInput?.category
+        problemVM?.problem.finished = finishedInput
+        problemVM?.problem.assessment = assessmentInput.rawValue
+        problemVM?.problem.situation = situationInput
+        problemVM?.problem.reason = reasonInput
+        problemVM?.problem.result = resultInput
+        problemVM?.problem.retrospection = retrospectionInput
+        
+        CoreDataManager.shared.save()
+    }
 }
