@@ -7,6 +7,14 @@
 
 import Foundation
 
+class ProblemListViewModel: ObservableObject {
+    @Published var problemVMs = [ProblemViewModel]()
+    
+    func showFilteredProblems(categoryVM: CategoryViewModel?, finished: Bool?, searchText: String) {
+        problemVMs = Problem.by(category: categoryVM?.category, finished: finished, searchText: searchText).map(ProblemViewModel.init(problem:))
+    }
+}
+
 struct ProblemViewModel {
     let problem: Problem
     
