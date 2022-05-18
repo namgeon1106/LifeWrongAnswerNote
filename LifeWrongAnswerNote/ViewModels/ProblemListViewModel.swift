@@ -9,9 +9,13 @@ import Foundation
 
 class ProblemListViewModel: ObservableObject {
     @Published var problemVMs = [ProblemViewModel]()
+    let categoryListVM = CategoryListViewModel()
+    @Published var categoryInput: CategoryViewModel?
+    @Published var finishedInput: Bool?
+    @Published var searchText = ""
     
-    func showFilteredProblems(categoryVM: CategoryViewModel?, finished: Bool?, searchText: String) {
-        problemVMs = Problem.by(category: categoryVM?.category, finished: finished, searchText: searchText).map(ProblemViewModel.init(problem:))
+    func showFilteredProblems() {
+        problemVMs = Problem.by(category: categoryInput?.category, finished: finishedInput, searchText: searchText).map(ProblemViewModel.init(problem:))
     }
 }
 
