@@ -10,6 +10,7 @@ import SwiftUI
 struct ProblemDetailScreen: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @StateObject private var problemDetailVM: ProblemDetailViewModel
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
     init(problemVM: ProblemViewModel?) {
         _problemDetailVM = StateObject<ProblemDetailViewModel>(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
@@ -26,11 +27,17 @@ struct ProblemDetailScreen: View {
                 SummaryInputTemplate(title: "카테고리") {
                     Menu {
                         Button("카테고리 없음") {
-                            
+                            problemDetailVM.categoryInput = nil
+                        }
+                        
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemDetailVM.categoryInput = categoryVM
+                            }
                         }
                     } label: {
                         CustomMenuLabel(clickable: problemDetailVM.editable) {
-                            Text("카테고리").font(.subheadline)
+                            Text(problemDetailVM.categoryInput?.name ?? "카테고리").font(.subheadline)
                         }
                     }
                     .disabled(!problemDetailVM.editable)
@@ -143,6 +150,9 @@ struct ProblemDetailScreen: View {
                     Image(systemName: "pencil.circle")
                 }
             }
+        }
+        .onAppear {
+            categoryListVM.showAllCategories()
         }
     }
 }
