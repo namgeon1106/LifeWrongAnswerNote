@@ -39,15 +39,15 @@ struct ProblemDetailScreen: View {
                 SummaryInputTemplate(title: "진행상태") {
                     Menu {
                         Button("진행 중") {
-                            
+                            problemDetailVM.finishedInput = false
                         }
                         
                         Button("완료") {
-                            
+                            problemDetailVM.finishedInput = true
                         }
                     } label: {
                         CustomMenuLabel(clickable: problemDetailVM.editable) {
-                            Text("진행상태").font(.subheadline)
+                            Text(problemDetailVM.finishedInput ? "완료" : "진행 중").font(.subheadline)
                         }
                     }
                     .disabled(!problemDetailVM.editable)
