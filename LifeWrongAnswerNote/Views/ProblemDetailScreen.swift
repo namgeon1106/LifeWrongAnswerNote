@@ -57,7 +57,7 @@ struct ProblemDetailScreen: View {
                     Menu {
                         ForEach(Assessment.allValues, id: \.self) { assessment in
                             Button {
-                                
+                                problemDetailVM.assessmentInput = assessment
                             } label: {
                                 HStack {
                                     Text(assessment.description)
@@ -68,7 +68,8 @@ struct ProblemDetailScreen: View {
                         }
                     } label: {
                         CustomMenuLabel(clickable: problemDetailVM.editable) {
-                            Text("평가").font(.subheadline)
+                            problemDetailVM.assessmentInput.image
+                            .font(.subheadline)
                         }
                     }
                     .disabled(!problemDetailVM.editable)
