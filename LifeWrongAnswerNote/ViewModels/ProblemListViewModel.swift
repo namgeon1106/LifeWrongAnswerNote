@@ -19,6 +19,14 @@ class ProblemListViewModel: ObservableObject {
     func showFilteredProblems() {
         problemVMs = Problem.by(category: categoryInput?.category, finished: finishedInput, searchText: searchText).map(ProblemViewModel.init(problem:))
     }
+    
+    func deleteProblem(problemVM: ProblemViewModel) {
+        AlertUtils.displayAlertView(title: "문제 삭제", message: "문제를 삭제하시겠습니까?", okMessage: "삭제", okStyle: .destructive) {
+            CoreDataManager.shared.viewContext.delete(problemVM.problem)
+            CoreDataManager.shared.save()
+            self.showFilteredProblems()
+        }
+    }
 }
 
 struct ProblemViewModel {

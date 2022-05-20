@@ -51,7 +51,7 @@ struct ProblemListScreen: View {
                                 .tint(Color(UIColor.label))
                                 if problemListVM.deletable {
                                     Button {
-                                        
+                                        problemListVM.deleteProblem(problemVM: problemVM)
                                     } label: {
                                         Image(systemName: "trash")
                                             .foregroundColor(.white)
