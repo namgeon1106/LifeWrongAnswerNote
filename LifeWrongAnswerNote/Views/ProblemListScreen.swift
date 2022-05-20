@@ -44,10 +44,22 @@ struct ProblemListScreen: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
-                            NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
-                                ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
+                            HStack {
+                                NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
+                                    ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
+                                }
+                                .tint(Color(UIColor.label))
+                                if problemListVM.deletable {
+                                    Button {
+                                        
+                                    } label: {
+                                        Image(systemName: "trash")
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(maxWidth: 50, maxHeight: .infinity)
+                                    .background(.red)
+                                }
                             }
-                            .tint(Color(UIColor.label))
                         }
                     }
                 }
@@ -59,6 +71,15 @@ struct ProblemListScreen: View {
             .padding(.horizontal, 16)
             .padding(.top, 23)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        problemListVM.deletable.toggle()
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: ProblemDetailScreen(problemVM: nil)) {
                         Image(systemName: "plus")

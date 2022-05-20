@@ -14,6 +14,7 @@ class ProblemListViewModel: ObservableObject {
     @Published var categoryInput: CategoryViewModel?
     @Published var finishedInput: Bool?
     @Published var searchText = ""
+    @Published var deletable = false
     
     func showFilteredProblems() {
         problemVMs = Problem.by(category: categoryInput?.category, finished: finishedInput, searchText: searchText).map(ProblemViewModel.init(problem:))
