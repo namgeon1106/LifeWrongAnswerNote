@@ -75,7 +75,7 @@ class CategoryListViewModel: ObservableObject {
     }
 }
 
-struct CategoryViewModel {
+struct CategoryViewModel: Equatable {
     let category: Category
     
     var id: NSManagedObjectID {

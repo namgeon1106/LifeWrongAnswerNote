@@ -16,13 +16,22 @@ struct ProblemListScreen: View {
                 HStack(spacing: 16) {
                     Menu {
                         Button("카테고리 전체") {
-                            
+                            problemListVM.categoryInput = nil
+                        }
+                        
+                        ForEach(problemListVM.categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemListVM.categoryInput = categoryVM
+                            }
                         }
                     } label: {
                         CustomMenuLabel(clickable: true) {
                             Text("카테고리")
                                 .font(.subheadline)
                         }
+                    }
+                    .onChange(of: problemListVM.categoryInput) { newValue in
+                        problemListVM.showFilteredProblems()
                     }
                     
                     Menu {
@@ -88,6 +97,7 @@ struct ProblemListScreen: View {
             }
             .onAppear {
                 problemListVM.showFilteredProblems()
+                problemListVM.categoryListVM.showAllCategories()
             }
         }
     }
