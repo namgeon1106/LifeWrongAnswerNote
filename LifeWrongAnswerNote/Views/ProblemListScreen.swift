@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProblemListScreen: View {
-    @State private var searchText = ""
+    @StateObject var problemListVM = ProblemListViewModel()
     
     var body: some View {
         NavigationView {
@@ -16,42 +16,73 @@ struct ProblemListScreen: View {
                 HStack(spacing: 16) {
                     Menu {
                         Button("카테고리 전체") {
-                            
+                            problemListVM.categoryInput = nil
+                        }
+                        
+                        ForEach(problemListVM.categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemListVM.categoryInput = categoryVM
+                            }
                         }
                     } label: {
                         CustomMenuLabel(clickable: true) {
-                            Text("카테고리")
+                            Text(problemListVM.categoryInput?.name ?? "카테고리")
                                 .font(.subheadline)
                         }
+                    }
+                    .onChange(of: problemListVM.categoryInput) { _ in
+                        problemListVM.showFilteredProblems()
                     }
                     
                     Menu {
                         Button("진행상태 전체") {
-                            
+                            problemListVM.finishedInput = nil
+                        }
+                        
+                        ForEach([true, false], id: \.self) { value in
+                            Button(value ? "완료" :"진행 중") {
+                                problemListVM.finishedInput = value
+                            }
                         }
                     } label: {
                         CustomMenuLabel(clickable: true) {
-                            Text("진행상태")
+                            Text(problemListVM.finishedInput != nil ?
+                                 problemListVM.finishedInput! ? "완료" : "진행 중"
+                                 : "진행상태")
                                 .font(.subheadline)
                         }
                     }
-                    
+                    .onChange(of: problemListVM.finishedInput) { _ in
+                        problemListVM.showFilteredProblems()
+                    }
                     Spacer()
                 }
                 
-                CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
+                CustomSearchBar(searchText: $problemListVM.searchText, placeholder: "제목으로 검색")
+                    .onChange(of: problemListVM.searchText) { _ in
+                        problemListVM.showFilteredProblems()
+                    }
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        NavigationLink(destination: Text("문제 읽기")) {
-                            ProblemRow(title: "제목 1", categoryString: "카테고리 1", finished: true, assessment: .bad, date: Date())
+                        ForEach(problemListVM.problemVMs, id: \.id) { problemVM in
+                            HStack {
+                                NavigationLink(destination: ProblemDetailScreen(problemVM: problemVM)) {
+                                    ProblemRow(title: problemVM.title, categoryString: problemVM.category?.name ?? "카테고리 없음", finished: problemVM.finished, assessment: problemVM.assessment, date: problemVM.date)
+                                }
+                                .tint(Color(UIColor.label))
+                                if problemListVM.deletable {
+                                    Button {
+                                        problemListVM.deleteProblem(problemVM: problemVM)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(maxWidth: 50, maxHeight: .infinity)
+                                    .background(.red)
+                                }
+                            }
                         }
-                        .tint(Color(UIColor.label))
-                        
-                        NavigationLink(destination: Text("문제 읽기")) {
-                            ProblemRow(title: "제목 2", categoryString: "카테고리 2", finished: false, assessment: .good, date: Date())
-                        }
-                        .tint(Color(UIColor.label))
                     }
                 }
                 
@@ -62,11 +93,24 @@ struct ProblemListScreen: View {
             .padding(.horizontal, 16)
             .padding(.top, 23)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        problemListVM.deletable.toggle()
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: Text("문제 작성")) {
+                    NavigationLink(destination: ProblemDetailScreen(problemVM: nil)) {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .onAppear {
+                problemListVM.showFilteredProblems()
+                problemListVM.categoryListVM.showAllCategories()
             }
         }
     }

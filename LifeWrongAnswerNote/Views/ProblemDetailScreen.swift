@@ -9,57 +9,62 @@ import SwiftUI
 
 struct ProblemDetailScreen: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    @State private var titleInput = ""
+    @StateObject private var problemDetailVM: ProblemDetailViewModel
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
-    @State private var situationInput = ""
-    @State private var reasonInput = ""
-    @State private var resultInput = ""
-    @State private var retrospectionInput = ""
-    @State var editable: Bool
+    init(problemVM: ProblemViewModel?) {
+        _problemDetailVM = StateObject<ProblemDetailViewModel>(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
+    }
     
     var body: some View {
         TabView {
             VStack {
                 SummaryInputTemplate(title: "제목") {
-                    TextField("제목을 입력하세요", text: $titleInput)
-                        .disabled(!editable)
+                    TextField("제목을 입력하세요", text: $problemDetailVM.titleInput)
+                        .disabled(!problemDetailVM.editable)
                 }
                 
                 SummaryInputTemplate(title: "카테고리") {
                     Menu {
                         Button("카테고리 없음") {
-                            
+                            problemDetailVM.categoryInput = nil
+                        }
+                        
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemDetailVM.categoryInput = categoryVM
+                            }
                         }
                     } label: {
-                        CustomMenuLabel(clickable: editable) {
-                            Text("카테고리").font(.subheadline)
+                        CustomMenuLabel(clickable: problemDetailVM.editable) {
+                            Text(problemDetailVM.categoryInput?.name ?? "카테고리").font(.subheadline)
                         }
                     }
-                    .disabled(!editable)
+                    .disabled(!problemDetailVM.editable)
                 }
                 
                 SummaryInputTemplate(title: "진행상태") {
                     Menu {
                         Button("진행 중") {
-                            
+                            problemDetailVM.finishedInput = false
                         }
                         
                         Button("완료") {
-                            
+                            problemDetailVM.finishedInput = true
                         }
                     } label: {
-                        CustomMenuLabel(clickable: editable) {
-                            Text("진행상태").font(.subheadline)
+                        CustomMenuLabel(clickable: problemDetailVM.editable) {
+                            Text(problemDetailVM.finishedInput ? "완료" : "진행 중").font(.subheadline)
                         }
                     }
-                    .disabled(!editable)
+                    .disabled(!problemDetailVM.editable)
                 }
                 
                 SummaryInputTemplate(title: "평가") {
                     Menu {
                         ForEach(Assessment.allValues, id: \.self) { assessment in
                             Button {
-                                
+                                problemDetailVM.assessmentInput = assessment
                             } label: {
                                 HStack {
                                     Text(assessment.description)
@@ -69,27 +74,28 @@ struct ProblemDetailScreen: View {
 
                         }
                     } label: {
-                        CustomMenuLabel(clickable: editable) {
-                            Text("평가").font(.subheadline)
+                        CustomMenuLabel(clickable: problemDetailVM.editable) {
+                            problemDetailVM.assessmentInput.image
+                            .font(.subheadline)
                         }
                     }
-                    .disabled(!editable)
+                    .disabled(!problemDetailVM.editable)
                 }
                 
                 Spacer()
             }
             
             DetailInputTemplate(title: "1. 무슨 상황인가요?") {
-                CustomTextEditor(text: $situationInput, editable: editable)
+                CustomTextEditor(text: $problemDetailVM.situationInput, editable: problemDetailVM.editable)
             }
             
             DetailInputTemplate(title: "2. 가능한 선택들과 내가 한 선택은?") {
                 VStack(spacing: 10) {
-                    ChoiceRow(selected: false, editable: editable, title: "선택 1", modifyAction: {}, deleteAction: {})
+                    ChoiceRow(selected: false, editable: problemDetailVM.editable, title: "선택 1", modifyAction: {}, deleteAction: {})
                     
-                    ChoiceRow(selected: true, editable: editable, title: "선택 2", modifyAction: {}, deleteAction: {})
+                    ChoiceRow(selected: true, editable: problemDetailVM.editable, title: "선택 2", modifyAction: {}, deleteAction: {})
                     
-                    if editable {
+                    if problemDetailVM.editable {
                         Button("+ 선택 추가") {
                             
                         }
@@ -102,22 +108,22 @@ struct ProblemDetailScreen: View {
             }
             
             DetailInputTemplate(title: "3. 선택의 이유는?") {
-                CustomTextEditor(text: $reasonInput, editable: editable)
+                CustomTextEditor(text: $problemDetailVM.reasonInput, editable: problemDetailVM.editable)
             }
             
             DetailInputTemplate(title: "4. 선택의 결과는?") {
-                CustomTextEditor(text: $resultInput, editable: editable)
+                CustomTextEditor(text: $problemDetailVM.resultInput, editable: problemDetailVM.editable)
             }
             
             DetailInputTemplate(title: "5. 느낀 점, 회고") {
-                CustomTextEditor(text: $retrospectionInput, editable: editable)
+                CustomTextEditor(text: $problemDetailVM.retrospectionInput, editable: problemDetailVM.editable)
             }
         }
         .padding(.horizontal, 16)
         .padding(.top, 23)
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .navigationBarTitle("문제 \(editable ? "작성" : "읽기")")
+        .navigationBarTitle("문제 \(problemDetailVM.editable ? "작성" : "읽기")")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -131,19 +137,22 @@ struct ProblemDetailScreen: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                editable ?
+                problemDetailVM.editable ?
                 Button {
-                    editable.toggle()
+                    problemDetailVM.saveProblem()
                 } label: {
                     Image(systemName: "checkmark")
                 }
                 :
                 Button {
-                    editable.toggle()
+                    problemDetailVM.editable.toggle()
                 } label: {
                     Image(systemName: "pencil.circle")
                 }
             }
+        }
+        .onAppear {
+            categoryListVM.showAllCategories()
         }
     }
 }
@@ -151,7 +160,7 @@ struct ProblemDetailScreen: View {
 struct ProblemDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProblemDetailScreen(editable: false)
+            ProblemDetailScreen(problemVM: nil)
         }
     }
 }
