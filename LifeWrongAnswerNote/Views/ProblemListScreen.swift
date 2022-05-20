@@ -26,7 +26,7 @@ struct ProblemListScreen: View {
                         }
                     } label: {
                         CustomMenuLabel(clickable: true) {
-                            Text("카테고리")
+                            Text(problemListVM.categoryInput?.name ?? "카테고리")
                                 .font(.subheadline)
                         }
                     }
@@ -36,15 +36,25 @@ struct ProblemListScreen: View {
                     
                     Menu {
                         Button("진행상태 전체") {
-                            
+                            problemListVM.finishedInput = nil
+                        }
+                        
+                        ForEach([true, false], id: \.self) { value in
+                            Button(value ? "완료" :"진행 중") {
+                                problemListVM.finishedInput = value
+                            }
                         }
                     } label: {
                         CustomMenuLabel(clickable: true) {
-                            Text("진행상태")
+                            Text(problemListVM.finishedInput != nil ?
+                                 problemListVM.finishedInput! ? "완료" : "진행 중"
+                                 : "진행상태")
                                 .font(.subheadline)
                         }
                     }
-                    
+                    .onChange(of: problemListVM.finishedInput) { newValue in
+                        problemListVM.showFilteredProblems()
+                    }
                     Spacer()
                 }
                 

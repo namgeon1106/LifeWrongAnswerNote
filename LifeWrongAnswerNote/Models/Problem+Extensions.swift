@@ -17,7 +17,7 @@ extension Problem: BaseModel {
         }
         
         if let finished = finished {
-            let finishedPredicate = NSPredicate(format: "%K = %@", #keyPath(Problem.finished), finished)
+            let finishedPredicate = NSPredicate(format: "%K = %i", #keyPath(Problem.finished), finished)
             predicates.append(finishedPredicate)
         }
         
