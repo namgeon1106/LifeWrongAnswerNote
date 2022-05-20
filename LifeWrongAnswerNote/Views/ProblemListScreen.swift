@@ -30,7 +30,7 @@ struct ProblemListScreen: View {
                                 .font(.subheadline)
                         }
                     }
-                    .onChange(of: problemListVM.categoryInput) { newValue in
+                    .onChange(of: problemListVM.categoryInput) { _ in
                         problemListVM.showFilteredProblems()
                     }
                     
@@ -52,13 +52,16 @@ struct ProblemListScreen: View {
                                 .font(.subheadline)
                         }
                     }
-                    .onChange(of: problemListVM.finishedInput) { newValue in
+                    .onChange(of: problemListVM.finishedInput) { _ in
                         problemListVM.showFilteredProblems()
                     }
                     Spacer()
                 }
                 
                 CustomSearchBar(searchText: $problemListVM.searchText, placeholder: "제목으로 검색")
+                    .onChange(of: problemListVM.searchText) { _ in
+                        problemListVM.showFilteredProblems()
+                    }
                 
                 ScrollView {
                     VStack(spacing: 20) {
