@@ -99,6 +99,20 @@ class ProblemDetailViewModel: ObservableObject {
         temporaryChoiceVMs.append(ChoiceViewModel(choice: newChoice))
     }
     
+    func modifyChoice(choiceVM: ChoiceViewModel, content: String) {
+        choiceVM.choice.content = content
+        CoreDataManager.shared.save()
+        
+        temporaryChoiceVMs = Choice.byChoiceList(temporaryChoiceList).map { ChoiceViewModel(choice: $0) }
+    }
+    
+    func deleteChoice(choiceVM: ChoiceViewModel) {
+        choiceVM.choice.delete()
+        CoreDataManager.shared.save()
+        
+        temporaryChoiceVMs = Choice.byChoiceList(temporaryChoiceList).map { ChoiceViewModel(choice: $0) }
+    }
+    
     func saveProblem() {
         if problemVM == nil {
             addProblem()
