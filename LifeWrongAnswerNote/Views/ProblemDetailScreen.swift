@@ -150,6 +150,7 @@ struct ProblemDetailScreen: View {
                 :
                 Button {
                     problemDetailVM.editable.toggle()
+                    problemDetailVM.copyChoicesToTemporary()
                 } label: {
                     Image(systemName: "pencil.circle")
                 }

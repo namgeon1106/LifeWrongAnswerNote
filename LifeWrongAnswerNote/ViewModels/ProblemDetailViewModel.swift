@@ -118,18 +118,17 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     func saveTemporaryChoices() {
-        originalChoiceList.delete()
+        for originalChoiceVM in originalChoiceVMs {
+            originalChoiceVM.choice.delete()
+        }
+        originalChoiceVMs.removeAll()
         
-        problemVM!.problem.choiceList = temporaryChoiceList
-        originalChoiceList = temporaryChoiceList
+        for temporaryChoiceVM in temporaryChoiceVMs {
+            temporaryChoiceVM.choice.choiceList = originalChoiceList
+        }
         
-        temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
-        temporaryChoiceList.problem = problemVM?.problem
-        
-        CoreDataManager.shared.save()
-        
-        originalChoiceVMs = temporaryChoiceVMs
-        temporaryChoiceVMs = [ChoiceViewModel]()
+        originalChoiceVMs.append(contentsOf: temporaryChoiceVMs)
+        temporaryChoiceVMs.removeAll()
         
         editable = false
     }
