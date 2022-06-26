@@ -33,6 +33,7 @@
 		21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6B282B424D00BC510B /* CategoryRow.swift */; };
 		21FDEC6E282B42FC00BC510B /* CategoryListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */; };
 		AB1936B0286814D400D0D941 /* Choice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1936AF286814D400D0D941 /* Choice+Extensions.swift */; };
+		AB1936B22868186E00D0D941 /* ChoiceList+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1936B12868186E00D0D941 /* ChoiceList+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		21FDEC6B282B424D00BC510B /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListScreen.swift; sourceTree = "<group>"; };
 		AB1936AF286814D400D0D941 /* Choice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Choice+Extensions.swift"; sourceTree = "<group>"; };
+		AB1936B12868186E00D0D941 /* ChoiceList+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChoiceList+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				216F9F0D282DE79D00FC2730 /* Category+Extensions.swift */,
 				21C7DA0C28349BE9008E92E4 /* Problem+Extensions.swift */,
 				AB1936AF286814D400D0D941 /* Choice+Extensions.swift */,
+				AB1936B12868186E00D0D941 /* ChoiceList+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				21F7D410281CC27400DB62F2 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				21B2364E28290563003217C0 /* CustomTextEditor.swift in Sources */,
 				21FDEC6E282B42FC00BC510B /* CategoryListScreen.swift in Sources */,
+				AB1936B22868186E00D0D941 /* ChoiceList+Extensions.swift in Sources */,
 				21B236412828F210003217C0 /* ProblemRow.swift in Sources */,
 				219E57A2282D1781002F153E /* ProblemDataModel.xcdatamodeld in Sources */,
 				21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */,
