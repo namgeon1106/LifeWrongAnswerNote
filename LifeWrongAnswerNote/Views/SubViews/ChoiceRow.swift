@@ -27,8 +27,14 @@ struct ChoiceRow: View {
                     if editable {
                         Image(systemName: selected ? "checkmark.circle.fill" : "circle")
                     } else {
-                        Image(systemName: selected ? "checkmark" : "")
-                           .frame(width: 20)
+                        Group {
+                            if selected {
+                                Image(systemName: "checkmark")
+                            } else {
+                                Text("")
+                            }
+                        }
+                        .frame(width: 20)
                     }
                 }
                 
