@@ -8,7 +8,12 @@
 import Foundation
 
 extension ChoiceList: BaseModel {
-    static func byProblem(problem: Problem) -> ChoiceList? {
+    static func byProblem(problem: Problem?) -> ChoiceList? {
+        guard let problem = problem else {
+            return nil
+        }
+
+        
         let request = ChoiceList.fetchRequest()
         request.predicate = NSPredicate(format: "%K = %@", #keyPath(ChoiceList.problem), problem.objectID)
         

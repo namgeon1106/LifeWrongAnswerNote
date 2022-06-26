@@ -50,10 +50,9 @@ class ProblemDetailViewModel: ObservableObject {
             _editable = Published(initialValue: false)
         }
         
-        originalChoiceList = ChoiceList.byProblem(problem: self.problemVM!.problem) ?? ChoiceList(context: CoreDataManager.shared.viewContext)
-        originalChoiceList.problem = self.problemVM!.problem
+        originalChoiceList = ChoiceList.byProblem(problem: self.problemVM?.problem) ?? ChoiceList(context: CoreDataManager.shared.viewContext)
+        originalChoiceList.problem = self.problemVM?.problem
         temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
-        temporaryChoiceList.problem = self.problemVM!.problem
         
         CoreDataManager.shared.save()
         
