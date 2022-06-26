@@ -130,6 +130,15 @@ class ProblemDetailViewModel: ObservableObject {
         editable = false
     }
     
+    func cancelChoiceEditing() {
+        temporaryChoiceVMs.removeAll()
+        temporaryChoiceList.delete()
+        temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
+        temporaryChoiceList.problem = problemVM?.problem
+        
+        CoreDataManager.shared.save()
+    }
+    
     func saveProblem() {
         if problemVM == nil {
             addProblem()
