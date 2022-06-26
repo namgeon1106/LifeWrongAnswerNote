@@ -101,7 +101,7 @@ struct ProblemDetailScreen: View {
                     
                     if problemDetailVM.editable {
                         Button("+ 선택 추가") {
-                            
+                            problemDetailVM.alertAndAddChoice()
                         }
                         .font(.title3)
                         .padding(.top, 10)

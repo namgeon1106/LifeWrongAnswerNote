@@ -93,7 +93,7 @@ class ProblemDetailViewModel: ObservableObject {
         CoreDataManager.shared.save()
     }
     
-    func addChoice(content: String) {
+    private func addChoice(content: String) {
         let newChoice = Choice(context: CoreDataManager.shared.viewContext)
         newChoice.content = content
         newChoice.choiceList = temporaryChoiceList
@@ -148,6 +148,12 @@ class ProblemDetailViewModel: ObservableObject {
             addProblem()
         } else {
             setProblem()
+        }
+    }
+    
+    func alertAndAddChoice() {
+        AlertUtils.displayAlertViewWithTextField(title: "선택 추가", message: "새 선택지의 내용을 입력하세요", placeholder: "내용 입력", okMessage: "추가", okStyle: .default) {
+            self.addChoice(content: AlertUtils.alertTextInput)
         }
     }
 }
