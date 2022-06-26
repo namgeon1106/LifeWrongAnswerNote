@@ -86,6 +86,7 @@ class ProblemDetailViewModel: ObservableObject {
             let copiedChoice = Choice(context: CoreDataManager.shared.viewContext)
             copiedChoice.choiceList = temporaryChoiceList
             copiedChoice.content = choiceVM.choice.content
+            copiedChoice.selected = choiceVM.choice.selected
             
             temporaryChoiceVMs.append(ChoiceViewModel(choice: copiedChoice))
         }
