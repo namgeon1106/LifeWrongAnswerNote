@@ -23,8 +23,8 @@ class ProblemDetailViewModel: ObservableObject {
     
     @Published var editable = true
     
-    let originalChoiceList: ChoiceList // 기존에 저장되어 있는 ChoiceList
-    let temporaryChoiceList: ChoiceList // 수정을 위해 사용할 ChoiceList
+    var originalChoiceList: ChoiceList // 기존에 저장되어 있는 ChoiceList
+    var temporaryChoiceList: ChoiceList // 수정을 위해 사용할 ChoiceList
     
     @Published var originalChoiceVMs = [ChoiceViewModel]()
     @Published var temporaryChoiceVMs = [ChoiceViewModel]()
@@ -111,6 +111,23 @@ class ProblemDetailViewModel: ObservableObject {
         CoreDataManager.shared.save()
         
         temporaryChoiceVMs = Choice.byChoiceList(temporaryChoiceList).map { ChoiceViewModel(choice: $0) }
+    }
+    
+    func saveTemporaryChoices() {
+        originalChoiceList.delete()
+        
+        problemVM!.problem.choiceList = temporaryChoiceList
+        originalChoiceList = temporaryChoiceList
+        
+        temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
+        temporaryChoiceList.problem = problemVM?.problem
+        
+        CoreDataManager.shared.save()
+        
+        originalChoiceVMs = temporaryChoiceVMs
+        temporaryChoiceVMs = [ChoiceViewModel]()
+        
+        editable = false
     }
     
     func saveProblem() {
