@@ -89,6 +89,16 @@ class ProblemDetailViewModel: ObservableObject {
         CoreDataManager.shared.save()
     }
     
+    func addChoice(content: String) {
+        let newChoice = Choice(context: CoreDataManager.shared.viewContext)
+        newChoice.content = content
+        newChoice.choiceList = temporaryChoiceList
+        newChoice.problem = problemVM?.problem
+        
+        CoreDataManager.shared.save()
+        temporaryChoiceVMs.append(ChoiceViewModel(choice: newChoice))
+    }
+    
     func saveProblem() {
         if problemVM == nil {
             addProblem()
