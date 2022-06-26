@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String"/>
         <relationship name="problems" toMany="YES" deletionRule="Nullify" destinationEntity="Problem" inverseName="category" inverseEntity="Problem"/>
@@ -11,7 +11,7 @@
         <relationship name="problem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Problem" inverseName="chosen" inverseEntity="Problem"/>
     </entity>
     <entity name="ChoiceList" representedClassName="ChoiceList" syncable="YES" codeGenerationType="class">
-        <relationship name="choices" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" inverseName="choiceList" inverseEntity="Choice"/>
+        <relationship name="choices" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" inverseName="choiceList" inverseEntity="Choice"/>
         <relationship name="problem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Problem" inverseName="choiceList" inverseEntity="Problem"/>
     </entity>
     <entity name="Problem" representedClassName="Problem" syncable="YES" codeGenerationType="class">
