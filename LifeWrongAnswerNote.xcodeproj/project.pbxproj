@@ -32,6 +32,7 @@
 		21F7D417281CC27500DB62F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F7D416281CC27500DB62F2 /* Preview Assets.xcassets */; };
 		21FDEC6C282B424D00BC510B /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6B282B424D00BC510B /* CategoryRow.swift */; };
 		21FDEC6E282B42FC00BC510B /* CategoryListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */; };
+		AB1936B0286814D400D0D941 /* Choice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1936AF286814D400D0D941 /* Choice+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		21F7D416281CC27500DB62F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21FDEC6B282B424D00BC510B /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		21FDEC6D282B42FC00BC510B /* CategoryListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListScreen.swift; sourceTree = "<group>"; };
+		AB1936AF286814D400D0D941 /* Choice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Choice+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				219E57A8282D5065002F153E /* BaseModel.swift */,
 				216F9F0D282DE79D00FC2730 /* Category+Extensions.swift */,
 				21C7DA0C28349BE9008E92E4 /* Problem+Extensions.swift */,
+				AB1936AF286814D400D0D941 /* Choice+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				21B236442828F398003217C0 /* Assessment.swift in Sources */,
 				213BFCFE2828C01A00FD5A13 /* CustomSearchBar.swift in Sources */,
 				219E57A9282D5065002F153E /* BaseModel.swift in Sources */,
+				AB1936B0286814D400D0D941 /* Choice+Extensions.swift in Sources */,
 				213461E12828B22F005B7D63 /* CustomMenuLabel.swift in Sources */,
 				213C3D53282A02BE00249B50 /* DetailInputTemplate.swift in Sources */,
 				21C7DA0F2834A056008E92E4 /* ProblemListViewModel.swift in Sources */,
