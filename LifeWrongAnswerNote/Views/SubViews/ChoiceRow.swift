@@ -19,41 +19,44 @@ struct ChoiceRow: View {
     }
     
     var body: some View {
-        HStack(spacing: 13) {
-            Group {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8).stroke(color)
+                .frame(height: 46)
+            HStack(spacing: 13) {
+                Group {
+                    if editable {
+                        Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    } else {
+                        Image(systemName: selected ? "checkmark" : "")
+                           .frame(width: 20)
+                    }
+                }
+                
+                Text(title)
+                    .padding(.vertical, 1)
+                Spacer()
+                
                 if editable {
-                    Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                } else {
-                    Image(systemName: selected ? "checkmark" : "")
-                       .frame(width: 20)
-                }
-            }
-            
-            Text(title)
-                .padding(.vertical, 1)
-            Spacer()
-            
-            if editable {
-                Button(action: modifyAction) {
-                    Image(systemName: "pencil.circle")
-                        .font(.title3)
-                        .foregroundColor(.blue)
-                }
-                .padding(.trailing, 5)
+                    Button(action: modifyAction) {
+                        Image(systemName: "pencil.circle")
+                            .font(.title3)
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.trailing, 5)
 
-                Button(action: deleteAction) {
-                    Image(systemName: "trash")
-                        .font(.title3)
-                        .foregroundColor(.red)
-                        
+                    Button(action: deleteAction) {
+                        Image(systemName: "trash")
+                            .font(.title3)
+                            .foregroundColor(.red)
+                            
+                    }
+                    .padding(.trailing, 5)
                 }
-                .padding(.trailing, 5)
             }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 9)
+            .foregroundColor(color)
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 9)
-        .foregroundColor(color)
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(color))
     }
 }
 
