@@ -134,7 +134,7 @@ class ProblemDetailViewModel: ObservableObject {
         editable = false
     }
     
-    func cancelChoiceEditing() {
+    func deleteTemporaryChoices() {
         temporaryChoiceVMs.removeAll()
         temporaryChoiceList.delete()
         temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
