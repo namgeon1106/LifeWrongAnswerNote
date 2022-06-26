@@ -33,17 +33,17 @@ class ProblemDetailViewModel: ObservableObject {
         self.problemVM = problemVM
         
         if let problemVM = problemVM {
-            _titleInput = Published<String>(initialValue: problemVM.title)
-            _categoryInput = Published<CategoryViewModel?>(initialValue: problemVM.category != nil ? CategoryViewModel(category: problemVM.category!) : nil)
-            _finishedInput = Published<Bool>(initialValue: problemVM.finished)
-            _assessmentInput = Published<Assessment>(initialValue: problemVM.assessment)
+            _titleInput = Published(initialValue: problemVM.title)
+            _categoryInput = Published(initialValue: problemVM.category != nil ? CategoryViewModel(category: problemVM.category!) : nil)
+            _finishedInput = Published(initialValue: problemVM.finished)
+            _assessmentInput = Published(initialValue: problemVM.assessment)
             
             situationInput = problemVM.situation
             reasonInput = problemVM.reason
             resultInput = problemVM.result
             retrospectionInput = problemVM.retrospection
             
-            _editable = Published<Bool>(initialValue: false)
+            _editable = Published(initialValue: false)
         }
         
         originalChoiceList = ChoiceList.byProblem(problem: self.problemVM!.problem) ?? ChoiceList(context: CoreDataManager.shared.viewContext)
