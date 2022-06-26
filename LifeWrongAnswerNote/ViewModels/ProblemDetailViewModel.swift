@@ -75,6 +75,8 @@ class ProblemDetailViewModel: ObservableObject {
         problemVM!.problem.result = resultInput
         problemVM!.problem.retrospection = retrospectionInput
         
+        saveTemporaryChoices()
+        
         CoreDataManager.shared.save()
         editable = false
     }
