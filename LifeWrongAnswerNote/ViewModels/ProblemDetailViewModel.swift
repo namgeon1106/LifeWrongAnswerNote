@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class ProblemDetailViewModel: ObservableObject {
     var problemVM: ProblemViewModel?
@@ -21,6 +22,12 @@ class ProblemDetailViewModel: ObservableObject {
     var retrospectionInput = ""
     
     @Published var editable = true
+    
+    let originalChoiceList: ChoiceList // 기존에 저장되어 있는 ChoiceList
+    let temporaryChoiceList: ChoiceList // 수정을 위해 사용할 ChoiceList
+    
+    @Published var originalChoiceVMs = [ChoiceViewModel]()
+    @Published var temporaryChoiceVMs = [ChoiceViewModel]()
     
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
@@ -38,6 +45,15 @@ class ProblemDetailViewModel: ObservableObject {
             
             _editable = Published<Bool>(initialValue: false)
         }
+        
+        originalChoiceList = ChoiceList.byProblem(problem: self.problemVM!.problem) ?? ChoiceList(context: CoreDataManager.shared.viewContext)
+        originalChoiceList.problem = self.problemVM!.problem
+        temporaryChoiceList = ChoiceList(context: CoreDataManager.shared.viewContext)
+        temporaryChoiceList.problem = self.problemVM!.problem
+        
+        CoreDataManager.shared.save()
+        
+        _originalChoiceVMs = Published(wrappedValue: Choice.byChoiceList(originalChoiceList).map { ChoiceViewModel(choice: $0) })
     }
     
     func addProblem() {
@@ -66,5 +82,17 @@ class ProblemDetailViewModel: ObservableObject {
         } else {
             setProblem()
         }
+    }
+}
+
+struct ChoiceViewModel {
+    let choice: Choice
+    
+    var id: NSManagedObjectID {
+        choice.objectID
+    }
+    
+    var content: String {
+        choice.content ?? ""
     }
 }
