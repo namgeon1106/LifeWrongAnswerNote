@@ -29,6 +29,10 @@ class ProblemDetailViewModel: ObservableObject {
     @Published var originalChoiceVMs = [ChoiceViewModel]()
     @Published var temporaryChoiceVMs = [ChoiceViewModel]()
     
+    var displayingChoiceVMs: [ChoiceViewModel] {
+        editable ? temporaryChoiceVMs : originalChoiceVMs
+    }
+    
     init(problemVM: ProblemViewModel?) {
         self.problemVM = problemVM
         
