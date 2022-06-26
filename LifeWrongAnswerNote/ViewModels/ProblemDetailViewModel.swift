@@ -162,4 +162,8 @@ struct ChoiceViewModel {
     var content: String {
         choice.content ?? ""
     }
+    
+    var selected: Bool {
+        choice.selected
+    }
 }
