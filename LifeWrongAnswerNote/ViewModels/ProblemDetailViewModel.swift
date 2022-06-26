@@ -84,7 +84,6 @@ class ProblemDetailViewModel: ObservableObject {
     func copyChoicesToTemporary() {
         for choiceVM in originalChoiceVMs {
             let copiedChoice = Choice(context: CoreDataManager.shared.viewContext)
-            copiedChoice.problem = problemVM?.problem
             copiedChoice.choiceList = temporaryChoiceList
             copiedChoice.content = choiceVM.choice.content
             
@@ -98,7 +97,7 @@ class ProblemDetailViewModel: ObservableObject {
         let newChoice = Choice(context: CoreDataManager.shared.viewContext)
         newChoice.content = content
         newChoice.choiceList = temporaryChoiceList
-        newChoice.problem = problemVM?.problem
+        newChoice.selected = false
         
         CoreDataManager.shared.save()
         temporaryChoiceVMs.append(ChoiceViewModel(choice: newChoice))
