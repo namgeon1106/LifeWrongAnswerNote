@@ -133,6 +133,8 @@ struct ProblemDetailScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    problemDetailVM.temporaryChoiceList.delete()
+                    CoreDataManager.shared.save()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.backward")
