@@ -91,13 +91,22 @@ struct ProblemDetailScreen: View {
             
             DetailInputTemplate(title: "2. 가능한 선택들과 내가 한 선택은?") {
                 VStack(spacing: 10) {
-                    ChoiceRow(selected: false, editable: problemDetailVM.editable, title: "선택 1", modifyAction: {}, deleteAction: {})
-                    
-                    ChoiceRow(selected: true, editable: problemDetailVM.editable, title: "선택 2", modifyAction: {}, deleteAction: {})
+                    ForEach(problemDetailVM.displayingChoiceVMs, id: \.id) { choiceVM in
+                        Button {
+                            problemDetailVM.clickChoice(choiceVM: choiceVM)
+                        } label: {
+                            ChoiceRow(selected: choiceVM.selected, editable: problemDetailVM.editable, title: choiceVM.content) {
+                                problemDetailVM.alertAndModifyChoice(choiceVM: choiceVM)
+                            } deleteAction: {
+                                problemDetailVM.deleteChoice(choiceVM: choiceVM)
+                            }
+                        }
+                        .disabled(!problemDetailVM.editable)
+                    }
                     
                     if problemDetailVM.editable {
                         Button("+ 선택 추가") {
-                            
+                            problemDetailVM.alertAndAddChoice()
                         }
                         .font(.title3)
                         .padding(.top, 10)
@@ -129,6 +138,8 @@ struct ProblemDetailScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
+                    problemDetailVM.temporaryChoiceList.delete()
+                    CoreDataManager.shared.save()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.backward")
@@ -146,6 +157,7 @@ struct ProblemDetailScreen: View {
                 :
                 Button {
                     problemDetailVM.editable.toggle()
+                    problemDetailVM.copyChoicesToTemporary()
                 } label: {
                     Image(systemName: "pencil.circle")
                 }
