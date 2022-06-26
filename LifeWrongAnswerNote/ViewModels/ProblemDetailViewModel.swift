@@ -162,6 +162,22 @@ class ProblemDetailViewModel: ObservableObject {
             self.modifyChoice(choiceVM: choiceVM, content: AlertUtils.alertTextInput)
         }
     }
+    
+    func clickChoice(choiceVM: ChoiceViewModel) {
+        if choiceVM.selected {
+            choiceVM.choice.selected = false
+            CoreDataManager.shared.save()
+            return
+        }
+        
+        for temporaryChoiceVM in temporaryChoiceVMs {
+            temporaryChoiceVM.choice.selected = false
+        }
+        
+        choiceVM.choice.selected = true
+        CoreDataManager.shared.save()
+        temporaryChoiceVMs = Choice.byChoiceList(temporaryChoiceList).map { ChoiceViewModel(choice: $0) }
+    }
 }
 
 struct ChoiceViewModel {

@@ -92,11 +92,16 @@ struct ProblemDetailScreen: View {
             DetailInputTemplate(title: "2. 가능한 선택들과 내가 한 선택은?") {
                 VStack(spacing: 10) {
                     ForEach(problemDetailVM.displayingChoiceVMs, id: \.id) { choiceVM in
-                        ChoiceRow(selected: choiceVM.selected, editable: problemDetailVM.editable, title: choiceVM.content) {
-                            problemDetailVM.alertAndModifyChoice(choiceVM: choiceVM)
-                        } deleteAction: {
-                            problemDetailVM.deleteChoice(choiceVM: choiceVM)
+                        Button {
+                            problemDetailVM.clickChoice(choiceVM: choiceVM)
+                        } label: {
+                            ChoiceRow(selected: choiceVM.selected, editable: problemDetailVM.editable, title: choiceVM.content) {
+                                problemDetailVM.alertAndModifyChoice(choiceVM: choiceVM)
+                            } deleteAction: {
+                                problemDetailVM.deleteChoice(choiceVM: choiceVM)
+                            }
                         }
+                        .disabled(!problemDetailVM.editable)
                     }
                     
                     if problemDetailVM.editable {
