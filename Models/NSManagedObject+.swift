@@ -13,7 +13,7 @@ extension NSManagedObject {
         return CoreDataManager.shared.viewContext
     }
     
-    func delete() throws {
+    func delete() {
         Self.viewContext.delete(self)
     }
 }

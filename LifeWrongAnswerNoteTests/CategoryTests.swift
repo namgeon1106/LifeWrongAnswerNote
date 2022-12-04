@@ -21,12 +21,11 @@ final class CategoryTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        let allCagetories = try! viewContext.fetch(Category.fetchRequest())
+        let categories = try! viewContext.fetch(Category.fetchRequest())
         
+        categories.forEach { $0.delete() }
         
-        for cagetory in allCagetories {
-            try! cagetory.delete()
-        }
+        try! viewContext.save()
     }
     
     func givenTwoCategories() {
