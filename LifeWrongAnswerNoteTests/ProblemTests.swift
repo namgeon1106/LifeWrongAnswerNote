@@ -45,6 +45,7 @@ final class ProblemTests: XCTestCase {
         let problem2 = Problem(context: viewContext)
         problem2.createdDate = .now
         problem2.category = category2
+        problem2.finished = true
         problem2.title = "problem2"
         
         let problem3 = Problem(context: viewContext)
@@ -60,5 +61,22 @@ final class ProblemTests: XCTestCase {
         // then
         XCTAssertEqual(titles, ["problem1", "problem2", "problem3"])
     }
-
+    
+    func testBy_whenCategoryIsNotNil_returnsFilteredProblems() {
+        // when
+        let sut = try! Problem.by(category: category1, isFinished: nil, searchText: "")
+        let titles = sut.compactMap(\.title).sorted()
+        
+        // then
+        XCTAssertEqual(titles, ["problem1"])
+    }
+    
+    func testBy_whenIsFinishedIsNotNil_returnsFilteredProblems() {
+        // when
+        let sut = try! Problem.by(category: nil, isFinished: false, searchText: "")
+        let titles = sut.compactMap(\.title).sorted()
+        
+        // then
+        XCTAssertEqual(titles, ["problem1", "problem3"])
+    }
 }
