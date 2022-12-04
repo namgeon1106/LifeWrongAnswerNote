@@ -113,4 +113,20 @@ final class ProblemTests: XCTestCase {
         // then
         XCTAssertEqual(sut, .good)
     }
+    
+    func testAssessment_whenSet_changeAssessmentRawValue() {
+        // given
+        let problem = Problem(context: viewContext)
+        problem.createdDate = .now
+        
+        problem.assessment = .soso
+        
+        try! viewContext.save()
+        
+        // when
+        let sut = problem.assessmentRawValue
+        
+        // then
+        XCTAssertEqual(sut, Assessment.soso.rawValue)
+    }
 }

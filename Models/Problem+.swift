@@ -10,7 +10,7 @@ import Foundation
 extension Problem {
     var assessment: Assessment {
         get {
-            .notSure
+            Assessment(rawValue: assessmentRawValue)!
         }
         
         set {
