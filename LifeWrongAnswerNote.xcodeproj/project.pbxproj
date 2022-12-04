@@ -13,6 +13,7 @@
 		AB204271293B666B0086DA36 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB204270293B666B0086DA36 /* Preview Assets.xcassets */; };
 		AB204295293B8A730086DA36 /* ProblemModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AB204293293B8A730086DA36 /* ProblemModel.xcdatamodeld */; };
 		AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB204298293B93940086DA36 /* CoreDataManager.swift */; };
+		AB393152293C65280051454D /* NSManagedObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393151293C65280051454D /* NSManagedObject+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		AB204270293B666B0086DA36 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB204294293B8A730086DA36 /* ProblemModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProblemModel.xcdatamodel; sourceTree = "<group>"; };
 		AB204298293B93940086DA36 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		AB393151293C65280051454D /* NSManagedObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				AB204293293B8A730086DA36 /* ProblemModel.xcdatamodeld */,
 				AB204298293B93940086DA36 /* CoreDataManager.swift */,
+				AB393151293C65280051454D /* NSManagedObject+.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				AB20426C293B666A0086DA36 /* ContentView.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
 				AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				AB393152293C65280051454D /* NSManagedObject+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

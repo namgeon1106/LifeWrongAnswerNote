@@ -8,9 +8,9 @@
 import Foundation
 import CoreData
 
-class CoreDataManger {
+class CoreDataManager {
     private let container: NSPersistentContainer
-    static let shared = CoreDataManger()
+    static let shared = CoreDataManager()
     
     var viewContext: NSManagedObjectContext {
         container.viewContext

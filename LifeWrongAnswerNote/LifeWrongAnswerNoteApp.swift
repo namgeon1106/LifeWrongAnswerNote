@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct LifeWrongAnswerNoteApp: App {
     init() {
-        CoreDataManger.shared.load(forTest: false)
+        CoreDataManager.shared.load(forTest: false)
     }
     
     var body: some Scene {
