@@ -88,4 +88,13 @@ final class ProblemTests: XCTestCase {
         // then
         XCTAssertEqual(titles, ["problem2"])
     }
+    
+    func testBy_whenMultipleFiltersApplied_returnsFilteredProblems() {
+        // when
+        let sut = try! Problem.by(category: category2, isFinished: true, searchText: "pro")
+        let titles = sut.compactMap(\.title).sorted()
+        
+        // then
+        XCTAssertEqual(titles, ["problem2"])
+    }
 }
