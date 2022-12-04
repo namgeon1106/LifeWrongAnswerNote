@@ -16,6 +16,10 @@ extension Category {
     }
     
     static func by(searchText: String) throws -> [Category] {
+        if searchText.isEmpty {
+            return try Category.all()
+        }
+        
         return []
     }
 }
