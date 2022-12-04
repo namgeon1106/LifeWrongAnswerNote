@@ -20,6 +20,9 @@ extension Category {
             return try Category.all()
         }
         
-        return []
+        let request = Category.fetchRequest()
+        request.predicate = NSPredicate(format: "%K CONTAINS %@", #keyPath(Category.name), searchText)
+        
+        return try Self.viewContext.fetch(request)
     }
 }
