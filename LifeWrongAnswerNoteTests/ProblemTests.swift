@@ -79,4 +79,13 @@ final class ProblemTests: XCTestCase {
         // then
         XCTAssertEqual(titles, ["problem1", "problem3"])
     }
+    
+    func testBy_whenSearchTextIsNotEmpty_returnsFilteredProblems() {
+        // when
+        let sut = try! Problem.by(category: nil, isFinished: nil, searchText: "blem2")
+        let titles = sut.compactMap(\.title).sorted()
+        
+        // then
+        XCTAssertEqual(titles, ["problem2"])
+    }
 }
