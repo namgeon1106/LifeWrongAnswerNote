@@ -12,17 +12,16 @@ extension Category {
         let request = Category.fetchRequest()
         request.predicate = NSPredicate(format: "%K = %@", #keyPath(Category.name), name)
         
-        return try Self.viewContext.fetch(request).first
+        return try viewContext.fetch(request).first
     }
     
     static func by(searchText: String) throws -> [Category] {
-        if searchText.isEmpty {
-            return try Category.all()
+        let request = Category.fetchRequest()
+        
+        if !searchText.isEmpty {
+            request.predicate = NSPredicate(format: "%K CONTAINS %@", #keyPath(Category.name), searchText)
         }
         
-        let request = Category.fetchRequest()
-        request.predicate = NSPredicate(format: "%K CONTAINS %@", #keyPath(Category.name), searchText)
-        
-        return try Self.viewContext.fetch(request)
+        return try viewContext.fetch(request)
     }
 }

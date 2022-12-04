@@ -69,8 +69,6 @@ final class CategoryTests: XCTestCase {
         let sut = try! Category.by(searchText: "")
         
         // then
-        XCTAssertEqual(sut.count, 2)
-        
         let categoryNames = sut.compactMap(\.name).sorted()
         XCTAssertEqual(categoryNames, ["category1", "category2"])
     }
