@@ -9,6 +9,9 @@ import Foundation
 
 extension Choice {
     static func by(problem: Problem) throws -> [Choice] {
-        return []
+        let request = Choice.fetchRequest()
+        request.predicate = NSPredicate(format: "%K = %@", #keyPath(Choice.problem), problem.objectID)
+        
+        return try CoreDataManager.shared.viewContext.fetch(request)
     }
 }
