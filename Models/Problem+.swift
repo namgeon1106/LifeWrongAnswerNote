@@ -22,6 +22,11 @@ extension Problem {
             predicates.append(finishedPredicate)
         }
         
+        if !searchText.isEmpty {
+            let searchTextPredicate = NSPredicate(format: "%K CONTAINS %@", #keyPath(Problem.title), searchText)
+            predicates.append(searchTextPredicate)
+        }
+        
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         return try viewContext.fetch(request)
