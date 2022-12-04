@@ -14,4 +14,8 @@ extension Category {
         
         return try Self.viewContext.fetch(request).first
     }
+    
+    static func by(searchText: String) throws -> [Category] {
+        return []
+    }
 }
