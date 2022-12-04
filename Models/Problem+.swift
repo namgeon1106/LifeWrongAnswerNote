@@ -8,6 +8,16 @@
 import Foundation
 
 extension Problem {
+    var assessment: Assessment {
+        get {
+            .notSure
+        }
+        
+        set {
+            
+        }
+    }
+    
     static func by(category: Category?, isFinished: Bool?, searchText: String) throws -> [Problem] {
         let request = Problem.fetchRequest()
         var predicates = [NSPredicate]()

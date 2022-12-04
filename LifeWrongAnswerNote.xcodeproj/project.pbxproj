@@ -18,6 +18,7 @@
 		AB393174293C6CC00051454D /* Category+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393173293C6CC00051454D /* Category+.swift */; };
 		AB393176293C8A4E0051454D /* Problem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393175293C8A4E0051454D /* Problem+.swift */; };
 		AB393178293C8CB40051454D /* ProblemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393177293C8CB40051454D /* ProblemTests.swift */; };
+		AB39317C293CB41D0051454D /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317B293CB41D0051454D /* Assessment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		AB393173293C6CC00051454D /* Category+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+.swift"; sourceTree = "<group>"; };
 		AB393175293C8A4E0051454D /* Problem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Problem+.swift"; sourceTree = "<group>"; };
 		AB393177293C8CB40051454D /* ProblemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemTests.swift; sourceTree = "<group>"; };
+		AB39317B293CB41D0051454D /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				AB393151293C65280051454D /* NSManagedObject+.swift */,
 				AB393173293C6CC00051454D /* Category+.swift */,
 				AB393175293C8A4E0051454D /* Problem+.swift */,
+				AB39317B293CB41D0051454D /* Assessment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB204295293B8A730086DA36 /* ProblemModel.xcdatamodeld in Sources */,
+				AB39317C293CB41D0051454D /* Assessment.swift in Sources */,
 				AB393176293C8A4E0051454D /* Problem+.swift in Sources */,
 				AB20426C293B666A0086DA36 /* ContentView.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
