@@ -74,4 +74,16 @@ final class CategoryTests: XCTestCase {
         let categoryNames = sut.compactMap(\.name).sorted()
         XCTAssertEqual(categoryNames, ["category1", "category2"])
     }
+    
+    func testBySearchText_whenSearchTextInNotEmpty_returnsFilteredInstances() {
+        // given
+        givenTwoCategories()
+        
+        // when
+        let sut = try! Category.by(searchText: "gory1")
+        
+        // then
+        let categoryNames = sut.compactMap(\.name).sorted()
+        XCTAssertEqual(categoryNames, ["category1"])
+    }
 }
