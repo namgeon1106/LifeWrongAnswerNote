@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="problems" toMany="YES" deletionRule="Nullify" destinationEntity="Problem" inverseName="category" inverseEntity="Problem"/>
+    </entity>
+    <entity name="Choice" representedClassName="Choice" syncable="YES" codeGenerationType="class">
+        <attribute name="content" attributeType="String" defaultValueString=""/>
+        <attribute name="isSelected" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="problem" maxCount="1" deletionRule="Nullify" destinationEntity="Problem" inverseName="choices" inverseEntity="Problem"/>
+    </entity>
+    <entity name="Problem" representedClassName="Problem" syncable="YES" codeGenerationType="class">
+        <attribute name="assessmentRawValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="finished" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="lesson" attributeType="String" defaultValueString=""/>
+        <attribute name="reason" attributeType="String" defaultValueString=""/>
+        <attribute name="result" attributeType="String" defaultValueString=""/>
+        <attribute name="situation" attributeType="String" defaultValueString=""/>
+        <attribute name="title" attributeType="String" defaultValueString=""/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="problems" inverseEntity="Category"/>
+        <relationship name="choices" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Choice" inverseName="problem" inverseEntity="Choice"/>
+    </entity>
+</model>

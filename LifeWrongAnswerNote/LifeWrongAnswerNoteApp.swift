@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct LifeWrongAnswerNoteApp: App {
+    init() {
+        CoreDataManager.shared.load(forTest: false)
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
