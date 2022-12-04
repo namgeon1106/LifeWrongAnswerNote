@@ -29,8 +29,7 @@ final class CategoryTests: XCTestCase {
         }
     }
     
-    func testByName_whenMatchingCategoryExists_returnsAnInstance() {
-        // given
+    func givenTwoCategories() {
         let category1 = Category(context: viewContext)
         category1.name = "category1"
         
@@ -38,23 +37,22 @@ final class CategoryTests: XCTestCase {
         category2.name = "category2"
         
         try! viewContext.save()
+    }
+    
+    func testByName_whenMatchingCategoryExists_returnsAnInstance() {
+        // given
+        givenTwoCategories()
         
         // when
         let sut = try! Category.by(name: "category1")
         
         // then
-        XCTAssertEqual(sut?.name, category1.name)
+        XCTAssertEqual(sut?.name, "category1")
     }
     
     func testByName_whenNoMatchingCategory_retunrsNil() {
         // given
-        let category1 = Category(context: viewContext)
-        category1.name = "category1"
-        
-        let category2 = Category(context: viewContext)
-        category2.name = "category2"
-        
-        try! viewContext.save()
+        givenTwoCategories()
         
         // when
         let sut = try! Category.by(name: "category3")
