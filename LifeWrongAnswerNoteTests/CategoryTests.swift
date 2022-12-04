@@ -43,6 +43,6 @@ final class CategoryTests: XCTestCase {
         let sut = try! Category.by(name: "category1")
         
         // then
-        XCTAssertEqual(sut?.objectID, category1.objectID)
+        XCTAssertEqual(sut?.name, category1.name)
     }
 }
