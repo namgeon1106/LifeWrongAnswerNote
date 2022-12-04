@@ -9,8 +9,6 @@ import Foundation
 
 extension Problem {
     static func by(category: Category?, isFinished: Bool?, searchText: String) throws -> [Problem] {
-        
-        
         return []
     }
 }
