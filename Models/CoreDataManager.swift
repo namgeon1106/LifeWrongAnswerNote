@@ -11,6 +11,7 @@ import CoreData
 class CoreDataManager {
     private let container: NSPersistentContainer
     static let shared = CoreDataManager()
+    var isAlreadyLoaded = false
     
     var viewContext: NSManagedObjectContext {
         container.viewContext
@@ -21,6 +22,10 @@ class CoreDataManager {
     }
     
     func load(forTest: Bool) {
+        guard !isAlreadyLoaded else {
+            return
+        }
+        
         if forTest {
             let description = NSPersistentStoreDescription()
             if #available(iOS 16.0, *) {
@@ -32,7 +37,9 @@ class CoreDataManager {
             container.persistentStoreDescriptions = [description]
         }
         
-        container.loadPersistentStores { _, error in
+        container.loadPersistentStores { [unowned self] _, error in
+            self.isAlreadyLoaded = true
+            
             if let error {
                 fatalError("Failed to initialize Core Data: \(error)")
             }
