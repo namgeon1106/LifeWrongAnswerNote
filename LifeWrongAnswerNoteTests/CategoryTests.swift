@@ -45,4 +45,21 @@ final class CategoryTests: XCTestCase {
         // then
         XCTAssertEqual(sut?.name, category1.name)
     }
+    
+    func testByName_whenNoMatchingCategory_retunrsNil() {
+        // given
+        let category1 = Category(context: viewContext)
+        category1.name = "category1"
+        
+        let category2 = Category(context: viewContext)
+        category2.name = "category2"
+        
+        try! viewContext.save()
+        
+        // when
+        let sut = try! Category.by(name: "category3")
+        
+        // then
+        XCTAssertEqual(sut, nil)
+    }
 }
