@@ -14,7 +14,7 @@ extension Problem {
         }
         
         set {
-            
+            assessmentRawValue = newValue.rawValue
         }
     }
     

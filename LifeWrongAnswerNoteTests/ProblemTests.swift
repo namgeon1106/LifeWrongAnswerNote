@@ -13,6 +13,7 @@ final class ProblemTests: XCTestCase {
     var viewContext: NSManagedObjectContext!
     var category1: LifeWrongAnswerNote.Category!
     var category2: LifeWrongAnswerNote.Category!
+    var problem: Problem!
 
     override class func setUp() {
         CoreDataManager.shared.load(forTest: true)
@@ -20,7 +21,6 @@ final class ProblemTests: XCTestCase {
     
     override func setUpWithError() throws {
         viewContext = CoreDataManager.shared.viewContext
-        givenThreeProblemsAndTwoCategories()
     }
 
     override func tearDownWithError() throws {
@@ -33,6 +33,7 @@ final class ProblemTests: XCTestCase {
         try! viewContext.save()
     }
     
+    // MARK: - by(category:isFinished:searchText:)
     func givenThreeProblemsAndTwoCategories() {
         category1 = Category(context: viewContext)
         category2 = Category(context: viewContext)
@@ -54,6 +55,9 @@ final class ProblemTests: XCTestCase {
     }
 
     func testBy_whenAllParametersAreNilOrEmpty_returnsAllProblems() {
+        // given
+        givenThreeProblemsAndTwoCategories()
+        
         // when
         let sut = try! Problem.by(category: nil, isFinished: nil, searchText: "")
         let titles = sut.compactMap(\.title).sorted()
@@ -63,6 +67,9 @@ final class ProblemTests: XCTestCase {
     }
     
     func testBy_whenCategoryIsNotNil_returnsFilteredProblems() {
+        // given
+        givenThreeProblemsAndTwoCategories()
+        
         // when
         let sut = try! Problem.by(category: category1, isFinished: nil, searchText: "")
         let titles = sut.compactMap(\.title).sorted()
@@ -72,6 +79,9 @@ final class ProblemTests: XCTestCase {
     }
     
     func testBy_whenIsFinishedIsNotNil_returnsFilteredProblems() {
+        // given
+        givenThreeProblemsAndTwoCategories()
+        
         // when
         let sut = try! Problem.by(category: nil, isFinished: false, searchText: "")
         let titles = sut.compactMap(\.title).sorted()
@@ -81,6 +91,9 @@ final class ProblemTests: XCTestCase {
     }
     
     func testBy_whenSearchTextIsNotEmpty_returnsFilteredProblems() {
+        // given
+        givenThreeProblemsAndTwoCategories()
+        
         // when
         let sut = try! Problem.by(category: nil, isFinished: nil, searchText: "blem2")
         let titles = sut.compactMap(\.title).sorted()
@@ -90,6 +103,9 @@ final class ProblemTests: XCTestCase {
     }
     
     func testBy_whenMultipleFiltersApplied_returnsFilteredProblems() {
+        // given
+        givenThreeProblemsAndTwoCategories()
+        
         // when
         let sut = try! Problem.by(category: category2, isFinished: true, searchText: "pro")
         let titles = sut.compactMap(\.title).sorted()
@@ -98,13 +114,17 @@ final class ProblemTests: XCTestCase {
         XCTAssertEqual(titles, ["problem2"])
     }
     
+    // MARK: - assessment getter & setter
+    func givenOneProblem() {
+        // given
+        problem = Problem(context: viewContext)
+        problem.createdDate = .now
+    }
+    
     func testAssessment_whenGet_returnsAssessmentWithRawValue() {
         // given
-        let problem = Problem(context: viewContext)
-        problem.createdDate = .now
-        
+        givenOneProblem()
         problem.assessmentRawValue = 1
-        
         try! viewContext.save()
         
         // when
@@ -116,11 +136,8 @@ final class ProblemTests: XCTestCase {
     
     func testAssessment_whenSet_changeAssessmentRawValue() {
         // given
-        let problem = Problem(context: viewContext)
-        problem.createdDate = .now
-        
+        givenOneProblem()
         problem.assessment = .soso
-        
         try! viewContext.save()
         
         // when
