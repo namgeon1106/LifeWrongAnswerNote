@@ -22,6 +22,7 @@
 		AB39317E293CCB300051454D /* Choice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317D293CCB300051454D /* Choice+.swift */; };
 		AB393182293CCB6A0051454D /* ChoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393181293CCB6A0051454D /* ChoiceTests.swift */; };
 		AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */; };
+		AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		AB39317D293CCB300051454D /* Choice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Choice+.swift"; sourceTree = "<group>"; };
 		AB393181293CCB6A0051454D /* ChoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceTests.swift; sourceTree = "<group>"; };
 		AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
+		AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 		AB5AB0F0293E003C0023E453 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB5AB0F8293E27100023E453 /* Components */,
 				AB5AB0F1293E01600023E453 /* CategoryListView */,
 			);
 			path = Views;
@@ -149,6 +152,14 @@
 				AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */,
 			);
 			path = CategoryListView;
+			sourceTree = "<group>";
+		};
+		AB5AB0F8293E27100023E453 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +271,7 @@
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
 				AB393174293C6CC00051454D /* Category+.swift in Sources */,
 				AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */,
 				AB393152293C65280051454D /* NSManagedObject+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
