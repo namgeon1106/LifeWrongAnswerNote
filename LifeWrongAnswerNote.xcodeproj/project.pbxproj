@@ -21,6 +21,7 @@
 		AB39317C293CB41D0051454D /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317B293CB41D0051454D /* Assessment.swift */; };
 		AB39317E293CCB300051454D /* Choice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317D293CCB300051454D /* Choice+.swift */; };
 		AB393182293CCB6A0051454D /* ChoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393181293CCB6A0051454D /* ChoiceTests.swift */; };
+		AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		AB39317B293CB41D0051454D /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		AB39317D293CCB300051454D /* Choice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Choice+.swift"; sourceTree = "<group>"; };
 		AB393181293CCB6A0051454D /* ChoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceTests.swift; sourceTree = "<group>"; };
+		AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		AB204268293B666A0086DA36 /* LifeWrongAnswerNote */ = {
 			isa = PBXGroup;
 			children = (
+				AB5AB0F0293E003C0023E453 /* Views */,
 				AB204292293B8A640086DA36 /* Models */,
 				AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */,
 				AB20426B293B666A0086DA36 /* ContentView.swift */,
@@ -130,6 +133,22 @@
 				AB393181293CCB6A0051454D /* ChoiceTests.swift */,
 			);
 			path = LifeWrongAnswerNoteTests;
+			sourceTree = "<group>";
+		};
+		AB5AB0F0293E003C0023E453 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB5AB0F1293E01600023E453 /* CategoryListView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AB5AB0F1293E01600023E453 /* CategoryListView */ = {
+			isa = PBXGroup;
+			children = (
+				AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */,
+			);
+			path = CategoryListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +253,7 @@
 			files = (
 				AB204295293B8A730086DA36 /* ProblemModel.xcdatamodeld in Sources */,
 				AB39317E293CCB300051454D /* Choice+.swift in Sources */,
+				AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */,
 				AB39317C293CB41D0051454D /* Assessment.swift in Sources */,
 				AB393176293C8A4E0051454D /* Problem+.swift in Sources */,
 				AB20426C293B666A0086DA36 /* ContentView.swift in Sources */,
