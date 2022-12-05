@@ -73,7 +73,6 @@
 		AB20425D293B666A0086DA36 = {
 			isa = PBXGroup;
 			children = (
-				AB204292293B8A640086DA36 /* Models */,
 				AB204268293B666A0086DA36 /* LifeWrongAnswerNote */,
 				AB39316B293C6B980051454D /* LifeWrongAnswerNoteTests */,
 				AB204267293B666A0086DA36 /* Products */,
@@ -92,6 +91,7 @@
 		AB204268293B666A0086DA36 /* LifeWrongAnswerNote */ = {
 			isa = PBXGroup;
 			children = (
+				AB204292293B8A640086DA36 /* Models */,
 				AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */,
 				AB20426B293B666A0086DA36 /* ContentView.swift */,
 				AB20426D293B666B0086DA36 /* Assets.xcassets */,
