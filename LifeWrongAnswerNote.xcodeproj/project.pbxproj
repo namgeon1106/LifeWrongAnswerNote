@@ -24,6 +24,7 @@
 		AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */; };
 		AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */; };
 		AB5AB0FC293E28F80023E453 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0FB293E28F80023E453 /* CategoryListView.swift */; };
+		AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		AB5AB0FB293E28F80023E453 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +153,9 @@
 		AB5AB0F1293E01600023E453 /* CategoryListView */ = {
 			isa = PBXGroup;
 			children = (
-				AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */,
 				AB5AB0FB293E28F80023E453 /* CategoryListView.swift */,
+				AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */,
+				AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */,
 			);
 			path = CategoryListView;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				AB5AB0FC293E28F80023E453 /* CategoryListView.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
 				AB393174293C6CC00051454D /* Category+.swift in Sources */,
+				AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */,
 				AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */,
 				AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */,
 				AB393152293C65280051454D /* NSManagedObject+.swift in Sources */,

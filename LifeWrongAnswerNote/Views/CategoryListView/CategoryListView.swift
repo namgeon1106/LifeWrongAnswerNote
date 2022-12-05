@@ -17,9 +17,7 @@ struct CategoryListView: View {
                     .padding(.horizontal, 16)
                 ScrollView {
                     VStack(spacing: 20) {
-                        ForEach(0..<10) { _ in
-                            CategoryRow()
-                        }
+                        
                     }
                     .padding(.horizontal, 16)
                 }
