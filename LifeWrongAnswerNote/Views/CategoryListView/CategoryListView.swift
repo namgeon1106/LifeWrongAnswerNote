@@ -15,19 +15,30 @@ struct CategoryListView: View {
             VStack(spacing: 20) {
                 CustomSearchBar(searchText: $categoryListVM.searchText, placeholder: "제목으로 검색")
                     .padding(.horizontal, 16)
-                ScrollView {
-                    VStack(spacing: 20) {
-                        ForEach(categoryListVM.enumeratedCategoryVMs, id: \.0) { index, categoryVM in
-                            CategoryRow(categoryVM: categoryVM, onModify: {
-                                categoryListVM.modifyingIndex = index
-                                categoryListVM.modifyNameAlertIsPresented = true
-                            }, onDelete: {
-                                categoryListVM.deletingIndex = index
-                                categoryListVM.deleteAlertIsPresented = true
-                            })
-                        }
+                
+                if categoryListVM.categoryVMs.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text(categoryListVM.searchText.isEmpty ?
+                             "카테고리가 존재하지 않습니다." : "검색어에 해당하는 카테고리가 존재하지 않습니다.")
+                            .padding(.bottom, 100)
+                        Spacer()
                     }
-                    .padding(.horizontal, 16)
+                } else {
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            ForEach(categoryListVM.enumeratedCategoryVMs, id: \.0) { index, categoryVM in
+                                CategoryRow(categoryVM: categoryVM, onModify: {
+                                    categoryListVM.modifyingIndex = index
+                                    categoryListVM.modifyNameAlertIsPresented = true
+                                }, onDelete: {
+                                    categoryListVM.deletingIndex = index
+                                    categoryListVM.deleteAlertIsPresented = true
+                                })
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                    }
                 }
             }
             .navigationTitle("카테고리 관리")
