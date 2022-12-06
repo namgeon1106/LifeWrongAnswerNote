@@ -8,23 +8,34 @@
 import SwiftUI
 
 struct CategoryListView: View {
-    @State private var searchText = ""
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
+                CustomSearchBar(searchText: $categoryListVM.searchText, placeholder: "제목으로 검색")
                     .padding(.horizontal, 16)
                 ScrollView {
                     VStack(spacing: 20) {
-                        
+                        ForEach(categoryListVM.categoryVMs) { categoryVM in
+                            CategoryRow(categoryVM: categoryVM, onModify: {}, onDelete: {})
+                        }
                     }
                     .padding(.horizontal, 16)
                 }
             }
-
             .navigationTitle("카테고리 관리")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        categoryListVM.addCategories(named: "categoryEx")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+
+                }
+            }
         }
     }
 }

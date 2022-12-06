@@ -6,9 +6,18 @@
 //
 
 import Foundation
+import CoreData
 
-struct CategoryViewModel {
+struct CategoryViewModel: Identifiable {
     private let category: Category
+    
+    init(category: Category) {
+        self.category = category
+    }
+    
+    var id: NSManagedObjectID {
+        category.objectID
+    }
     
     var name: String {
         category.name ?? ""
