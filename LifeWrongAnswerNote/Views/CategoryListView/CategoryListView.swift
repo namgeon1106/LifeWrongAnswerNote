@@ -22,7 +22,8 @@ struct CategoryListView: View {
                                 categoryListVM.modifyingIndex = index
                                 categoryListVM.modifyNameAlertIsPresented = true
                             }, onDelete: {
-                                
+                                categoryListVM.deletingIndex = index
+                                categoryListVM.deleteAlertIsPresented = true
                             })
                         }
                     }
@@ -51,19 +52,30 @@ struct CategoryListView: View {
         })
         .alert("카테고리 이름 수정", isPresented: $categoryListVM.modifyNameAlertIsPresented, actions: {
             TextField("이름 입력", text: $categoryListVM.modifiedCategoryName)
-            Button("취소", role: .cancel, action: {
+            Button("취소", role: .cancel) {
                 categoryListVM.modifyNameAlertIsPresented = false
-            })
-            Button("확인", action: {
+            }
+            
+            Button("수정") {
                 categoryListVM.modifyNameAlertIsPresented = false
                 categoryListVM.modifyName()
-            })
+            }
         }, message: {
             Text("카테고리의 새 이름을 입력하세요.")
         })
         .onAppear {
             categoryListVM.showAllCategories()
         }
+        .alert("카테고리 제거", isPresented: $categoryListVM.deleteAlertIsPresented, actions: {
+            Button("취소", role: .cancel, action: {
+                categoryListVM.modifyNameAlertIsPresented = false
+            })
+            
+            Button("제거", role: .destructive) {
+                categoryListVM.modifyNameAlertIsPresented = false
+                categoryListVM.deleteCategory()
+            }
+        })
     }
 }
 

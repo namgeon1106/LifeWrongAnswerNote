@@ -37,6 +37,9 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
+    var deletingIndex = 0
+    @Published var deleteAlertIsPresented = false
+    
     func showFilteredCategories() {
         do {
             categoryVMs = try Category.by(searchText: searchText).map(CategoryViewModel.init)
@@ -76,6 +79,16 @@ class CategoryListViewModel: ObservableObject {
             try categoryVMs[modifyingIndex].modifyName(to: modifiedCategoryName)
         } catch {
             errorMessage = "카테고리 이름을 수정하는데 실패했습니다."
+            CoreDataManager.shared.viewContext.rollback()
+        }
+    }
+    
+    func deleteCategory() {
+        do {
+            try categoryVMs[deletingIndex].delete()
+            categoryVMs.remove(at: deletingIndex)
+        } catch {
+            errorMessage = "카테고리를 제거하는데 실패했습니다."
             CoreDataManager.shared.viewContext.rollback()
         }
     }
