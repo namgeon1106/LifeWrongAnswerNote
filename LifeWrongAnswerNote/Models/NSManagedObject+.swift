@@ -16,6 +16,16 @@ extension NSManagedObject {
     func delete() {
         Self.viewContext.delete(self)
     }
+    
+    static func by<T> (id: NSManagedObjectID) throws -> T? where T: NSManagedObject {
+        return try viewContext.existingObject(with: id) as? T
+    }
+    
+    static func all<T>() throws -> [T] where T: NSManagedObject {
+        let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+        
+        return try viewContext.fetch(fetchRequest)
+    }
 }
 
 // https://www.udemy.com/course/core-data-in-ios/
