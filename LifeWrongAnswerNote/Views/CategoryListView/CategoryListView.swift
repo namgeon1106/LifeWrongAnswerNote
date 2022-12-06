@@ -68,6 +68,7 @@ struct CategoryListView: View {
         })
         .alert("카테고리 이름 수정", isPresented: $categoryListVM.modifyNameAlertIsPresented, actions: {
             TextField("이름 입력", text: $categoryListVM.modifiedCategoryName)
+            
             Button("취소", role: .cancel) {
                 categoryListVM.modifyNameAlertIsPresented = false
             }
@@ -88,6 +89,8 @@ struct CategoryListView: View {
                 categoryListVM.modifyNameAlertIsPresented = false
                 categoryListVM.deleteCategory()
             }
+        }, message: {
+            Text("정말로 카테고리를 삭제하시겠습니까?")
         })
     }
 }
