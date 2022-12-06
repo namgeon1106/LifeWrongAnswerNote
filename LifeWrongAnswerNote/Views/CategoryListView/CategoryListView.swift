@@ -17,8 +17,13 @@ struct CategoryListView: View {
                     .padding(.horizontal, 16)
                 ScrollView {
                     VStack(spacing: 20) {
-                        ForEach(categoryListVM.categoryVMs) { categoryVM in
-                            CategoryRow(categoryVM: categoryVM, onModify: {}, onDelete: {})
+                        ForEach(categoryListVM.enumeratedCategoryVMs, id: \.0) { index, categoryVM in
+                            CategoryRow(categoryVM: categoryVM, onModify: {
+                                categoryListVM.modifyingIndex = index
+                                categoryListVM.modifyNameAlertIsPresented = true
+                            }, onDelete: {
+                                
+                            })
                         }
                     }
                     .padding(.horizontal, 16)
@@ -36,6 +41,28 @@ struct CategoryListView: View {
 
                 }
             }
+        }
+        .alert("에러 발생", isPresented: $categoryListVM.errorAlertIsPresented, actions: {
+            Button("확인") {
+                categoryListVM.errorAlertIsPresented = false
+            }
+        }, message: {
+            Text(categoryListVM.errorMessage)
+        })
+        .alert("카테고리 이름 수정", isPresented: $categoryListVM.modifyNameAlertIsPresented, actions: {
+            TextField("이름 입력", text: $categoryListVM.modifiedCategoryName)
+            Button("취소", role: .cancel, action: {
+                categoryListVM.modifyNameAlertIsPresented = false
+            })
+            Button("확인", action: {
+                categoryListVM.modifyNameAlertIsPresented = false
+                categoryListVM.modifyName()
+            })
+        }, message: {
+            Text("카테고리의 새 이름을 입력하세요.")
+        })
+        .onAppear {
+            categoryListVM.showAllCategories()
         }
     }
 }
