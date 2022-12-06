@@ -35,7 +35,7 @@ struct CategoryListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        categoryListVM.addCategories(named: "categoryEx")
+                        categoryListVM.addCategoryAlertIsPresented = true
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -43,6 +43,22 @@ struct CategoryListView: View {
                 }
             }
         }
+        .onAppear {
+            categoryListVM.showAllCategories()
+        }
+        .alert("카테고리 추가", isPresented: $categoryListVM.addCategoryAlertIsPresented, actions: {
+            TextField("이름 입력", text: $categoryListVM.newCategoryName)
+            Button("추가") {
+                categoryListVM.addCategoryAlertIsPresented = false
+                categoryListVM.addCategory()
+            }
+            
+            Button("취소", role: .cancel) {
+                categoryListVM.addCategoryAlertIsPresented = false
+            }
+        }, message: {
+            Text("새롭게 추가할 카테고리의 이름을 입력하세요.")
+        })
         .alert("에러 발생", isPresented: $categoryListVM.errorAlertIsPresented, actions: {
             Button("확인") {
                 categoryListVM.errorAlertIsPresented = false
@@ -63,9 +79,6 @@ struct CategoryListView: View {
         }, message: {
             Text("카테고리의 새 이름을 입력하세요.")
         })
-        .onAppear {
-            categoryListVM.showAllCategories()
-        }
         .alert("카테고리 제거", isPresented: $categoryListVM.deleteAlertIsPresented, actions: {
             Button("취소", role: .cancel, action: {
                 categoryListVM.modifyNameAlertIsPresented = false

@@ -13,6 +13,15 @@ class CategoryListViewModel: ObservableObject {
         Array(categoryVMs.enumerated())
     }
     
+    @Published var newCategoryName = ""
+    @Published var addCategoryAlertIsPresented = false {
+        didSet {
+            if addCategoryAlertIsPresented {
+                newCategoryName = ""
+            }
+        }
+    }
+    
     @Published var errorAlertIsPresented = false
     
     var modifyingIndex = 0
@@ -56,10 +65,10 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
-    func addCategories(named name: String) {
+    func addCategory() {
         do {
             let newCategory = Category(context: CoreDataManager.shared.viewContext)
-            newCategory.name = name
+            newCategory.name = newCategoryName
             
             try CoreDataManager.shared.viewContext.save()
             showFilteredCategories()

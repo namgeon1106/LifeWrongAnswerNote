@@ -155,10 +155,10 @@
 		AB5AB0F1293E01600023E453 /* CategoryListView */ = {
 			isa = PBXGroup;
 			children = (
+				AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */,
 				AB5AB0FB293E28F80023E453 /* CategoryListView.swift */,
 				AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */,
 				AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */,
-				AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */,
 			);
 			path = CategoryListView;
 			sourceTree = "<group>";
