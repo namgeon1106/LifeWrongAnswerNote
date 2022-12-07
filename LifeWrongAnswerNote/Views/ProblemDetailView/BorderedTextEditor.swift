@@ -9,18 +9,18 @@ import SwiftUI
 
 struct BorderedTextEditor: View {
     @Binding var text: String
-    let editable: Bool
+    let isEditable: Bool
     
     var body: some View {
         TextEditor(text: _text)
-            .disabled(!editable)
-            .foregroundColor(editable ? Color(.label) : Color(.systemGray))
+            .disabled(!isEditable)
+            .foregroundColor(isEditable ? Color(.label) : Color(.systemGray))
             .padding(.horizontal, 15)
             .padding(.vertical, 11)
-            .colorMultiply(editable ? Color(.systemBackground) : Color(.systemGray5))
+            .colorMultiply(isEditable ? Color(.systemBackground) : Color(.systemGray5))
             .background(
                 Group {
-                    if editable {
+                    if isEditable {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.blue)
                     } else {
@@ -34,6 +34,6 @@ struct BorderedTextEditor: View {
 
 struct BorderedTextEditor_Previews: PreviewProvider {
     static var previews: some View {
-        BorderedTextEditor(text: .constant("sadfasdfads"), editable: true)
+        BorderedTextEditor(text: .constant("sadfasdfads"), isEditable: true)
     }
 }
