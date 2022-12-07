@@ -25,6 +25,7 @@
 		AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */; };
 		AB5AB0FC293E28F80023E453 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0FB293E28F80023E453 /* CategoryListView.swift */; };
 		AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */; };
+		AB99C70C2940B87F0011F51B /* ProblemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C70B2940B87F0011F51B /* ProblemRow.swift */; };
 		AB9F3DC4293F4C45002C9785 /* CategoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		AB5AB0FB293E28F80023E453 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		AB5AB0FD293E2CA30023E453 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		AB99C70B2940B87F0011F51B /* ProblemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemRow.swift; sourceTree = "<group>"; };
 		AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				AB5AB0F8293E27100023E453 /* Components */,
+				AB99C7082940B8470011F51B /* ProblemListView */,
 				AB5AB0F1293E01600023E453 /* CategoryListView */,
 			);
 			path = Views;
@@ -169,6 +172,14 @@
 				AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		AB99C7082940B8470011F51B /* ProblemListView */ = {
+			isa = PBXGroup;
+			children = (
+				AB99C70B2940B87F0011F51B /* ProblemRow.swift */,
+			);
+			path = ProblemListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +289,7 @@
 				AB393176293C8A4E0051454D /* Problem+.swift in Sources */,
 				AB20426C293B666A0086DA36 /* ContentView.swift in Sources */,
 				AB5AB0FC293E28F80023E453 /* CategoryListView.swift in Sources */,
+				AB99C70C2940B87F0011F51B /* ProblemRow.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
 				AB393174293C6CC00051454D /* Category+.swift in Sources */,
 				AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */,
