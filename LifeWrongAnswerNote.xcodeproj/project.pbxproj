@@ -28,6 +28,7 @@
 		AB99C70C2940B87F0011F51B /* ProblemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C70B2940B87F0011F51B /* ProblemRow.swift */; };
 		AB99C70E2940BC000011F51B /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C70D2940BC000011F51B /* MenuLabel.swift */; };
 		AB99C7102940BF680011F51B /* ProblemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C70F2940BF680011F51B /* ProblemListView.swift */; };
+		AB99C7132940CD680011F51B /* InputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7122940CD680011F51B /* InputTemplate.swift */; };
 		AB9F3DC4293F4C45002C9785 /* CategoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		AB99C70B2940B87F0011F51B /* ProblemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemRow.swift; sourceTree = "<group>"; };
 		AB99C70D2940BC000011F51B /* MenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLabel.swift; sourceTree = "<group>"; };
 		AB99C70F2940BF680011F51B /* ProblemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListView.swift; sourceTree = "<group>"; };
+		AB99C7122940CD680011F51B /* InputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTemplate.swift; sourceTree = "<group>"; };
 		AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 		AB5AB0F0293E003C0023E453 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB99C7112940CD190011F51B /* ProblemDetailView */,
 				AB5AB0F8293E27100023E453 /* Components */,
 				AB99C7082940B8470011F51B /* ProblemListView */,
 				AB5AB0F1293E01600023E453 /* CategoryListView */,
@@ -186,6 +189,14 @@
 				AB99C70B2940B87F0011F51B /* ProblemRow.swift */,
 			);
 			path = ProblemListView;
+			sourceTree = "<group>";
+		};
+		AB99C7112940CD190011F51B /* ProblemDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				AB99C7122940CD680011F51B /* InputTemplate.swift */,
+			);
+			path = ProblemDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +301,7 @@
 			files = (
 				AB204295293B8A730086DA36 /* ProblemModel.xcdatamodeld in Sources */,
 				AB39317E293CCB300051454D /* Choice+.swift in Sources */,
+				AB99C7132940CD680011F51B /* InputTemplate.swift in Sources */,
 				AB99C7102940BF680011F51B /* ProblemListView.swift in Sources */,
 				AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */,
 				AB39317C293CB41D0051454D /* Assessment.swift in Sources */,
