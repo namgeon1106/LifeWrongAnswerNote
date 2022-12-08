@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ProblemDetailViewModel: ObservableObject {
     private let problem: Problem
@@ -80,7 +81,7 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     @Published var modifiedChoiceContent = ""
-    var modifyingChoiceIndex = 0
+    private var modifyingChoiceIndex = 0
     @Published var modifyChoiceAlertIsPresented = false {
         didSet {
             if modifyChoiceAlertIsPresented {
@@ -108,15 +109,66 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    func addChoice() {
-        tempChoices.append(TempChoice(content: newChoiceContent, isSelected: false))
+    func addChoice(with content: String) {
+        tempChoices.append(TempChoice(content: content, isSelected: false))
     }
     
-    func modifyChoice() {
-        tempChoices[modifyingChoiceIndex].content = modifiedChoiceContent
+    func modifyChoice(at index: Int, to newContent: String) {
+        tempChoices[index].content = newContent
     }
     
     func deleteChoice() {
         tempChoices.remove(at: deletingChoiceIndex)
+    }
+    
+    func addChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
+        return ChoiceAlertWithTextField(presented: presented,
+                                        title: "선택지 추가",
+                                        message: "새롭게 추가할 선택지 내용을 입력하세요",
+                                        okMessage: "추가",
+                                        onAdd: addChoice(with:))
+    }
+    
+    func modifyChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
+        return ChoiceAlertWithTextField(presented: presented,
+                                        title: "선택지 수정",
+                                        message: "선택지의 내용을 수정하세요",
+                                        okMessage: "수정") { input in
+            self.modifyChoice(at: self.modifyingChoiceIndex, to: input)
+        }
+    }
+    
+    func alertAndModifyChoice(at index: Int) {
+        modifyingChoiceIndex = index
+        modifyChoiceAlertIsPresented = true
+    }
+}
+
+// MARK: - Alerts
+struct ChoiceAlertWithTextField: ViewModifier {
+    @Binding var presented: Bool
+    @State private var input = ""
+    let title: String
+    let message: String
+    let okMessage: String
+    let onAdd: (String) -> Void
+    
+    
+    func body(content: Content) -> some View {
+        content
+            .alert(title, isPresented: $presented, actions: {
+                TextField("선택지 이름", text: $input)
+                Button("취소", role: .cancel) {
+                    presented = false
+                    input = ""
+                }
+                Button(okMessage) {
+                    presented = false
+                    onAdd(input)
+                    input = ""
+                }
+            }, message: {
+                Text(message)
+            })
     }
 }

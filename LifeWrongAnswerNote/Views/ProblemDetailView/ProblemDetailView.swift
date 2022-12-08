@@ -34,30 +34,8 @@ struct ProblemDetailView: View {
             .onAppear {
                 categoryListVM.showAllCategories()
             }
-            .alert("선택지 추가", isPresented: $problemDetailVM.addChoiceAlertIsPresented, actions: {
-                TextField("선택지 이름", text: $problemDetailVM.newChoiceContent)
-                Button("취소", role: .cancel) {
-                    problemDetailVM.addChoiceAlertIsPresented = false
-                }
-                Button("추가") {
-                    problemDetailVM.addChoiceAlertIsPresented = false
-                    problemDetailVM.addChoice()
-                }
-            }, message: {
-                Text("새롭게 추가할 선택지의 내용을 입력하세요.")
-            })
-            .alert("선택지 수정", isPresented: $problemDetailVM.modifyChoiceAlertIsPresented, actions: {
-                TextField("선택지 이름", text: $problemDetailVM.modifiedChoiceContent)
-                Button("취소", role: .cancel) {
-                    problemDetailVM.modifyChoiceAlertIsPresented = false
-                }
-                Button("삭제") {
-                    problemDetailVM.modifyChoiceAlertIsPresented = false
-                    problemDetailVM.modifyChoice()
-                }
-            }, message: {
-                Text("선택지의 새로운 내용을 입력하세요.")
-            })
+            .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
+            .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
             .alert("선택지 삭제", isPresented: $problemDetailVM.deleteChoiceAlertIsPresented, actions: {
                 Button("취소", role: .cancel) {
                     problemDetailVM.deleteChoiceAlertIsPresented = false
@@ -149,8 +127,7 @@ struct ProblemDetailView: View {
             VStack(spacing: 10) {
                 ForEach(problemDetailVM.enumeratedTempChoices, id: \.0) { index, tempChoice in
                     ChoiceRow(isSelected: tempChoice.isSelected, isEditable: isEditing, content: tempChoice.content, onModify: {
-                        problemDetailVM.modifyingChoiceIndex = index
-                        problemDetailVM.modifyChoiceAlertIsPresented = true
+                        problemDetailVM.alertAndModifyChoice(at: index)
                     }, onDelete: {
                         problemDetailVM.deletingChoiceIndex = index
                         problemDetailVM.deleteChoiceAlertIsPresented = true
