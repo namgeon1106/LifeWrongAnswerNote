@@ -19,8 +19,10 @@ struct ProblemDetailView: View {
         NavigationView {
             TabView {
                 summaryView
+                titleView
             }
             .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             .navigationTitle("문제 수정")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -51,6 +53,13 @@ struct ProblemDetailView: View {
                 }
             }
             Spacer()
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var titleView: some View {
+        DetailInputTemplate(title: "1. 어떤 상황이었나요?") {
+            BorderedTextEditor(text: $title, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }

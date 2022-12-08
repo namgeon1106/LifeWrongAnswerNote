@@ -25,6 +25,7 @@ struct DetailInputTemplate<Content: View>: View {
                 .padding(.horizontal, 11)
             Spacer()
         }
+        .padding(.bottom, 70)
     }
 }
 
