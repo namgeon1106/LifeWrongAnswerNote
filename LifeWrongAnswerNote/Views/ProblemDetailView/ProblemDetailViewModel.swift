@@ -41,6 +41,12 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     @Published var tempChoices = [TempChoice]()
+    var enumeratedTempChoices: [(Int, TempChoice)] {
+        Array(tempChoices.enumerated())
+    }
+    
+    var modifyingChoiceIndex = 0
+    var deletingChoiceIndex = 0
     
     @Published var reason = "" {
         didSet {
@@ -81,5 +87,17 @@ class ProblemDetailViewModel: ObservableObject {
         } catch {
             errorMessage = "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요."
         }
+    }
+    
+    func addChoice(with content: String) {
+        tempChoices.append(TempChoice(content: content, isSelected: false))
+    }
+    
+    func modifyChoice(to newContent: String) {
+        tempChoices[modifyingChoiceIndex].content = newContent
+    }
+    
+    func deleteChoice() {
+        tempChoices.remove(at: deletingChoiceIndex)
     }
 }
