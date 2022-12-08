@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 struct CategoryViewModel: Identifiable {
-    private var category: Category
+    var category: Category
     
     init(category: Category) {
         self.category = category

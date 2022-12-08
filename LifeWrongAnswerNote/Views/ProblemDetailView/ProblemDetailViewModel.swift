@@ -10,16 +10,55 @@ import Foundation
 class ProblemDetailViewModel: ObservableObject {
     private let problem: Problem
     
-    @Published var title = ""
-    @Published var categoryVM: CategoryViewModel?
-    @Published var isFinished = false
-    @Published var assessment = Assessment.notSure
+    @Published var title = "" {
+        didSet {
+            problem.title = title
+        }
+    }
     
-    @Published var situation = ""
+    @Published var categoryVM: CategoryViewModel? {
+        didSet {
+            problem.category = self.categoryVM?.category
+        }
+    }
+    
+    @Published var isFinished = false {
+        didSet {
+            problem.finished = isFinished
+        }
+    }
+    
+    @Published var assessment = Assessment.notSure {
+        didSet {
+            problem.assessment = assessment
+        }
+    }
+    
+    @Published var situation = "" {
+        didSet {
+            problem.situation = situation
+        }
+    }
+    
     @Published var tempChoices = [TempChoice]()
-    @Published var reason = ""
-    @Published var result = ""
-    @Published var lesson = ""
+    
+    @Published var reason = "" {
+        didSet {
+            problem.reason = reason
+        }
+    }
+    
+    @Published var result = "" {
+        didSet {
+            problem.result = result
+        }
+    }
+    
+    @Published var lesson = "" {
+        didSet {
+            problem.lesson = lesson
+        }
+    }
     
     @Published var errorAlertIsPresented = false
     @Published var errorMessage = "" {
