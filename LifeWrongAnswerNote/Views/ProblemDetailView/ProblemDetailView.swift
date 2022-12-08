@@ -75,9 +75,23 @@ struct ProblemDetailView: View {
 
             }
             SummaryInputTemplate(title: "평가") {
-                MenuLabel(isClickable: problemDetailVM.isEditing) {
-                    Text("평가")
-                        .font(.system(size: 14))
+                Menu {
+                    ForEach(Assessment.allCases, id: \.self) { assessment in
+                        Button {
+                            problemDetailVM.assessment = assessment
+                        } label: {
+                            HStack {
+                                Text(assessment.description)
+                                assessment.image
+                            }
+                        }
+
+                    }
+                } label: {
+                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                        problemDetailVM.assessment.image
+                            .font(.system(size: 14))
+                    }
                 }
             }
             Spacer()
