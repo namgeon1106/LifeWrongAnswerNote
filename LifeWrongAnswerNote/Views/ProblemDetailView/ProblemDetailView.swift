@@ -10,9 +10,11 @@ import SwiftUI
 struct ProblemDetailView: View {
     @StateObject private var problemDetailVM: ProblemDetailViewModel
     @StateObject private var categoryListVM = CategoryListViewModel()
+    @State private var isEditing = true
     
     init(problemVM: ProblemViewModel?) {
         self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
+        self._isEditing.wrappedValue = problemVM == nil
     }
     
     var body: some View {
@@ -74,7 +76,7 @@ struct ProblemDetailView: View {
         VStack(spacing: 20) {
             SummaryInputTemplate(title: "제목") {
                 TextField("제목", text: $problemDetailVM.title)
-                    .disabled(!problemDetailVM.isEditing)
+                    .disabled(!isEditing)
             }
             SummaryInputTemplate(title: "카테고리") {
                 Menu {
@@ -87,7 +89,7 @@ struct ProblemDetailView: View {
                         }
                     }
                 } label: {
-                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                    MenuLabel(isClickable: isEditing) {
                         Text(problemDetailVM.categoryVM?.name ?? "카테고리")
                             .font(.system(size: 14))
                     }
@@ -102,7 +104,7 @@ struct ProblemDetailView: View {
                         }
                     }
                 } label: {
-                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                    MenuLabel(isClickable: isEditing) {
                         Text(problemDetailVM.isFinished ? "완료" : "진행 중")
                             .font(.system(size: 14))
                     }
@@ -123,7 +125,7 @@ struct ProblemDetailView: View {
 
                     }
                 } label: {
-                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                    MenuLabel(isClickable: isEditing) {
                         problemDetailVM.assessment.image
                             .font(.system(size: 14))
                     }
@@ -137,7 +139,7 @@ struct ProblemDetailView: View {
     
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황인지?") {
-            BorderedTextEditor(text: $problemDetailVM.title, isEditable: problemDetailVM.isEditing)
+            BorderedTextEditor(text: $problemDetailVM.title, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
@@ -146,7 +148,7 @@ struct ProblemDetailView: View {
         DetailInputTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
             VStack(spacing: 10) {
                 ForEach(problemDetailVM.enumeratedTempChoices, id: \.0) { index, tempChoice in
-                    ChoiceRow(isSelected: tempChoice.isSelected, isEditable: problemDetailVM.isEditing, content: tempChoice.content, onModify: {
+                    ChoiceRow(isSelected: tempChoice.isSelected, isEditable: isEditing, content: tempChoice.content, onModify: {
                         problemDetailVM.modifyingChoiceIndex = index
                         problemDetailVM.modifyChoiceAlertIsPresented = true
                     }, onDelete: {
@@ -155,7 +157,7 @@ struct ProblemDetailView: View {
                     })
                 }
                 
-                if problemDetailVM.isEditing {
+                if isEditing {
                     Button("+ 선택 추가") {
                         problemDetailVM.addChoiceAlertIsPresented = true
                     }
@@ -167,21 +169,21 @@ struct ProblemDetailView: View {
     
     var reasonView: some View {
         DetailInputTemplate(title: "3. 선택의 이유는?") {
-            BorderedTextEditor(text: $problemDetailVM.reason, isEditable: problemDetailVM.isEditing)
+            BorderedTextEditor(text: $problemDetailVM.reason, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
     
     var resultView: some View {
         DetailInputTemplate(title: "4. 선택의 결과는?") {
-            BorderedTextEditor(text: $problemDetailVM.result, isEditable: problemDetailVM.isEditing)
+            BorderedTextEditor(text: $problemDetailVM.result, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
     
     var lessonView: some View {
         DetailInputTemplate(title: "5. 느낀점, 교훈이 있는지?") {
-            BorderedTextEditor(text: $problemDetailVM.lesson, isEditable: problemDetailVM.isEditing)
+            BorderedTextEditor(text: $problemDetailVM.lesson, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }

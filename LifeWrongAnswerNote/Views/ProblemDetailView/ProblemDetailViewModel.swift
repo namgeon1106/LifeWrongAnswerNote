@@ -70,8 +70,6 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    @Published var isEditing = true
-    
     @Published var newChoiceContent = ""
     @Published var addChoiceAlertIsPresented = false {
         didSet {
@@ -108,8 +106,6 @@ class ProblemDetailViewModel: ObservableObject {
         } catch {
             errorMessage = "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요."
         }
-        
-        isEditing = problemVM == nil
     }
     
     func addChoice() {
