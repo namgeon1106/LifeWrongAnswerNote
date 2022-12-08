@@ -36,17 +36,7 @@ struct ProblemDetailView: View {
             }
             .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
             .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
-            .alert("선택지 삭제", isPresented: $problemDetailVM.deleteChoiceAlertIsPresented, actions: {
-                Button("취소", role: .cancel) {
-                    problemDetailVM.deleteChoiceAlertIsPresented = false
-                }
-                Button("삭제", role: .destructive) {
-                    problemDetailVM.deleteChoiceAlertIsPresented = false
-                    problemDetailVM.deleteChoice()
-                }
-            }, message: {
-                Text("정말로 선택지를 삭제하시겠습니까?")
-            })
+            .modifier(problemDetailVM.deleteChoiceAlert(presented: $problemDetailVM.deleteChoiceAlertIsPresented))
         }
     }
     
@@ -129,8 +119,7 @@ struct ProblemDetailView: View {
                     ChoiceRow(isSelected: tempChoice.isSelected, isEditable: isEditing, content: tempChoice.content, onModify: {
                         problemDetailVM.alertAndModifyChoice(at: index)
                     }, onDelete: {
-                        problemDetailVM.deletingChoiceIndex = index
-                        problemDetailVM.deleteChoiceAlertIsPresented = true
+                        problemDetailVM.alertAndDeleteChoice(at: index)
                     })
                 }
                 

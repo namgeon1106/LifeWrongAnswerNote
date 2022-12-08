@@ -109,16 +109,16 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    func addChoice(with content: String) {
+    private func addChoice(with content: String) {
         tempChoices.append(TempChoice(content: content, isSelected: false))
     }
     
-    func modifyChoice(at index: Int, to newContent: String) {
+    private func modifyChoice(at index: Int, to newContent: String) {
         tempChoices[index].content = newContent
     }
     
-    func deleteChoice() {
-        tempChoices.remove(at: deletingChoiceIndex)
+    private func deleteChoice(at index: Int) {
+        tempChoices.remove(at: index)
     }
     
     func addChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
@@ -141,6 +141,20 @@ class ProblemDetailViewModel: ObservableObject {
     func alertAndModifyChoice(at index: Int) {
         modifyingChoiceIndex = index
         modifyChoiceAlertIsPresented = true
+    }
+    
+    func deleteChoiceAlert(presented: Binding<Bool>) -> AlertModifier {
+        return AlertModifier(presented: presented,
+                             title: "선택지 삭제",
+                             message: "정말로 선택지를 삭제하시겠습니까?",
+                             okMessage: "삭제", okStyle: .destructive) {
+            self.deleteChoice(at: self.deletingChoiceIndex)
+        }
+    }
+    
+    func alertAndDeleteChoice(at index: Int) {
+        deletingChoiceIndex = index
+        deleteChoiceAlertIsPresented = true
     }
 }
 
@@ -166,6 +180,30 @@ struct ChoiceAlertWithTextField: ViewModifier {
                     presented = false
                     action(input)
                     input = ""
+                }
+            }, message: {
+                Text(message)
+            })
+    }
+}
+
+struct AlertModifier: ViewModifier {
+    @Binding var presented: Bool
+    let title: String
+    let message: String
+    let okMessage: String
+    let okStyle: ButtonRole
+    let action: () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .alert(title, isPresented: $presented, actions: {
+                Button("취소", role: .cancel) {
+                    presented = false
+                }
+                Button(okMessage, role: okStyle) {
+                    presented = false
+                    action()
                 }
             }, message: {
                 Text(message)
