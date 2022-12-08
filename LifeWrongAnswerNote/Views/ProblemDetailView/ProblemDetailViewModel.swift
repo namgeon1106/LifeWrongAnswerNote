@@ -10,7 +10,30 @@ import SwiftUI
 
 class ProblemDetailViewModel: ObservableObject {
     private let problem: Problem
+    @Published var errorAlertIsPresented = false
+    @Published var errorMessage = "" {
+        didSet {
+            errorAlertIsPresented = true
+        }
+    }
     
+    init(problemVM: ProblemViewModel?) {
+        problem = problemVM?.problem ?? Problem(context: CoreDataManager.shared.viewContext)
+        
+        if problemVM == nil {
+            problem.createdDate = .now
+        }
+        
+        do {
+            tempChoices = try Choice.by(problem: problem).map { choice in
+                return TempChoice(content: choice.content ?? "", isSelected: choice.isSelected)
+            }
+        } catch {
+            errorMessage = "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요."
+        }
+    }
+    
+    // MARK: - 요약 파트
     @Published var title = "" {
         didSet {
             problem.title = title
@@ -35,6 +58,7 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
+    // MARK: - 세부 파트
     @Published var situation = "" {
         didSet {
             problem.situation = situation
@@ -64,13 +88,7 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    @Published var errorAlertIsPresented = false
-    @Published var errorMessage = "" {
-        didSet {
-            errorAlertIsPresented = true
-        }
-    }
-    
+    // MARK: - 선택지 추가 alert
     @Published var newChoiceContent = ""
     @Published var addChoiceAlertIsPresented = false {
         didSet {
@@ -80,6 +98,19 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
+    private func addChoice(with content: String) {
+        tempChoices.append(TempChoice(content: content, isSelected: false))
+    }
+    
+    func addChoiceAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
+        return AlertModifierWithTextField(presented: presented,
+                                          title: "선택지 추가",
+                                          message: "새롭게 추가할 선택지 내용을 입력하세요",
+                                          okMessage: "추가",
+                                          action: addChoice(with:))
+    }
+    
+    // MARK: - 선택지 수정 alert
     @Published var modifiedChoiceContent = ""
     private var modifyingChoiceIndex = 0
     @Published var modifyChoiceAlertIsPresented = false {
@@ -90,50 +121,15 @@ class ProblemDetailViewModel: ObservableObject {
         }
     }
     
-    var deletingChoiceIndex = 0
-    @Published var deleteChoiceAlertIsPresented = false
-    
-    init(problemVM: ProblemViewModel?) {
-        problem = problemVM?.problem ?? Problem(context: CoreDataManager.shared.viewContext)
-        
-        if problemVM == nil {
-            problem.createdDate = .now
-        }
-        
-        do {
-            tempChoices = try Choice.by(problem: problem).map { choice in
-                return TempChoice(content: choice.content ?? "", isSelected: choice.isSelected)
-            }
-        } catch {
-            errorMessage = "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요."
-        }
-    }
-    
-    private func addChoice(with content: String) {
-        tempChoices.append(TempChoice(content: content, isSelected: false))
-    }
-    
     private func modifyChoice(at index: Int, to newContent: String) {
         tempChoices[index].content = newContent
     }
     
-    private func deleteChoice(at index: Int) {
-        tempChoices.remove(at: index)
-    }
-    
-    func addChoiceAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
-        return AlertModifierWithTextField(presented: presented,
-                                        title: "선택지 추가",
-                                        message: "새롭게 추가할 선택지 내용을 입력하세요",
-                                        okMessage: "추가",
-                                        action: addChoice(with:))
-    }
-    
     func modifyChoiceAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
         return AlertModifierWithTextField(presented: presented,
-                                        title: "선택지 수정",
-                                        message: "선택지의 내용을 수정하세요",
-                                        okMessage: "수정") { input in
+                                          title: "선택지 수정",
+                                          message: "선택지의 내용을 수정하세요",
+                                          okMessage: "수정") { input in
             self.modifyChoice(at: self.modifyingChoiceIndex, to: input)
         }
     }
@@ -141,6 +137,14 @@ class ProblemDetailViewModel: ObservableObject {
     func alertAndModifyChoice(at index: Int) {
         modifyingChoiceIndex = index
         modifyChoiceAlertIsPresented = true
+    }
+    
+    // MARK: - 선택지 제거 alert
+    var deletingChoiceIndex = 0
+    @Published var deleteChoiceAlertIsPresented = false
+    
+    private func deleteChoice(at index: Int) {
+        tempChoices.remove(at: index)
     }
     
     func deleteChoiceAlert(presented: Binding<Bool>) -> AlertModifier {
