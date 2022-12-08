@@ -121,16 +121,16 @@ class ProblemDetailViewModel: ObservableObject {
         tempChoices.remove(at: index)
     }
     
-    func addChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
-        return ChoiceAlertWithTextField(presented: presented,
+    func addChoiceAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
+        return AlertModifierWithTextField(presented: presented,
                                         title: "선택지 추가",
                                         message: "새롭게 추가할 선택지 내용을 입력하세요",
                                         okMessage: "추가",
                                         action: addChoice(with:))
     }
     
-    func modifyChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
-        return ChoiceAlertWithTextField(presented: presented,
+    func modifyChoiceAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
+        return AlertModifierWithTextField(presented: presented,
                                         title: "선택지 수정",
                                         message: "선택지의 내용을 수정하세요",
                                         okMessage: "수정") { input in
@@ -155,58 +155,5 @@ class ProblemDetailViewModel: ObservableObject {
     func alertAndDeleteChoice(at index: Int) {
         deletingChoiceIndex = index
         deleteChoiceAlertIsPresented = true
-    }
-}
-
-// MARK: - Alerts
-struct ChoiceAlertWithTextField: ViewModifier {
-    @Binding var presented: Bool
-    @State private var input = ""
-    let title: String
-    let message: String
-    let okMessage: String
-    let action: (String) -> Void
-    
-    
-    func body(content: Content) -> some View {
-        content
-            .alert(title, isPresented: $presented, actions: {
-                TextField("선택지 이름", text: $input)
-                Button("취소", role: .cancel) {
-                    presented = false
-                    input = ""
-                }
-                Button(okMessage) {
-                    presented = false
-                    action(input)
-                    input = ""
-                }
-            }, message: {
-                Text(message)
-            })
-    }
-}
-
-struct AlertModifier: ViewModifier {
-    @Binding var presented: Bool
-    let title: String
-    let message: String
-    let okMessage: String
-    let okStyle: ButtonRole
-    let action: () -> Void
-    
-    func body(content: Content) -> some View {
-        content
-            .alert(title, isPresented: $presented, actions: {
-                Button("취소", role: .cancel) {
-                    presented = false
-                }
-                Button(okMessage, role: okStyle) {
-                    presented = false
-                    action()
-                }
-            }, message: {
-                Text(message)
-            })
     }
 }
