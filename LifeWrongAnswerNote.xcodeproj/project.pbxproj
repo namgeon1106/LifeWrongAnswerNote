@@ -31,6 +31,7 @@
 		AB99C7132940CD680011F51B /* InputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7122940CD680011F51B /* InputTemplate.swift */; };
 		AB99C7152940D0E20011F51B /* BorderedTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7142940D0E20011F51B /* BorderedTextEditor.swift */; };
 		AB99C7172940D4240011F51B /* ChoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7162940D4240011F51B /* ChoiceRow.swift */; };
+		AB99C7192940DDA90011F51B /* ProblemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99C7182940DDA90011F51B /* ProblemDetailView.swift */; };
 		AB9F3DC4293F4C45002C9785 /* CategoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		AB99C7122940CD680011F51B /* InputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTemplate.swift; sourceTree = "<group>"; };
 		AB99C7142940D0E20011F51B /* BorderedTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextEditor.swift; sourceTree = "<group>"; };
 		AB99C7162940D4240011F51B /* ChoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceRow.swift; sourceTree = "<group>"; };
+		AB99C7182940DDA90011F51B /* ProblemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailView.swift; sourceTree = "<group>"; };
 		AB9F3DC3293F4C45002C9785 /* CategoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		AB99C7112940CD190011F51B /* ProblemDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				AB99C7182940DDA90011F51B /* ProblemDetailView.swift */,
 				AB99C7122940CD680011F51B /* InputTemplate.swift */,
 				AB99C7142940D0E20011F51B /* BorderedTextEditor.swift */,
 				AB99C7162940D4240011F51B /* ChoiceRow.swift */,
@@ -318,6 +321,7 @@
 				AB99C7152940D0E20011F51B /* BorderedTextEditor.swift in Sources */,
 				AB99C70C2940B87F0011F51B /* ProblemRow.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
+				AB99C7192940DDA90011F51B /* ProblemDetailView.swift in Sources */,
 				AB99C70E2940BC000011F51B /* MenuLabel.swift in Sources */,
 				AB393174293C6CC00051454D /* Category+.swift in Sources */,
 				AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */,
