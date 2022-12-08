@@ -40,6 +40,7 @@ struct ProblemDetailView: View {
         }
     }
     
+    // MARK: - 요약 파트
     var summaryView: some View {
         VStack(spacing: 20) {
             SummaryInputTemplate(title: "제목") {
@@ -105,6 +106,7 @@ struct ProblemDetailView: View {
         .foregroundColor(Color(.label))
     }
     
+    // MARK: - 세부 파트
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황인지?") {
             BorderedTextEditor(text: $problemDetailVM.title, isEditable: isEditing)
