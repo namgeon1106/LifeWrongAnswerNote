@@ -45,9 +45,6 @@ class ProblemDetailViewModel: ObservableObject {
         Array(tempChoices.enumerated())
     }
     
-    var modifyingChoiceIndex = 0
-    var deletingChoiceIndex = 0
-    
     @Published var reason = "" {
         didSet {
             problem.reason = reason
@@ -85,6 +82,7 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     @Published var modifiedChoiceContent = ""
+    var modifyingChoiceIndex = 0
     @Published var modifyChoiceAlertIsPresented = false {
         didSet {
             if modifyChoiceAlertIsPresented {
@@ -92,6 +90,8 @@ class ProblemDetailViewModel: ObservableObject {
             }
         }
     }
+    
+    var deletingChoiceIndex = 0
     @Published var deleteChoiceAlertIsPresented = false
     
     init(problemVM: ProblemViewModel?) {
