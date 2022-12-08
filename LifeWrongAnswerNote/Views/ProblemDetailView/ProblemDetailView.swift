@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProblemDetailView: View {
     @StateObject private var problemDetailVM: ProblemDetailViewModel
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
     init(problemVM: ProblemViewModel?) {
         self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
@@ -28,6 +29,9 @@ struct ProblemDetailView: View {
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             .navigationTitle("문제 수정")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                categoryListVM.showAllCategories()
+            }
         }
     }
     
@@ -38,16 +42,37 @@ struct ProblemDetailView: View {
                     .disabled(!problemDetailVM.isEditing)
             }
             SummaryInputTemplate(title: "카테고리") {
-                MenuLabel(isClickable: problemDetailVM.isEditing) {
-                    Text(problemDetailVM.categoryVM?.name ?? "카테고리")
-                        .font(.system(size: 14))
+                Menu {
+                    Button("카테고리 없음") {
+                        problemDetailVM.categoryVM = nil
+                    }
+                    ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                        Button(categoryVM.name) {
+                            problemDetailVM.categoryVM = categoryVM
+                        }
+                    }
+                } label: {
+                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                        Text(problemDetailVM.categoryVM?.name ?? "카테고리")
+                            .font(.system(size: 14))
+                    }
                 }
+
             }
             SummaryInputTemplate(title: "진행상태") {
-                MenuLabel(isClickable: problemDetailVM.isEditing) {
-                    Text(problemDetailVM.isFinished ? "완료" : "진행 중")
-                        .font(.system(size: 14))
+                Menu {
+                    ForEach([true, false], id: \.self) { isFinished in
+                        Button(isFinished ? "완료" : "진행 중") {
+                            problemDetailVM.isFinished = isFinished
+                        }
+                    }
+                } label: {
+                    MenuLabel(isClickable: problemDetailVM.isEditing) {
+                        Text(problemDetailVM.isFinished ? "완료" : "진행 중")
+                            .font(.system(size: 14))
+                    }
                 }
+
             }
             SummaryInputTemplate(title: "평가") {
                 MenuLabel(isClickable: problemDetailVM.isEditing) {
@@ -58,6 +83,7 @@ struct ProblemDetailView: View {
             Spacer()
         }
         .padding(.horizontal, 16)
+        .foregroundColor(Color(.label))
     }
     
     var titleView: some View {
