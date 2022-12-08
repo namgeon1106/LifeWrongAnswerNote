@@ -11,6 +11,7 @@ struct ProblemDetailView: View {
     @StateObject private var problemDetailVM: ProblemDetailViewModel
     @StateObject private var categoryListVM = CategoryListViewModel()
     @State private var isEditing = true
+    @Environment(\.presentationMode) private var presentationMode
     
     init(problemVM: ProblemViewModel?) {
         self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
@@ -57,6 +58,10 @@ struct ProblemDetailView: View {
                     }
 
                 }
+            }
+            .onDisappear {
+                CoreDataManager.shared.viewContext.rollback()
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }
