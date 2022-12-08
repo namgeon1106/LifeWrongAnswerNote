@@ -32,6 +32,16 @@ struct ProblemDetailView: View {
             .onAppear {
                 categoryListVM.showAllCategories()
             }
+            .alert("선택지 추가", isPresented: $problemDetailVM.addChoiceAlertIsPresented, actions: {
+                TextField("카테고리 이름", text: $problemDetailVM.newCategoryName)
+                Button("취소", role: .cancel) {
+                    problemDetailVM.addChoiceAlertIsPresented = false
+                }
+                Button("추가") {
+                    problemDetailVM.addChoiceAlertIsPresented = false
+                    problemDetailVM.addChoice()
+                }
+            })
         }
     }
     
@@ -116,7 +126,7 @@ struct ProblemDetailView: View {
                 
                 if problemDetailVM.isEditing {
                     Button("+ 선택 추가") {
-                        
+                        problemDetailVM.addChoiceAlertIsPresented = true
                     }
                 }
             }

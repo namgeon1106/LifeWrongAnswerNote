@@ -75,6 +75,18 @@ class ProblemDetailViewModel: ObservableObject {
     
     @Published var isEditing = true
     
+    @Published var newCategoryName = ""
+    @Published var addChoiceAlertIsPresented = false {
+        didSet {
+            if addChoiceAlertIsPresented {
+                newCategoryName = ""
+            }
+        }
+    }
+    
+    @Published var modifyChoiceAlertIsPresented = false
+    @Published var deleteChoiceAlertIsPresented = false
+    
     init(problemVM: ProblemViewModel?) {
         problem = problemVM?.problem ?? Problem(context: CoreDataManager.shared.viewContext)
         
@@ -93,8 +105,8 @@ class ProblemDetailViewModel: ObservableObject {
         isEditing = problemVM == nil
     }
     
-    func addChoice(with content: String) {
-        tempChoices.append(TempChoice(content: content, isSelected: false))
+    func addChoice() {
+        tempChoices.append(TempChoice(content: newCategoryName, isSelected: false))
     }
     
     func modifyChoice(to newContent: String) {
