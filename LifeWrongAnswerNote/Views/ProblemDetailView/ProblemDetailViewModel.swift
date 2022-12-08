@@ -126,7 +126,7 @@ class ProblemDetailViewModel: ObservableObject {
                                         title: "선택지 추가",
                                         message: "새롭게 추가할 선택지 내용을 입력하세요",
                                         okMessage: "추가",
-                                        onAdd: addChoice(with:))
+                                        action: addChoice(with:))
     }
     
     func modifyChoiceAlert(presented: Binding<Bool>) -> ChoiceAlertWithTextField {
@@ -151,7 +151,7 @@ struct ChoiceAlertWithTextField: ViewModifier {
     let title: String
     let message: String
     let okMessage: String
-    let onAdd: (String) -> Void
+    let action: (String) -> Void
     
     
     func body(content: Content) -> some View {
@@ -164,7 +164,7 @@ struct ChoiceAlertWithTextField: ViewModifier {
                 }
                 Button(okMessage) {
                     presented = false
-                    onAdd(input)
+                    action(input)
                     input = ""
                 }
             }, message: {
