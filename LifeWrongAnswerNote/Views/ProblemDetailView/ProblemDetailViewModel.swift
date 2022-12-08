@@ -160,4 +160,13 @@ class ProblemDetailViewModel: ObservableObject {
         deletingChoiceIndex = index
         deleteChoiceAlertIsPresented = true
     }
+    
+    // MARK: - 문제 저장
+    func saveProblem() {
+        do {
+            try CoreDataManager.shared.viewContext.save()
+        } catch {
+            errorMessage = "문제 저장에 실패하였습니다."
+        }
+    }
 }

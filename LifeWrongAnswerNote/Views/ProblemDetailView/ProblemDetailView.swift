@@ -37,6 +37,27 @@ struct ProblemDetailView: View {
             .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
             .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
             .modifier(problemDetailVM.deleteChoiceAlert(presented: $problemDetailVM.deleteChoiceAlertIsPresented))
+            .alert("에러 발생", isPresented: $problemDetailVM.errorAlertIsPresented, actions: {
+                Button("확인") {
+                    problemDetailVM.errorAlertIsPresented = false
+                }
+            }, message: {
+                Text(problemDetailVM.errorMessage)
+            })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        if isEditing {
+                            problemDetailVM.saveProblem()
+                        }
+                        
+                        isEditing.toggle()
+                    } label: {
+                        Image(systemName: isEditing ? "checkmark" : "pencil")
+                    }
+
+                }
+            }
         }
     }
     
