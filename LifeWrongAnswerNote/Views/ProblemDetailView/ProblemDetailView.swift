@@ -33,7 +33,7 @@ struct ProblemDetailView: View {
                 categoryListVM.showAllCategories()
             }
             .alert("선택지 추가", isPresented: $problemDetailVM.addChoiceAlertIsPresented, actions: {
-                TextField("카테고리 이름", text: $problemDetailVM.newCategoryName)
+                TextField("선택지 이름", text: $problemDetailVM.newChoiceContent)
                 Button("취소", role: .cancel) {
                     problemDetailVM.addChoiceAlertIsPresented = false
                 }
@@ -41,6 +41,20 @@ struct ProblemDetailView: View {
                     problemDetailVM.addChoiceAlertIsPresented = false
                     problemDetailVM.addChoice()
                 }
+            }, message: {
+                Text("새롭게 추가할 선택지의 내용을 입력하세요.")
+            })
+            .alert("선택지 수정", isPresented: $problemDetailVM.modifyChoiceAlertIsPresented, actions: {
+                TextField("선택지 이름", text: $problemDetailVM.modifiedChoiceContent)
+                Button("취소", role: .cancel) {
+                    problemDetailVM.modifyChoiceAlertIsPresented = false
+                }
+                Button("추가") {
+                    problemDetailVM.modifyChoiceAlertIsPresented = false
+                    problemDetailVM.modifyChoice()
+                }
+            }, message: {
+                Text("선택지의 새로운 내용을 입력하세요.")
             })
         }
     }
@@ -121,7 +135,10 @@ struct ProblemDetailView: View {
         DetailInputTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
             VStack(spacing: 10) {
                 ForEach(problemDetailVM.enumeratedTempChoices, id: \.0) { index, tempChoice in
-                    ChoiceRow(isSelected: tempChoice.isSelected, isEditable: problemDetailVM.isEditing, content: tempChoice.content, onModify: {}, onDelete: {})
+                    ChoiceRow(isSelected: tempChoice.isSelected, isEditable: problemDetailVM.isEditing, content: tempChoice.content, onModify: {
+                        problemDetailVM.modifyingChoiceIndex = index
+                        problemDetailVM.modifyChoiceAlertIsPresented = true
+                    }, onDelete: {})
                 }
                 
                 if problemDetailVM.isEditing {

@@ -75,16 +75,23 @@ class ProblemDetailViewModel: ObservableObject {
     
     @Published var isEditing = true
     
-    @Published var newCategoryName = ""
+    @Published var newChoiceContent = ""
     @Published var addChoiceAlertIsPresented = false {
         didSet {
             if addChoiceAlertIsPresented {
-                newCategoryName = ""
+                newChoiceContent = ""
             }
         }
     }
     
-    @Published var modifyChoiceAlertIsPresented = false
+    @Published var modifiedChoiceContent = ""
+    @Published var modifyChoiceAlertIsPresented = false {
+        didSet {
+            if modifyChoiceAlertIsPresented {
+                modifiedChoiceContent = ""
+            }
+        }
+    }
     @Published var deleteChoiceAlertIsPresented = false
     
     init(problemVM: ProblemViewModel?) {
@@ -106,11 +113,11 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     func addChoice() {
-        tempChoices.append(TempChoice(content: newCategoryName, isSelected: false))
+        tempChoices.append(TempChoice(content: newChoiceContent, isSelected: false))
     }
     
-    func modifyChoice(to newContent: String) {
-        tempChoices[modifyingChoiceIndex].content = newContent
+    func modifyChoice() {
+        tempChoices[modifyingChoiceIndex].content = modifiedChoiceContent
     }
     
     func deleteChoice() {
