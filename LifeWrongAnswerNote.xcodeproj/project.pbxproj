@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AB1F33182941A48700B1D217 /* DetailInputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F33172941A48700B1D217 /* DetailInputTemplate.swift */; };
+		AB1F331E2941CA9000B1D217 /* ProblemDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F331D2941CA9000B1D217 /* ProblemDetailViewModel.swift */; };
+		AB1F33202941CCA200B1D217 /* TempChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F331F2941CCA200B1D217 /* TempChoice.swift */; };
 		AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */; };
 		AB20426C293B666A0086DA36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB20426B293B666A0086DA36 /* ContentView.swift */; };
 		AB20426E293B666B0086DA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB20426D293B666B0086DA36 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		AB1F33172941A48700B1D217 /* DetailInputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInputTemplate.swift; sourceTree = "<group>"; };
+		AB1F331D2941CA9000B1D217 /* ProblemDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemDetailViewModel.swift; sourceTree = "<group>"; };
+		AB1F331F2941CCA200B1D217 /* TempChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempChoice.swift; sourceTree = "<group>"; };
 		AB204266293B666A0086DA36 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		AB20426B293B666A0086DA36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				AB393175293C8A4E0051454D /* Problem+.swift */,
 				AB39317B293CB41D0051454D /* Assessment.swift */,
 				AB39317D293CCB300051454D /* Choice+.swift */,
+				AB1F331F2941CCA200B1D217 /* TempChoice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 		AB99C7112940CD190011F51B /* ProblemDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				AB1F331D2941CA9000B1D217 /* ProblemDetailViewModel.swift */,
 				AB99C7182940DDA90011F51B /* ProblemDetailView.swift */,
 				AB99C7122940CD680011F51B /* SummaryInputTemplate.swift */,
 				AB99C7142940D0E20011F51B /* BorderedTextEditor.swift */,
@@ -315,6 +321,7 @@
 				AB39317E293CCB300051454D /* Choice+.swift in Sources */,
 				AB99C7132940CD680011F51B /* SummaryInputTemplate.swift in Sources */,
 				AB99C7102940BF680011F51B /* ProblemListView.swift in Sources */,
+				AB1F33202941CCA200B1D217 /* TempChoice.swift in Sources */,
 				AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */,
 				AB39317C293CB41D0051454D /* Assessment.swift in Sources */,
 				AB393176293C8A4E0051454D /* Problem+.swift in Sources */,
@@ -330,6 +337,7 @@
 				AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */,
 				AB9F3DC4293F4C45002C9785 /* CategoryListViewModel.swift in Sources */,
 				AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				AB1F331E2941CA9000B1D217 /* ProblemDetailViewModel.swift in Sources */,
 				AB1F33182941A48700B1D217 /* DetailInputTemplate.swift in Sources */,
 				AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */,
 				AB393152293C65280051454D /* NSManagedObject+.swift in Sources */,
