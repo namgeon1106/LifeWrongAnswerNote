@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ProblemDetailView: View {
-    @State private var title = ""
-    @State private var situation = ""
-    @State private var reason = ""
-    @State private var result = ""
-    @State private var lesson = ""
+    @StateObject private var problemDetailVM: ProblemDetailViewModel
+    @StateObject private var categoryListVM = CategoryListViewModel()
     @State private var isEditing = true
+    @Environment(\.presentationMode) private var presentationMode
+    
+    init(problemVM: ProblemViewModel?) {
+        self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
+        self._isEditing.wrappedValue = problemVM == nil
+    }
     
     var body: some View {
         NavigationView {
@@ -29,41 +32,110 @@ struct ProblemDetailView: View {
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             .navigationTitle("문제 수정")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                categoryListVM.showAllCategories()
+            }
+            .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
+            .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
+            .modifier(problemDetailVM.deleteChoiceAlert(presented: $problemDetailVM.deleteChoiceAlertIsPresented))
+            .alert("에러 발생", isPresented: $problemDetailVM.errorAlertIsPresented, actions: {
+                Button("확인") {
+                    problemDetailVM.errorAlertIsPresented = false
+                }
+            }, message: {
+                Text(problemDetailVM.errorMessage)
+            })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        if isEditing {
+                            problemDetailVM.saveProblem()
+                        }
+                        
+                        isEditing.toggle()
+                    } label: {
+                        Image(systemName: isEditing ? "checkmark" : "pencil")
+                    }
+
+                }
+            }
+            .onDisappear {
+                CoreDataManager.shared.viewContext.rollback()
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
     
+    // MARK: - 요약 파트
     var summaryView: some View {
         VStack(spacing: 20) {
             SummaryInputTemplate(title: "제목") {
-                TextField("제목", text: $title)
+                TextField("제목", text: $problemDetailVM.title)
                     .disabled(!isEditing)
             }
             SummaryInputTemplate(title: "카테고리") {
-                MenuLabel(isClickable: isEditing) {
-                    Text("카테고리")
-                        .font(.system(size: 14))
+                Menu {
+                    Button("카테고리 없음") {
+                        problemDetailVM.categoryVM = nil
+                    }
+                    ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                        Button(categoryVM.name) {
+                            problemDetailVM.categoryVM = categoryVM
+                        }
+                    }
+                } label: {
+                    MenuLabel(isClickable: isEditing) {
+                        Text(problemDetailVM.categoryVM?.name ?? "카테고리")
+                            .font(.system(size: 14))
+                    }
                 }
+
             }
             SummaryInputTemplate(title: "진행상태") {
-                MenuLabel(isClickable: isEditing) {
-                    Text("진행 중")
-                        .font(.system(size: 14))
+                Menu {
+                    ForEach([true, false], id: \.self) { isFinished in
+                        Button(isFinished ? "완료" : "진행 중") {
+                            problemDetailVM.isFinished = isFinished
+                        }
+                    }
+                } label: {
+                    MenuLabel(isClickable: isEditing) {
+                        Text(problemDetailVM.isFinished ? "완료" : "진행 중")
+                            .font(.system(size: 14))
+                    }
                 }
+
             }
             SummaryInputTemplate(title: "평가") {
-                MenuLabel(isClickable: isEditing) {
-                    Text("평가")
-                        .font(.system(size: 14))
+                Menu {
+                    ForEach(Assessment.allCases, id: \.self) { assessment in
+                        Button {
+                            problemDetailVM.assessment = assessment
+                        } label: {
+                            HStack {
+                                Text(assessment.description)
+                                assessment.image
+                            }
+                        }
+
+                    }
+                } label: {
+                    MenuLabel(isClickable: isEditing) {
+                        problemDetailVM.assessment.image
+                            .font(.system(size: 14))
+                    }
                 }
             }
             Spacer()
         }
         .padding(.horizontal, 16)
+        .foregroundColor(Color(.label))
     }
     
+    // MARK: - 세부 파트
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황인지?") {
-            BorderedTextEditor(text: $title, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.title, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
@@ -71,13 +143,17 @@ struct ProblemDetailView: View {
     var choicesView: some View {
         DetailInputTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
             VStack(spacing: 10) {
-                ForEach(0..<3) { _ in
-                    ChoiceRow(isSelected: false, isEditable: isEditing, content: "선택 1", onModify: {}, onDelete: {})
+                ForEach(problemDetailVM.enumeratedTempChoices, id: \.0) { index, tempChoice in
+                    ChoiceRow(isSelected: tempChoice.isSelected, isEditable: isEditing, content: tempChoice.content, onModify: {
+                        problemDetailVM.alertAndModifyChoice(at: index)
+                    }, onDelete: {
+                        problemDetailVM.alertAndDeleteChoice(at: index)
+                    })
                 }
                 
                 if isEditing {
                     Button("+ 선택 추가") {
-                        
+                        problemDetailVM.addChoiceAlertIsPresented = true
                     }
                 }
             }
@@ -87,21 +163,21 @@ struct ProblemDetailView: View {
     
     var reasonView: some View {
         DetailInputTemplate(title: "3. 선택의 이유는?") {
-            BorderedTextEditor(text: $reason, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.reason, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
     
     var resultView: some View {
         DetailInputTemplate(title: "4. 선택의 결과는?") {
-            BorderedTextEditor(text: $result, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.result, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
     
     var lessonView: some View {
         DetailInputTemplate(title: "5. 느낀점, 교훈이 있는지?") {
-            BorderedTextEditor(text: $lesson, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.lesson, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
@@ -109,6 +185,6 @@ struct ProblemDetailView: View {
 
 struct ProblemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemDetailView()
+        ProblemDetailView(problemVM: nil)
     }
 }
