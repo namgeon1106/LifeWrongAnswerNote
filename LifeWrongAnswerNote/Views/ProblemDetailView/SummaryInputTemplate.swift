@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputTemplate<Content: View>: View {
+struct SummaryInputTemplate<Content: View>: View {
     let title: String
     var content: () -> Content
     
@@ -28,7 +28,7 @@ struct InputTemplate<Content: View>: View {
 
 struct InputTemplate_Previews: PreviewProvider {
     static var previews: some View {
-        InputTemplate(title: "제목") {
+        SummaryInputTemplate(title: "제목") {
             TextField("제목을 입력하세요", text: .constant(""))
         }
     }
