@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB1F33182941A48700B1D217 /* DetailInputTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F33172941A48700B1D217 /* DetailInputTemplate.swift */; };
 		AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */; };
 		AB20426C293B666A0086DA36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB20426B293B666A0086DA36 /* ContentView.swift */; };
 		AB20426E293B666B0086DA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB20426D293B666B0086DA36 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB1F33172941A48700B1D217 /* DetailInputTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInputTemplate.swift; sourceTree = "<group>"; };
 		AB204266293B666A0086DA36 /* LifeWrongAnswerNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeWrongAnswerNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB204269293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeWrongAnswerNoteApp.swift; sourceTree = "<group>"; };
 		AB20426B293B666A0086DA36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				AB99C7122940CD680011F51B /* InputTemplate.swift */,
 				AB99C7142940D0E20011F51B /* BorderedTextEditor.swift */,
 				AB99C7162940D4240011F51B /* ChoiceRow.swift */,
+				AB1F33172941A48700B1D217 /* DetailInputTemplate.swift */,
 			);
 			path = ProblemDetailView;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				AB5AB0FE293E2CA30023E453 /* CategoryViewModel.swift in Sources */,
 				AB9F3DC4293F4C45002C9785 /* CategoryListViewModel.swift in Sources */,
 				AB20426A293B666A0086DA36 /* LifeWrongAnswerNoteApp.swift in Sources */,
+				AB1F33182941A48700B1D217 /* DetailInputTemplate.swift in Sources */,
 				AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */,
 				AB393152293C65280051454D /* NSManagedObject+.swift in Sources */,
 			);
