@@ -20,6 +20,7 @@ struct ProblemDetailView: View {
             TabView {
                 summaryView
                 titleView
+                choicesView
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
@@ -60,6 +61,23 @@ struct ProblemDetailView: View {
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황이었나요?") {
             BorderedTextEditor(text: $title, isEditable: isEditing)
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var choicesView: some View {
+        DetailInputTemplate(title: "2. 가능한 선택과 내가 한 선택은?") {
+            VStack(spacing: 10) {
+                ForEach(0..<3) { _ in
+                    ChoiceRow(isSelected: false, isEditable: isEditing, content: "선택 1", onModify: {}, onDelete: {})
+                }
+                
+                if isEditing {
+                    Button("+ 선택 추가") {
+                        
+                    }
+                }
+            }
         }
         .padding(.horizontal, 16)
     }
