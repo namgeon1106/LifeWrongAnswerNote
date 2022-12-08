@@ -21,6 +21,9 @@ struct ProblemDetailView: View {
                 summaryView
                 titleView
                 choicesView
+                reasonView
+                resultView
+                lessonView
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
@@ -59,7 +62,7 @@ struct ProblemDetailView: View {
     }
     
     var titleView: some View {
-        DetailInputTemplate(title: "1. 어떤 상황이었나요?") {
+        DetailInputTemplate(title: "1. 어떤 상황인지?") {
             BorderedTextEditor(text: $title, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
@@ -78,6 +81,27 @@ struct ProblemDetailView: View {
                     }
                 }
             }
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var reasonView: some View {
+        DetailInputTemplate(title: "3. 선택의 이유는?") {
+            BorderedTextEditor(text: $reason, isEditable: isEditing)
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var resultView: some View {
+        DetailInputTemplate(title: "4. 선택의 결과는?") {
+            BorderedTextEditor(text: $result, isEditable: isEditing)
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var lessonView: some View {
+        DetailInputTemplate(title: "5. 느낀점, 교훈이 있는지?") {
+            BorderedTextEditor(text: $lesson, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
