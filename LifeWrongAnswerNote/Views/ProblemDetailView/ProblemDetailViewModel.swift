@@ -8,10 +8,10 @@
 import Foundation
 
 class ProblemDetailViewModel: ObservableObject {
-    let problem: Problem
+    private let problem: Problem
     
     @Published var title = ""
-    @Published var category: Category?
+    @Published var categoryVM: CategoryViewModel?
     @Published var isFinished = false
     @Published var assessment = Assessment.notSure
     
@@ -21,7 +21,11 @@ class ProblemDetailViewModel: ObservableObject {
     @Published var result = ""
     @Published var lesson = ""
     
-    init() {
-        problem = Problem(context: CoreDataManager.shared.viewContext)
+    init(problemVM: ProblemViewModel?) {
+        problem = problemVM?.problem ?? Problem(context: CoreDataManager.shared.viewContext)
+        
+        if problemVM == nil {
+            problem.createdDate = .now
+        }
     }
 }
