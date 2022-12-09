@@ -20,7 +20,7 @@ struct AlertModifierWithTextField: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(title, isPresented: $presented, actions: {
-                TextField("선택지 이름", text: $input)
+                TextField("입력", text: $input)
                 Button("취소", role: .cancel) {
                     presented = false
                     input = ""

@@ -55,19 +55,9 @@ struct CategoryListView: View {
         .onAppear {
             categoryListVM.showAllCategories()
         }
-        .alert("카테고리 추가", isPresented: $categoryListVM.addCategoryAlertIsPresented, actions: {
-            TextField("이름 입력", text: $categoryListVM.newCategoryName)
-            Button("추가") {
-                categoryListVM.addCategoryAlertIsPresented = false
-                categoryListVM.addCategory()
-            }
-            
-            Button("취소", role: .cancel) {
-                categoryListVM.addCategoryAlertIsPresented = false
-            }
-        }, message: {
-            Text("새롭게 추가할 카테고리의 이름을 입력하세요.")
-        })
+        .modifier(categoryListVM.addCategoryAlert(presented: $categoryListVM.addCategoryAlertIsPresented))
+        .modifier(categoryListVM.modifyCategoryAlert(presented: $categoryListVM.modifyNameAlertIsPresented))
+        .modifier(categoryListVM.deleteCategoryAlert(presented: $categoryListVM.deleteAlertIsPresented))
         .alert("에러 발생", isPresented: $categoryListVM.errorAlertIsPresented, actions: {
             Button("확인") {
                 categoryListVM.errorAlertIsPresented = false
@@ -75,8 +65,6 @@ struct CategoryListView: View {
         }, message: {
             Text(categoryListVM.errorMessage)
         })
-        .modifier(categoryListVM.modifyCategoryAlert(presented: $categoryListVM.modifyNameAlertIsPresented))
-        .modifier(categoryListVM.deleteCategoryAlert(presented: $categoryListVM.deleteAlertIsPresented))
     }
 }
 
