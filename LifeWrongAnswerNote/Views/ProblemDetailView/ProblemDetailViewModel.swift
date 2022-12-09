@@ -18,18 +18,33 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     init(problemVM: ProblemViewModel?) {
-        problem = problemVM?.problem ?? Problem(context: CoreDataManager.shared.viewContext)
-        
-        if problemVM == nil {
-            problem.createdDate = .now
-        }
-        
-        do {
-            tempChoices = try Choice.by(problem: problem).map { choice in
-                return TempChoice(content: choice.content ?? "", isSelected: choice.isSelected)
+        if let problemVM {
+            problem = problemVM.problem
+            
+            _title = Published(initialValue: problem.title ?? "")
+            
+            if let category = problem.category {
+                _categoryVM = Published(initialValue: CategoryViewModel(category: category))
             }
-        } catch {
-            errorMessage = "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요."
+            
+            _isFinished = Published(initialValue: problem.finished)
+            _assessment = Published(initialValue: problem.assessment)
+            _situation = Published(initialValue: problem.situation ?? "")
+            _reason = Published(initialValue: problem.reason ?? "")
+            _result = Published(initialValue: problem.result ?? "")
+            _lesson = Published(initialValue: problem.lesson ?? "")
+            
+            do {
+                _tempChoices = Published(initialValue: try Choice.by(problem: problem).map { choice in
+                    return TempChoice(content: choice.content ?? "", isSelected: choice.isSelected)
+                })
+            } catch {
+                _errorMessage = Published(initialValue: "문제의 세부 정보를 불러오는데 실패했습니다.\n화면을 나갔다가 다시 들어오세요.")
+                _errorAlertIsPresented = Published(initialValue: true)
+            }
+        } else {
+            problem = Problem(context: CoreDataManager.shared.viewContext)
+            problem.createdDate = .now
         }
     }
     
