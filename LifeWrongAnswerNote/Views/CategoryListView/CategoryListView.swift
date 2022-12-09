@@ -31,8 +31,7 @@ struct CategoryListView: View {
                                 CategoryRow(categoryVM: categoryVM, onModify: {
                                     categoryListVM.alertAndModifyCategory(at: index)
                                 }, onDelete: {
-                                    categoryListVM.deletingIndex = index
-                                    categoryListVM.deleteAlertIsPresented = true
+                                    categoryListVM.alertAndDeleteCategory(at: index)
                                 })
                             }
                         }
@@ -77,18 +76,7 @@ struct CategoryListView: View {
             Text(categoryListVM.errorMessage)
         })
         .modifier(categoryListVM.modifyCategoryAlert(presented: $categoryListVM.modifyNameAlertIsPresented))
-        .alert("카테고리 제거", isPresented: $categoryListVM.deleteAlertIsPresented, actions: {
-            Button("취소", role: .cancel, action: {
-                categoryListVM.modifyNameAlertIsPresented = false
-            })
-            
-            Button("제거", role: .destructive) {
-                categoryListVM.modifyNameAlertIsPresented = false
-                categoryListVM.deleteCategory()
-            }
-        }, message: {
-            Text("정말로 카테고리를 삭제하시겠습니까?")
-        })
+        .modifier(categoryListVM.deleteCategoryAlert(presented: $categoryListVM.deleteAlertIsPresented))
     }
 }
 

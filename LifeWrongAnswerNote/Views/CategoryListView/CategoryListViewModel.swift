@@ -36,6 +36,22 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
+    func showFilteredCategories() {
+        do {
+            categoryVMs = try Category.by(searchText: searchText).map(CategoryViewModel.init)
+        } catch {
+            errorMessage = "카테고리들을 불러오는데 에러가 발생했습니다."
+        }
+    }
+    
+    func showAllCategories() {
+        do {
+            categoryVMs = try Category.all().map(CategoryViewModel.init)
+        } catch {
+            errorMessage = "카테고리들을 불러오는데 에러가 발생했습니다."
+        }
+    }
+    
     // MARK: - 수정 alert
     private var modifyingIndex = 0
     @Published var modifiedCategoryName = ""
@@ -74,23 +90,32 @@ class CategoryListViewModel: ObservableObject {
         modifyNameAlertIsPresented = true
     }
     
-    var deletingIndex = 0
+    // MARK: - 삭제 alert
+    private var deletingIndex = 0
     @Published var deleteAlertIsPresented = false
     
-    func showFilteredCategories() {
+    private func deleteCategory(at index: Int) {
         do {
-            categoryVMs = try Category.by(searchText: searchText).map(CategoryViewModel.init)
+            try categoryVMs[index].delete()
+            categoryVMs.remove(at: index)
         } catch {
-            errorMessage = "카테고리들을 불러오는데 에러가 발생했습니다."
+            errorMessage = "카테고리를 삭제하는데 에러가 발생했습니다."
+            CoreDataManager.shared.viewContext.rollback()
         }
     }
     
-    func showAllCategories() {
-        do {
-            categoryVMs = try Category.all().map(CategoryViewModel.init)
-        } catch {
-            errorMessage = "카테고리들을 불러오는데 에러가 발생했습니다."
+    func deleteCategoryAlert(presented: Binding<Bool>) -> AlertModifier {
+        return AlertModifier(presented: presented,
+                             title: "카테고리 삭제",
+                             message: "정말로 카테고리를 삭제하시겠습니까?",
+                             okMessage: "삭제", okStyle: .destructive) {
+            self.deleteCategory(at: self.deletingIndex)
         }
+    }
+    
+    func alertAndDeleteCategory(at index: Int) {
+        deletingIndex = index
+        deleteAlertIsPresented = true
     }
     
     func addCategory() {
@@ -102,16 +127,6 @@ class CategoryListViewModel: ObservableObject {
             showFilteredCategories()
         } catch {
             errorMessage = "카테고리를 추가하는데 실패하였습니다."
-            CoreDataManager.shared.viewContext.rollback()
-        }
-    }
-    
-    func deleteCategory() {
-        do {
-            try categoryVMs[deletingIndex].delete()
-            categoryVMs.remove(at: deletingIndex)
-        } catch {
-            errorMessage = "카테고리를 제거하는데 실패했습니다."
             CoreDataManager.shared.viewContext.rollback()
         }
     }
