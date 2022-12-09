@@ -29,8 +29,7 @@ struct CategoryListView: View {
                         VStack(spacing: 20) {
                             ForEach(categoryListVM.enumeratedCategoryVMs, id: \.0) { index, categoryVM in
                                 CategoryRow(categoryVM: categoryVM, onModify: {
-                                    categoryListVM.modifyingIndex = index
-                                    categoryListVM.modifyNameAlertIsPresented = true
+                                    categoryListVM.alertAndModifyCategory(at: index)
                                 }, onDelete: {
                                     categoryListVM.deletingIndex = index
                                     categoryListVM.deleteAlertIsPresented = true
@@ -77,20 +76,7 @@ struct CategoryListView: View {
         }, message: {
             Text(categoryListVM.errorMessage)
         })
-        .alert("카테고리 이름 수정", isPresented: $categoryListVM.modifyNameAlertIsPresented, actions: {
-            TextField("이름 입력", text: $categoryListVM.modifiedCategoryName)
-            
-            Button("취소", role: .cancel) {
-                categoryListVM.modifyNameAlertIsPresented = false
-            }
-            
-            Button("수정") {
-                categoryListVM.modifyNameAlertIsPresented = false
-                categoryListVM.modifyName()
-            }
-        }, message: {
-            Text("카테고리의 새 이름을 입력하세요.")
-        })
+        .modifier(categoryListVM.modifyCategoryAlert(presented: $categoryListVM.modifyNameAlertIsPresented))
         .alert("카테고리 제거", isPresented: $categoryListVM.deleteAlertIsPresented, actions: {
             Button("취소", role: .cancel, action: {
                 categoryListVM.modifyNameAlertIsPresented = false
