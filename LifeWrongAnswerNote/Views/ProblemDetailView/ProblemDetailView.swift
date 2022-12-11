@@ -29,7 +29,7 @@ struct ProblemDetailView: View {
         }
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .navigationTitle("문제 수정")
+        .navigationTitle(isEditing ? "문제 작성" : "문제 읽기")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             categoryListVM.showAllCategories()
