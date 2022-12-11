@@ -134,7 +134,7 @@ struct ProblemDetailView: View {
     // MARK: - 세부 파트
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황인지?") {
-            BorderedTextEditor(text: $problemDetailVM.title, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.situation, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
