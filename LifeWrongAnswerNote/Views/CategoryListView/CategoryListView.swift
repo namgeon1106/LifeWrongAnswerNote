@@ -29,11 +29,9 @@ struct CategoryListView: View {
                         VStack(spacing: 20) {
                             ForEach(categoryListVM.enumeratedCategoryVMs, id: \.0) { index, categoryVM in
                                 CategoryRow(categoryVM: categoryVM, onModify: {
-                                    categoryListVM.modifyingIndex = index
-                                    categoryListVM.modifyNameAlertIsPresented = true
+                                    categoryListVM.alertAndModifyCategory(at: index)
                                 }, onDelete: {
-                                    categoryListVM.deletingIndex = index
-                                    categoryListVM.deleteAlertIsPresented = true
+                                    categoryListVM.alertAndDeleteCategory(at: index)
                                 })
                             }
                         }
@@ -57,51 +55,15 @@ struct CategoryListView: View {
         .onAppear {
             categoryListVM.showAllCategories()
         }
-        .alert("카테고리 추가", isPresented: $categoryListVM.addCategoryAlertIsPresented, actions: {
-            TextField("이름 입력", text: $categoryListVM.newCategoryName)
-            Button("추가") {
-                categoryListVM.addCategoryAlertIsPresented = false
-                categoryListVM.addCategory()
-            }
-            
-            Button("취소", role: .cancel) {
-                categoryListVM.addCategoryAlertIsPresented = false
-            }
-        }, message: {
-            Text("새롭게 추가할 카테고리의 이름을 입력하세요.")
-        })
+        .modifier(categoryListVM.addCategoryAlert(presented: $categoryListVM.addCategoryAlertIsPresented))
+        .modifier(categoryListVM.modifyCategoryAlert(presented: $categoryListVM.modifyNameAlertIsPresented))
+        .modifier(categoryListVM.deleteCategoryAlert(presented: $categoryListVM.deleteAlertIsPresented))
         .alert("에러 발생", isPresented: $categoryListVM.errorAlertIsPresented, actions: {
             Button("확인") {
                 categoryListVM.errorAlertIsPresented = false
             }
         }, message: {
             Text(categoryListVM.errorMessage)
-        })
-        .alert("카테고리 이름 수정", isPresented: $categoryListVM.modifyNameAlertIsPresented, actions: {
-            TextField("이름 입력", text: $categoryListVM.modifiedCategoryName)
-            
-            Button("취소", role: .cancel) {
-                categoryListVM.modifyNameAlertIsPresented = false
-            }
-            
-            Button("수정") {
-                categoryListVM.modifyNameAlertIsPresented = false
-                categoryListVM.modifyName()
-            }
-        }, message: {
-            Text("카테고리의 새 이름을 입력하세요.")
-        })
-        .alert("카테고리 제거", isPresented: $categoryListVM.deleteAlertIsPresented, actions: {
-            Button("취소", role: .cancel, action: {
-                categoryListVM.modifyNameAlertIsPresented = false
-            })
-            
-            Button("제거", role: .destructive) {
-                categoryListVM.modifyNameAlertIsPresented = false
-                categoryListVM.deleteCategory()
-            }
-        }, message: {
-            Text("정말로 카테고리를 삭제하시겠습니까?")
         })
     }
 }

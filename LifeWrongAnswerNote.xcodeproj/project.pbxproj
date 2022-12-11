@@ -27,6 +27,7 @@
 		AB39317C293CB41D0051454D /* Assessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317B293CB41D0051454D /* Assessment.swift */; };
 		AB39317E293CCB300051454D /* Choice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB39317D293CCB300051454D /* Choice+.swift */; };
 		AB393182293CCB6A0051454D /* ChoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB393181293CCB6A0051454D /* ChoiceTests.swift */; };
+		AB4F1F0C2944BD1E001C11F1 /* ProblemListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4F1F0B2944BD1E001C11F1 /* ProblemListViewModel.swift */; };
 		AB5AB0F5293E01CE0023E453 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */; };
 		AB5AB0FA293E27340023E453 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */; };
 		AB5AB0FC293E28F80023E453 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5AB0FB293E28F80023E453 /* CategoryListView.swift */; };
@@ -74,6 +75,7 @@
 		AB39317B293CB41D0051454D /* Assessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assessment.swift; sourceTree = "<group>"; };
 		AB39317D293CCB300051454D /* Choice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Choice+.swift"; sourceTree = "<group>"; };
 		AB393181293CCB6A0051454D /* ChoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceTests.swift; sourceTree = "<group>"; };
+		AB4F1F0B2944BD1E001C11F1 /* ProblemListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemListViewModel.swift; sourceTree = "<group>"; };
 		AB5AB0F4293E01CE0023E453 /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		AB5AB0F9293E27340023E453 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		AB5AB0FB293E28F80023E453 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
@@ -206,8 +208,9 @@
 		AB99C7082940B8470011F51B /* ProblemListView */ = {
 			isa = PBXGroup;
 			children = (
-				AB1F33212941D0BE00B1D217 /* ProblemViewModel.swift */,
+				AB4F1F0B2944BD1E001C11F1 /* ProblemListViewModel.swift */,
 				AB99C70F2940BF680011F51B /* ProblemListView.swift */,
+				AB1F33212941D0BE00B1D217 /* ProblemViewModel.swift */,
 				AB99C70B2940B87F0011F51B /* ProblemRow.swift */,
 			);
 			path = ProblemListView;
@@ -340,6 +343,7 @@
 				AB99C7172940D4240011F51B /* ChoiceRow.swift in Sources */,
 				AB99C7152940D0E20011F51B /* BorderedTextEditor.swift in Sources */,
 				AB99C70C2940B87F0011F51B /* ProblemRow.swift in Sources */,
+				AB4F1F0C2944BD1E001C11F1 /* ProblemListViewModel.swift in Sources */,
 				AB204299293B93940086DA36 /* CoreDataManager.swift in Sources */,
 				AB99C7192940DDA90011F51B /* ProblemDetailView.swift in Sources */,
 				AB99C70E2940BC000011F51B /* MenuLabel.swift in Sources */,

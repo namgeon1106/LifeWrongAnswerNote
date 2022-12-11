@@ -6,32 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CategoryListViewModel: ObservableObject {
     @Published var categoryVMs = [CategoryViewModel]()
     var enumeratedCategoryVMs: [(Int, CategoryViewModel)] {
         Array(categoryVMs.enumerated())
-    }
-    
-    @Published var newCategoryName = ""
-    @Published var addCategoryAlertIsPresented = false {
-        didSet {
-            if addCategoryAlertIsPresented {
-                newCategoryName = ""
-            }
-        }
-    }
-    
-    @Published var errorAlertIsPresented = false
-    
-    var modifyingIndex = 0
-    @Published var modifiedCategoryName = ""
-    @Published var modifyNameAlertIsPresented = false {
-        didSet {
-            if modifyNameAlertIsPresented {
-                modifiedCategoryName = ""
-            }
-        }
     }
     
     @Published var searchText = "" {
@@ -40,14 +20,12 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
+    @Published var errorAlertIsPresented = false
     @Published var errorMessage = "" {
         didSet {
             errorAlertIsPresented = true
         }
     }
-    
-    var deletingIndex = 0
-    @Published var deleteAlertIsPresented = false
     
     func showFilteredCategories() {
         do {
@@ -65,10 +43,20 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
-    func addCategory() {
+    // MARK: - 추가 alert
+    @Published var newCategoryName = ""
+    @Published var addCategoryAlertIsPresented = false {
+        didSet {
+            if addCategoryAlertIsPresented {
+                newCategoryName = ""
+            }
+        }
+    }
+    
+    private func addCategory(named name: String) {
         do {
             let newCategory = Category(context: CoreDataManager.shared.viewContext)
-            newCategory.name = newCategoryName
+            newCategory.name = name
             
             try CoreDataManager.shared.viewContext.save()
             showFilteredCategories()
@@ -78,27 +66,76 @@ class CategoryListViewModel: ObservableObject {
         }
     }
     
-    func modifyName() {
+    func addCategoryAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
+        return AlertModifierWithTextField(presented: presented,
+                                          title: "카테고리 추가",
+                                          message: "새롭게 추가할 카테고리 이름을 입력하세요.",
+                                          okMessage: "추가", action: addCategory(named:))
+    }
+    
+    // MARK: - 수정 alert
+    private var modifyingIndex = 0
+    @Published var modifiedCategoryName = ""
+    @Published var modifyNameAlertIsPresented = false {
+        didSet {
+            if modifyNameAlertIsPresented {
+                modifiedCategoryName = ""
+            }
+        }
+    }
+    
+    private func modifyCategory(at index: Int, to newName: String) {
         do {
-            if try Category.by(name: modifiedCategoryName) != nil {
-                errorMessage = "이미 같은 이름의 카테고리가 존재합니다."
-                return
+            if try Category.by(name: newName) != nil {
+                throw NSError()
             }
             
-            try categoryVMs[modifyingIndex].modifyName(to: modifiedCategoryName)
+            try categoryVMs[index].modifyName(to: newName)
         } catch {
             errorMessage = "카테고리 이름을 수정하는데 실패했습니다."
             CoreDataManager.shared.viewContext.rollback()
         }
     }
     
-    func deleteCategory() {
+    func modifyCategoryAlert(presented: Binding<Bool>) -> AlertModifierWithTextField {
+        return AlertModifierWithTextField(presented: presented,
+                                          title: "카테고리 수정",
+                                          message: "카테고리의 새 이름을 입력하세요.",
+                                          okMessage: "수정") { input in
+            self.modifyCategory(at: self.modifyingIndex, to: input)
+        }
+    }
+    
+    func alertAndModifyCategory(at index: Int) {
+        modifyingIndex = index
+        modifyNameAlertIsPresented = true
+    }
+    
+    // MARK: - 삭제 alert
+    private var deletingIndex = 0
+    @Published var deleteAlertIsPresented = false
+    
+    private func deleteCategory(at index: Int) {
         do {
-            try categoryVMs[deletingIndex].delete()
-            categoryVMs.remove(at: deletingIndex)
+            try categoryVMs[index].delete()
+            categoryVMs.remove(at: index)
         } catch {
-            errorMessage = "카테고리를 제거하는데 실패했습니다."
+            errorMessage = "카테고리를 삭제하는데 에러가 발생했습니다."
             CoreDataManager.shared.viewContext.rollback()
         }
+    }
+    
+    func deleteCategoryAlert(presented: Binding<Bool>) -> AlertModifier {
+        return AlertModifier(presented: presented,
+                             title: "카테고리 삭제",
+                             message: "정말로 카테고리를 삭제하시겠습니까?",
+                             okMessage: "삭제", okStyle: .destructive) {
+            self.deleteCategory(at: self.deletingIndex)
+        }
+    }
+    
+    func alertAndDeleteCategory(at index: Int) {
+        deletingIndex = index
+        deleteAlertIsPresented = true
     }
 }

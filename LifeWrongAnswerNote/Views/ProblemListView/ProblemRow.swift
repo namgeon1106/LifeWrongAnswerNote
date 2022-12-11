@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct ProblemRow: View {
+    let problemVM: ProblemViewModel
+    
     var body: some View {
-        NavigationLink(destination: Text("Hello")) {
+        NavigationLink(destination: ProblemDetailView(problemVM: problemVM)) {
             VStack(spacing: 5) {
                 HStack(alignment: .center) {
-                    Text("제목 1")
+                    Text(problemVM.title)
                         .font(.system(size: 22, weight: .bold))
                     Spacer()
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(.green)
+                    problemVM.assessment.image
                         .font(.system(size: 25))
                 }
                 HStack {
-                    Text("카테고리1 / 진행 중")
+                    Text("\(problemVM.categoryName) / \(problemVM.finishedInfo)")
                     Spacer()
-                    Text("2022.12.07")
+                    Text(problemVM.dateString)
                         .foregroundColor(Color(.systemGray2))
                 }
             }
@@ -34,14 +35,6 @@ struct ProblemRow: View {
                     .foregroundColor(Color(.systemGray5))
             )
             .foregroundColor(Color(.label))
-        }
-    }
-}
-
-struct ProblemRow_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ProblemRow()
         }
     }
 }

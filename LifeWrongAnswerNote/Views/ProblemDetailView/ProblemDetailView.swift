@@ -15,53 +15,47 @@ struct ProblemDetailView: View {
     
     init(problemVM: ProblemViewModel?) {
         self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
-        self._isEditing.wrappedValue = problemVM == nil
+        self._isEditing = State(initialValue: problemVM == nil)
     }
     
     var body: some View {
-        NavigationView {
-            TabView {
-                summaryView
-                titleView
-                choicesView
-                reasonView
-                resultView
-                lessonView
+        TabView {
+            summaryView
+            titleView
+            choicesView
+            reasonView
+            resultView
+            lessonView
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        .navigationTitle("문제 수정")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            categoryListVM.showAllCategories()
+        }
+        .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
+        .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
+        .modifier(problemDetailVM.deleteChoiceAlert(presented: $problemDetailVM.deleteChoiceAlertIsPresented))
+        .alert("에러 발생", isPresented: $problemDetailVM.errorAlertIsPresented, actions: {
+            Button("확인") {
+                problemDetailVM.errorAlertIsPresented = false
             }
-            .tabViewStyle(PageTabViewStyle())
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .navigationTitle("문제 수정")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                categoryListVM.showAllCategories()
-            }
-            .modifier(problemDetailVM.addChoiceAlert(presented: $problemDetailVM.addChoiceAlertIsPresented))
-            .modifier(problemDetailVM.modifyChoiceAlert(presented: $problemDetailVM.modifyChoiceAlertIsPresented))
-            .modifier(problemDetailVM.deleteChoiceAlert(presented: $problemDetailVM.deleteChoiceAlertIsPresented))
-            .alert("에러 발생", isPresented: $problemDetailVM.errorAlertIsPresented, actions: {
-                Button("확인") {
-                    problemDetailVM.errorAlertIsPresented = false
-                }
-            }, message: {
-                Text(problemDetailVM.errorMessage)
-            })
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        if isEditing {
-                            problemDetailVM.saveProblem()
-                        }
-                        
-                        isEditing.toggle()
-                    } label: {
-                        Image(systemName: isEditing ? "checkmark" : "pencil")
+        }, message: {
+            Text(problemDetailVM.errorMessage)
+        })
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    if isEditing {
+                        problemDetailVM.saveProblem()
                     }
-
+                    
+                    isEditing.toggle()
+                } label: {
+                    Image(systemName: isEditing ? "checkmark" : "pencil")
                 }
-            }
-            .onDisappear {
-                CoreDataManager.shared.viewContext.rollback()
-                presentationMode.wrappedValue.dismiss()
+                
             }
         }
     }
@@ -185,6 +179,8 @@ struct ProblemDetailView: View {
 
 struct ProblemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemDetailView(problemVM: nil)
+        NavigationView {
+            ProblemDetailView(problemVM: nil)
+        }
     }
 }
