@@ -24,6 +24,14 @@ class ProblemListViewModel: ObservableObject {
             showFilteredProblems()
         }
     }
+    var isFinishedText: String {
+        if let isFinished {
+            return isFinished ? "완료" : "진행 중"
+        } else {
+            return "진행상태"
+        }
+    }
+    
     @Published var searchText = "" {
         didSet {
             showFilteredProblems()

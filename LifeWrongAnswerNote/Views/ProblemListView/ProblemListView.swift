@@ -15,17 +15,44 @@ struct ProblemListView: View {
         NavigationView {
             VStack(spacing: 18) {
                 HStack(spacing: 16) {
-                    MenuLabel(isClickable: true) {
-                        Text("카테고리")
-                            .font(.system(size: 14))
+                    Menu {
+                        Button("전체") {
+                            problemListVM.categoryVM = nil
+                        }
+                        
+                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                            Button(categoryVM.name) {
+                                problemListVM.categoryVM = categoryVM
+                            }
+                        }
+                    } label: {
+                        MenuLabel(isClickable: true) {
+                            Text(problemListVM.categoryVM?.name ?? "카테고리")
+                                .font(.system(size: 14))
+                        }
                     }
-                    MenuLabel(isClickable: true) {
-                        Text("진행상태")
-                            .font(.system(size: 14))
+
+                    Menu {
+                        Button("전체") {
+                            problemListVM.isFinished = nil
+                        }
+                        
+                        ForEach([false, true], id: \.self) { isFinished in
+                            Button(isFinished ? "완료" : "진행 중") {
+                                problemListVM.isFinished = isFinished
+                            }
+                        }
+                    } label: {
+                        MenuLabel(isClickable: true) {
+                            Text(problemListVM.isFinishedText)
+                                .font(.system(size: 14))
+                        }
                     }
+
                     Spacer()
                 }
                 .padding(.horizontal, 16)
+                .tint(Color(.label))
                 
                 CustomSearchBar(searchText: $problemListVM.searchText, placeholder: "제목으로 검색")
                     .padding(.horizontal, 16)
