@@ -41,8 +41,14 @@ class ProblemListViewModel: ObservableObject {
     
     func showFilteredProblems() {
         do {
-            problemVMs = try Problem.by(category: categoryVM?.category, isFinished: isFinished, searchText: searchText)
+            problemVMs = []
+            
+            let filteredResult = try Problem.by(category: categoryVM?.category, isFinished: isFinished, searchText: searchText)
                 .map(ProblemViewModel.init(problem:))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.problemVMs = filteredResult
+            }
         } catch {
             errorMessage = "문제 목록을 가져오는데 실패하였습니다."
         }
