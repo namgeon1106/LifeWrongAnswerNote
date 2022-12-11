@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProblemListView: View {
-    @State private var searchText = ""
+    @StateObject private var problemListVM = ProblemListViewModel()
+    @StateObject private var categoryListVM = CategoryListViewModel()
     
     var body: some View {
         NavigationView {
@@ -26,13 +27,13 @@ struct ProblemListView: View {
                 }
                 .padding(.horizontal, 16)
                 
-                CustomSearchBar(searchText: $searchText, placeholder: "제목으로 검색")
+                CustomSearchBar(searchText: $problemListVM.searchText, placeholder: "제목으로 검색")
                     .padding(.horizontal, 16)
                 
                 ScrollView {
                     VStack(spacing: 20) {
-                        ForEach(0..<10) { _ in
-                            ProblemRow()
+                        ForEach(problemListVM.enumeratedProblemVMs, id: \.0) { index, problemVM in
+                            ProblemRow(problemVM: problemVM)
                         }
                     }
                     .padding(.horizontal, 16)
@@ -40,6 +41,10 @@ struct ProblemListView: View {
             }
             .navigationTitle("문제 목록")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                problemListVM.showFilteredProblems()
+                categoryListVM.showAllCategories()
+            }
         }
     }
 }

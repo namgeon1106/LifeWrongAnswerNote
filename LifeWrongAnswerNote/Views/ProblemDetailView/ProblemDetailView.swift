@@ -59,10 +59,6 @@ struct ProblemDetailView: View {
 
                 }
             }
-            .onDisappear {
-                CoreDataManager.shared.viewContext.rollback()
-                presentationMode.wrappedValue.dismiss()
-            }
         }
     }
     
