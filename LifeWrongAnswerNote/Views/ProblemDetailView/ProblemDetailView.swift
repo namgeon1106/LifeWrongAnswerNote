@@ -58,6 +58,10 @@ struct ProblemDetailView: View {
                 
             }
         }
+        .onDisappear {
+            presentationMode.wrappedValue.dismiss()
+            CoreDataManager.shared.viewContext.rollback()
+        }
     }
     
     // MARK: - 요약 파트
