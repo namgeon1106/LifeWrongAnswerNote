@@ -15,7 +15,7 @@ struct ProblemDetailView: View {
     
     init(problemVM: ProblemViewModel?) {
         self._problemDetailVM = StateObject(wrappedValue: ProblemDetailViewModel(problemVM: problemVM))
-        self._isEditing.wrappedValue = problemVM == nil
+        self._isEditing = State(initialValue: problemVM == nil)
     }
     
     var body: some View {
