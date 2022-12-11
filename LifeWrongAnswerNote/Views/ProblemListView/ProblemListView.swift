@@ -81,6 +81,13 @@ struct ProblemListView: View {
                     }
                 }
             }
+            .alert("에러 발생", isPresented: $problemListVM.errorAlertIsPresented, actions: {
+                Button("확인") {
+                    problemListVM.errorAlertIsPresented = false
+                }
+            }, message: {
+                Text(problemListVM.errorMessage)
+            })
         }
     }
 }
