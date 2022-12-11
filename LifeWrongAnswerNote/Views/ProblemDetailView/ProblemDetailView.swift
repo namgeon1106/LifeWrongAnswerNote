@@ -128,6 +128,7 @@ struct ProblemDetailView: View {
         }
         .padding(.horizontal, 16)
         .foregroundColor(Color(.label))
+        .disabled(!isEditing)
     }
     
     // MARK: - 세부 파트
@@ -147,6 +148,9 @@ struct ProblemDetailView: View {
                     }, onDelete: {
                         problemDetailVM.alertAndDeleteChoice(at: index)
                     })
+                    .onTapGesture {
+                        problemDetailVM.tapChoice(at: index)
+                    }
                 }
                 
                 if isEditing {
@@ -156,6 +160,7 @@ struct ProblemDetailView: View {
                 }
             }
         }
+        .disabled(!isEditing)
         .padding(.horizontal, 16)
     }
     

@@ -88,6 +88,19 @@ class ProblemDetailViewModel: ObservableObject {
                                           action: addChoice(with:))
     }
     
+    func tapChoice(at index: Int) {
+        if tempChoices[index].isSelected {
+            tempChoices[index].isSelected = false
+            return
+        }
+        
+        for i in 0..<tempChoices.count {
+            tempChoices[i].isSelected = false
+        }
+        
+        tempChoices[index].isSelected = true
+    }
+    
     // MARK: - 선택지 수정 alert
     @Published var modifiedChoiceContent = ""
     private var modifyingChoiceIndex = 0
