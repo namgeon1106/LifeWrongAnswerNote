@@ -45,6 +45,15 @@ struct ProblemListView: View {
                 problemListVM.showFilteredProblems()
                 categoryListVM.showAllCategories()
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        ProblemDetailView(problemVM: nil)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
 }
