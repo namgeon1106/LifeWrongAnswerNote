@@ -15,40 +15,8 @@ struct ProblemListView: View {
         NavigationView {
             VStack(spacing: 18) {
                 HStack(spacing: 16) {
-                    Menu {
-                        Button("전체") {
-                            problemListVM.categoryVM = nil
-                        }
-                        
-                        ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
-                            Button(categoryVM.name) {
-                                problemListVM.categoryVM = categoryVM
-                            }
-                        }
-                    } label: {
-                        MenuLabel(isClickable: true) {
-                            Text(problemListVM.categoryVM?.name ?? "카테고리")
-                                .font(.system(size: 14))
-                        }
-                    }
-
-                    Menu {
-                        Button("전체") {
-                            problemListVM.isFinished = nil
-                        }
-                        
-                        ForEach([false, true], id: \.self) { isFinished in
-                            Button(isFinished ? "완료" : "진행 중") {
-                                problemListVM.isFinished = isFinished
-                            }
-                        }
-                    } label: {
-                        MenuLabel(isClickable: true) {
-                            Text(problemListVM.isFinishedText)
-                                .font(.system(size: 14))
-                        }
-                    }
-
+                    categoryMenu
+                    isFinishedMenu
                     Spacer()
                 }
                 .padding(.horizontal, 16)
@@ -60,21 +28,7 @@ struct ProblemListView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.enumeratedProblemVMs, id: \.0) { index, problemVM in
-                            HStack {
-                                ProblemRow(problemVM: problemVM)
-                                
-                                if problemListVM.deleteButtonIsVisible {
-                                    Button {
-                                        problemListVM.alertAndDeleteProblem(at: index)
-                                    } label: {
-                                        Image(systemName: "trash.fill")
-                                            .tint(.white)
-                                            .frame(maxWidth: 40, maxHeight: .infinity)
-                                            .background(.red)
-                                            .cornerRadius(8)
-                                    }
-                                }
-                            }
+                            problemRowWithButton(at: index, problemVM: problemVM)
                         }
                     }
                     .padding(.horizontal, 16)
@@ -88,20 +42,12 @@ struct ProblemListView: View {
             }
             .modifier(problemListVM.deleteProblemAlert(presented: $problemListVM.deleteProblemAlertIsPresented))
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        ProblemDetailView(problemVM: nil)
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        problemListVM.deleteButtonIsVisible.toggle()
-                    } label: {
-                        Image(systemName: problemListVM.deleteButtonIsVisible ? "arrow.backward" : "trash")
-                    }
-                    .tint(.red)
+                    deleteProblemNavigationButton
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    newProblemNavigationButton
                 }
             }
             .alert("에러 발생", isPresented: $problemListVM.errorAlertIsPresented, actions: {
@@ -112,6 +58,79 @@ struct ProblemListView: View {
                 Text(problemListVM.errorMessage)
             })
         }
+    }
+    
+    var categoryMenu: some View {
+        Menu {
+            Button("전체") {
+                problemListVM.categoryVM = nil
+            }
+            
+            ForEach(categoryListVM.categoryVMs, id: \.id) { categoryVM in
+                Button(categoryVM.name) {
+                    problemListVM.categoryVM = categoryVM
+                }
+            }
+        } label: {
+            MenuLabel(isClickable: true) {
+                Text(problemListVM.categoryVM?.name ?? "카테고리")
+                    .font(.system(size: 14))
+            }
+        }
+    }
+    
+    var isFinishedMenu: some View {
+        Menu {
+            Button("전체") {
+                problemListVM.isFinished = nil
+            }
+            
+            ForEach([false, true], id: \.self) { isFinished in
+                Button(isFinished ? "완료" : "진행 중") {
+                    problemListVM.isFinished = isFinished
+                }
+            }
+        } label: {
+            MenuLabel(isClickable: true) {
+                Text(problemListVM.isFinishedText)
+                    .font(.system(size: 14))
+            }
+        }
+    }
+    
+    func problemRowWithButton(at index: Int, problemVM: ProblemViewModel) -> some View {
+        HStack {
+            ProblemRow(problemVM: problemVM)
+            
+            if problemListVM.deleteButtonIsVisible {
+                Button {
+                    problemListVM.alertAndDeleteProblem(at: index)
+                } label: {
+                    Image(systemName: "trash.fill")
+                        .tint(.white)
+                        .frame(maxWidth: 40, maxHeight: .infinity)
+                        .background(.red)
+                        .cornerRadius(8)
+                }
+            }
+        }
+    }
+    
+    var newProblemNavigationButton: some View {
+        NavigationLink {
+            ProblemDetailView(problemVM: nil)
+        } label: {
+            Image(systemName: "plus")
+        }
+    }
+    
+    var deleteProblemNavigationButton: some View {
+        Button {
+            problemListVM.deleteButtonIsVisible.toggle()
+        } label: {
+            Image(systemName: problemListVM.deleteButtonIsVisible ? "arrow.backward" : "trash")
+        }
+        .tint(.red)
     }
 }
 
