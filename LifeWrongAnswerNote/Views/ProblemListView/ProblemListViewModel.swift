@@ -65,10 +65,17 @@ class ProblemListViewModel: ObservableObject {
     
     // MARK: - 문제 제거
     var deletingProblemIndex = 0
+    @Published var deleteButtonIsVisible = false
     @Published var deleteProblemAlertIsPresented = false
     
     private func deleteProblem(at index: Int) {
-        problemVMs.remove(at: index)
+        do {
+            try problemVMs[index].delete()
+            problemVMs.remove(at: index)
+        } catch {
+            errorMessage = "문제를 삭제하는데 에러가 발생했습니다."
+            CoreDataManager.shared.viewContext.rollback()
+        }
     }
     
     

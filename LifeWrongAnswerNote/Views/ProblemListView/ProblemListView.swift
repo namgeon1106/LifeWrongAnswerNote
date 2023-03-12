@@ -60,7 +60,20 @@ struct ProblemListView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(problemListVM.enumeratedProblemVMs, id: \.0) { index, problemVM in
-                            ProblemRow(problemVM: problemVM)
+                            HStack {
+                                ProblemRow(problemVM: problemVM)
+                                
+                                if problemListVM.deleteButtonIsVisible {
+                                    Button {
+                                        problemListVM.alertAndDeleteProblem(at: index)
+                                    } label: {
+                                        Image(systemName: "trash.fill")
+                                            .tint(.white)
+                                            .frame(maxWidth: 40, maxHeight: .infinity)
+                                            .background(.red)
+                                    }
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal, 16)
@@ -72,6 +85,7 @@ struct ProblemListView: View {
                 problemListVM.showFilteredProblems()
                 categoryListVM.showAllCategories()
             }
+            .modifier(problemListVM.deleteProblemAlert(presented: $problemListVM.deleteProblemAlertIsPresented))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
@@ -79,6 +93,14 @@ struct ProblemListView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        problemListVM.deleteButtonIsVisible.toggle()
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                    .tint(.red)
                 }
             }
             .alert("에러 발생", isPresented: $problemListVM.errorAlertIsPresented, actions: {
