@@ -15,7 +15,7 @@ struct LifeWrongAnswerNoteApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ProblemListView()
+            ContentView()
         }
     }
 }

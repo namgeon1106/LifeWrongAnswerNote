@@ -29,7 +29,7 @@ struct ProblemDetailView: View {
         }
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .navigationTitle("문제 수정")
+        .navigationTitle(isEditing ? "문제 작성" : "문제 읽기")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             categoryListVM.showAllCategories()
@@ -57,6 +57,10 @@ struct ProblemDetailView: View {
                 }
                 
             }
+        }
+        .onDisappear {
+            presentationMode.wrappedValue.dismiss()
+            CoreDataManager.shared.viewContext.rollback()
         }
     }
     
@@ -124,12 +128,13 @@ struct ProblemDetailView: View {
         }
         .padding(.horizontal, 16)
         .foregroundColor(Color(.label))
+        .disabled(!isEditing)
     }
     
     // MARK: - 세부 파트
     var titleView: some View {
         DetailInputTemplate(title: "1. 어떤 상황인지?") {
-            BorderedTextEditor(text: $problemDetailVM.title, isEditable: isEditing)
+            BorderedTextEditor(text: $problemDetailVM.situation, isEditable: isEditing)
         }
         .padding(.horizontal, 16)
     }
@@ -143,6 +148,9 @@ struct ProblemDetailView: View {
                     }, onDelete: {
                         problemDetailVM.alertAndDeleteChoice(at: index)
                     })
+                    .onTapGesture {
+                        problemDetailVM.tapChoice(at: index)
+                    }
                 }
                 
                 if isEditing {
@@ -152,6 +160,7 @@ struct ProblemDetailView: View {
                 }
             }
         }
+        .disabled(!isEditing)
         .padding(.horizontal, 16)
     }
     

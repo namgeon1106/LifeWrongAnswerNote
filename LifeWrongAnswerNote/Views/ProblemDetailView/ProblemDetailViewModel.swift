@@ -49,59 +49,22 @@ class ProblemDetailViewModel: ObservableObject {
     }
     
     // MARK: - 요약 파트
-    @Published var title = "" {
-        didSet {
-            problem.title = title
-        }
-    }
-    
-    @Published var categoryVM: CategoryViewModel? {
-        didSet {
-            problem.category = self.categoryVM?.category
-        }
-    }
-    
-    @Published var isFinished = false {
-        didSet {
-            problem.finished = isFinished
-        }
-    }
-    
-    @Published var assessment = Assessment.notSure {
-        didSet {
-            problem.assessment = assessment
-        }
-    }
+    @Published var title = ""
+    @Published var categoryVM: CategoryViewModel?
+    @Published var isFinished = false
+    @Published var assessment = Assessment.notSure
     
     // MARK: - 세부 파트
-    @Published var situation = "" {
-        didSet {
-            problem.situation = situation
-        }
-    }
+    @Published var situation = ""
     
     @Published var tempChoices = [TempChoice]()
     var enumeratedTempChoices: [(Int, TempChoice)] {
         Array(tempChoices.enumerated())
     }
     
-    @Published var reason = "" {
-        didSet {
-            problem.reason = reason
-        }
-    }
-    
-    @Published var result = "" {
-        didSet {
-            problem.result = result
-        }
-    }
-    
-    @Published var lesson = "" {
-        didSet {
-            problem.lesson = lesson
-        }
-    }
+    @Published var reason = ""
+    @Published var result = ""
+    @Published var lesson = ""
     
     // MARK: - 선택지 추가 alert
     @Published var newChoiceContent = ""
@@ -123,6 +86,19 @@ class ProblemDetailViewModel: ObservableObject {
                                           message: "새롭게 추가할 선택지 내용을 입력하세요",
                                           okMessage: "추가",
                                           action: addChoice(with:))
+    }
+    
+    func tapChoice(at index: Int) {
+        if tempChoices[index].isSelected {
+            tempChoices[index].isSelected = false
+            return
+        }
+        
+        for i in 0..<tempChoices.count {
+            tempChoices[i].isSelected = false
+        }
+        
+        tempChoices[index].isSelected = true
     }
     
     // MARK: - 선택지 수정 alert
@@ -179,9 +155,36 @@ class ProblemDetailViewModel: ObservableObject {
     // MARK: - 문제 저장
     func saveProblem() {
         do {
+            // 선택지 제외한 정보들 업데이트
+            problem.title = title
+            problem.category = self.categoryVM?.category
+            problem.finished = isFinished
+            problem.assessment = assessment
+            problem.situation = situation
+            problem.reason = reason
+            problem.result = result
+            problem.lesson = lesson
+            
+            // 선택지 정보 업데이트
+            let choices = try Choice.by(problem: problem)
+            
+            choices.forEach { $0.delete() }
+            
+            var newChoices = [Choice]()
+            
+            for tempChoice in tempChoices {
+                let choice = Choice(context: CoreDataManager.shared.viewContext)
+                choice.content = tempChoice.content
+                choice.isSelected = tempChoice.isSelected
+                choice.problem = problem
+                newChoices.append(choice)
+            }
+            
+            // 최종 저장
             try CoreDataManager.shared.viewContext.save()
         } catch {
             errorMessage = "문제 저장에 실패하였습니다."
+            CoreDataManager.shared.viewContext.rollback()
         }
     }
 }

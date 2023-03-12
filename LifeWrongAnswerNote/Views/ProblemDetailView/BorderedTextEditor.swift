@@ -15,14 +15,15 @@ struct BorderedTextEditor: View {
         TextEditor(text: _text)
             .disabled(!isEditable)
             .foregroundColor(isEditable ? Color(.label) : Color(.systemGray))
+            .scrollContentBackground(.hidden)
             .padding(.horizontal, 15)
             .padding(.vertical, 11)
-            .colorMultiply(isEditable ? Color(.systemBackground) : Color(.systemGray5))
             .background(
                 Group {
                     if isEditable {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.blue)
+                            .foregroundColor(.clear)
                     } else {
                         RoundedRectangle(cornerRadius: 10)
                             .foregroundColor(Color(.systemGray5))
