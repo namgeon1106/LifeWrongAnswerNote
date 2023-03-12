@@ -71,6 +71,7 @@ struct ProblemListView: View {
                                             .tint(.white)
                                             .frame(maxWidth: 40, maxHeight: .infinity)
                                             .background(.red)
+                                            .cornerRadius(8)
                                     }
                                 }
                             }
