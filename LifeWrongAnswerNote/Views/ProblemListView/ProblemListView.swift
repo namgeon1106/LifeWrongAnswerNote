@@ -98,7 +98,7 @@ struct ProblemListView: View {
                     Button {
                         problemListVM.deleteButtonIsVisible.toggle()
                     } label: {
-                        Image(systemName: "trash")
+                        Image(systemName: problemListVM.deleteButtonIsVisible ? "arrow.backward" : "trash")
                     }
                     .tint(.red)
                 }
