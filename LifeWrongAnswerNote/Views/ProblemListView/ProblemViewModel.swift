@@ -32,4 +32,10 @@ struct ProblemViewModel {
         
         return dateFormatter.string(from: problem.createdDate ?? .now)
     }
+    
+    func delete() throws {
+        problem.delete()
+        
+        try CoreDataManager.shared.viewContext.save()
+    }
 }

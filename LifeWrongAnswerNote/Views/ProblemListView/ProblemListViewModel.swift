@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 class ProblemListViewModel: ObservableObject {
     @Published var problemVMs = [ProblemViewModel]()
@@ -60,5 +61,35 @@ class ProblemListViewModel: ObservableObject {
         } catch {
             errorMessage = "문제 목록을 가져오는데 실패하였습니다."
         }
+    }
+    
+    // MARK: - 문제 제거
+    var deletingProblemIndex = 0
+    @Published var deleteButtonIsVisible = false
+    @Published var deleteProblemAlertIsPresented = false
+    
+    private func deleteProblem(at index: Int) {
+        do {
+            try problemVMs[index].delete()
+            problemVMs.remove(at: index)
+        } catch {
+            errorMessage = "문제를 삭제하는데 에러가 발생했습니다."
+            CoreDataManager.shared.viewContext.rollback()
+        }
+    }
+    
+    
+    func deleteProblemAlert(presented: Binding<Bool>) -> AlertModifier {
+        return AlertModifier(presented: presented,
+                             title: "문제 삭제",
+                             message: "정말로 문제를 삭제하시겠습니까?",
+                             okMessage: "삭제", okStyle: .destructive) {
+            self.deleteProblem(at: self.deletingProblemIndex)
+        }
+    }
+    
+    func alertAndDeleteProblem(at index: Int) {
+        deletingProblemIndex = index
+        deleteProblemAlertIsPresented = true
     }
 }
