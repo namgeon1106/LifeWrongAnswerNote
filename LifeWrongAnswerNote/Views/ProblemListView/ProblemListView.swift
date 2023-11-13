@@ -37,6 +37,7 @@ struct ProblemListView: View {
             .navigationTitle("문제 목록")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
+                CoreDataManager.shared.viewContext.rollback()
                 problemListVM.showFilteredProblems()
                 categoryListVM.showAllCategories()
             }
